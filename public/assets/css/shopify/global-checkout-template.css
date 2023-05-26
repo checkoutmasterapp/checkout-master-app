@@ -1,0 +1,87 @@
+
+.cheak-style:checked {
+ 
+    flex: none;
+}
+
+.main-inr-payment{
+    height: auto!important;
+}
+.main-inner-payment span {
+    padding-top: 4px;
+}
+.total-all-iteam {
+    border-bottom: 1px solid #fff;
+}
+
+.user-datils-addres p {
+    word-break: break-all;
+}
+input.names-in.accnt.mb-0 {
+    border: 1px solid #ccc;
+}
+.names-in, .names-in-cuntry, .phone-number-filed {
+    padding-top: 0!important;
+    padding-bottom: 0!important;
+    line-height: 59px!important;
+    /* height: 59px; */
+    appearance: none;
+}
+
+h5.tatl-txt {
+    font-size: 18px!important;
+}
+p.shipp-12-e {
+    word-break: break-all;
+}
+.per_col-size span {
+    margin: 0 !important;
+}
+ input.names-in.accnt.mb-0 {
+    padding: 0;
+}
+
+a.checkout_footer_link {
+    font-weight: 700 !important;
+}
+@media (max-width:786px) {
+   .checkout-footer .checkout-footer-links a {
+        color: accent_color;
+        margin-right: 0px!important;
+  
+        font-size: 13px!important;
+       
+        padding: 0 5px!important;
+    
+    }
+    .alert {
+        width: 90%!important;
+    }
+    .gap-card-in.ss-kjej>div {
+        padding: 0;
+    }
+    .gap-card-in.ss-kjej>div:nth-child(2) {
+        padding-right: 10px;
+    }
+    .gap-card-in.ss-kjej>div:nth-child(3) {
+        padding-left: 10px;
+    }
+    .resposive-dhdh {
+         
+        overflow: hidden;
+    }
+     
+}
+
+@media (max-width:767px){
+  .thank-you-section {
+        padding: 20px !important;
+    }
+}
+
+
+@media (max-width:992px){
+ .custum-inner-container {
+    padding: 17px 15px !important;
+}
+}

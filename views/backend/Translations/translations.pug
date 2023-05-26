@@ -1,0 +1,1396 @@
+extends ../../layouts/backend_layout
+
+block header_breadcrumb
+  nav
+    ol.breadcrumb
+      li.breadcrumb-item Home
+      li.breadcrumb-item.active Translations
+
+block content 
+  main#main.main
+    form#translation.g-3(method="post")
+      input(type="hidden" name="store_id" value =store_id)
+      input(type="hidden" name= "translation_id" value=translation?translation.id:'')
+
+      section.section.profile.storesetup_onboarding
+        .row
+          .col-md-6.transaction
+            h5 Translations
+            p You can make edits to the translation only if needed
+          .col-md-6
+            .card
+              .card-body.p-0
+                .row.mb-4
+                  label.form-label.mb-2.mt-0.lbl-text Select Language
+                  .col-md-12
+                    select.w-100.translations-languges-select(name='translation_language')
+                      option(value="") Choose Language...
+                      option(value='arabic') Arabic
+                      option(value='azerbaijani') Azerbaijani
+                      option(value='belarusian') Belarusian
+                      option(value='bengali') Bengali
+                      option(value='bosnian') Bosnian
+                      option(value='bulgarian') Bulgarian
+                      option(value='catalan_valencian') Catalan; Valencian
+                      option(value='czech') Czech
+                      option(value='welsh') Welsh
+                      option(value='danish') Danish
+                      option(value='german') German
+                      option(value='greek_modern') Greek, Modern (1453-)
+                      option(value='english') English
+                      option(value='esperanto') Esperanto
+                      option(value='estonian') Estonian
+                      option(value='basque') Basque
+                      option(value='persian') Persian
+                      option(value='finnish') Finnish
+                      option(value='french') French
+                      option(value='galician') Galician
+                      option(value='hausa') Hausa
+                      option(value='hebrew') Hebrew
+                      option(value='hindi') Hindi
+                      option(value='croatian') Croatian
+                      option(value='hungarian') Hungarian
+                      option(value='igbo') Igbo
+                      option(value='indonesian') Indonesian
+                      option(value='icelandic') Icelandic
+                      option(value='italian') Italian
+                      option(value='japanese') Japanese
+                      option(value='kannada') Kannada
+                      option(value='georgian') Georgian
+                      option(value='central_khmer') Central Khmer
+                      option(value='korean') Korean
+                      option(value='lao') Lao
+                      option(value='latvian') Latvian
+                      option(value='lithuanian') Lithuanian
+                      option(value='Luxembourgish_Letzeburgesch') Luxembourgish; Letzeburgesch
+                      option(value='malayalam') Malayalam
+                      option(value='marathi') Marathi
+                      option(value='macedonian') Macedonian
+                      option(value='malagasy') Malagasy
+                      option(value='mongolian') Mongolian
+                      option(value='malay') Malay
+                      option(value='nepali') Nepali
+                      option(value='dutch_flemish') Dutch; Flemish
+                      option(value='norwegian_nynorsk') Norwegian Nynorsk; Nynorsk, Norwegian
+                      option(value='norwegian_bokmal') Bokm&aring;l, Norwegian; Norwegian Bokm&aring;l
+                      option(value='norwegian') Norwegian
+                      option(value='occitan_Provencal') Occitan (post 1500); Proven&ccedil;al
+                      option(value='oriya') Oriya
+                      option(value='punjabi') Panjabi; Punjabi
+                      option(value='polish') Polish
+                      option(value='portuguese') Portuguese
+                      option(value='romansh') Romansh
+                      option(value='Romanian') Romanian; Moldavian; Moldovan
+                      option(value='russian') Russian
+                      option(value='sinhala_sinhalese') Sinhala; Sinhalese
+                      option(value='slovak') Slovak
+                      option(value='slovenian') Slovenian
+                      option(value='spanish_castilian') Spanish; Castilian
+                      option(value='albanian') Albanian
+                      option(value='serbian') Serbian
+                      option(value='swahili') Swahili
+                      option(value='swedish') Swedish
+                      option(value='tamil') Tamil
+                      option(value='tatar') Tatar
+                      option(value='telugu') Telugu
+                      option(value='tagalog') Tagalog
+                      option(value='thai') Thai
+                      option(value='turkish') Turkish
+                      option(value='uighur_uyghur') Uighur; Uyghur
+                      option(value='ukrainian') Ukrainian
+                      option(value='urdu') Urdu
+                      option(value='uzbek') Uzbek
+                      option(value='vietnamese') Vietnamese
+                      option(value='wolof') Wolof
+                      option(value='yoruba') Yoruba
+                      option(value='chinese') Chinese
+                  .text-center
+                    button#change_language.btn.btn-primary.ms-auto.mt-4(type="button") Change Language
+                .row.mb-4.cart_summary
+                  #accordionExample.accordion
+                    .accordion-item.border-0
+                      h2#headingOne.accordion-header
+                        button.accordion-button(type='button' data-bs-toggle='collapse' data-bs-target='#collapseOne' aria-expanded='true' aria-controls='collapseOne')
+                          | Customer Details
+                      #collapseOne.accordion-collapse.collapse.show(aria-labelledby='headingOne' data-bs-parent='#accordionExample')
+                        .accordion-body
+                          .row.mb-4
+                            label.form-label.lbl-text(for="cart_summary") Cart summary
+                            .col-md-6
+                              input.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="cart_summary"
+                                value= translation_lang ? translation_lang.cart_summary:"Cart Summary"
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text"
+                                placeholder="Enter a customer translation" name="cart_summary"
+                                value= translation && translation_lang && translation.cart_summary !=  translation_lang.cart_summary ? translation.cart_summary:'',
+                            )
+                          .row.mb-4.shipping_details_title
+                            label.form-label(for="shipping_titles") Shipping Details title
+                            .col-md-6
+                              input.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="shipping_details_title"
+                                value= translation_lang ? translation_lang.shipping_details_title:"Shipping Details"
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text"
+                                placeholder="Enter a customer translation" name="shipping_details_title",
+                                value= translation && translation_lang && translation.shipping_details_title !=  translation_lang.shipping_details_title ? translation.shipping_details_title:'',
+                              )
+
+                          .row.mb-4.contact_information
+                            label.form-label.lbl-text(for="contact_information") Contact information
+                            .col-md-6
+                              input.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="contact_information"
+                                value= translation_lang ? translation_lang.contact_information:"Contact information"
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text"
+                                placeholder="Enter a customer translation" name="contact_information",
+                                value= translation && translation_lang && translation.contact_information !=  translation_lang.contact_information ? translation.contact_information:'',
+                              )
+
+                          .row.mb-4.email
+                            label.form-label(for="email") Email
+                            .col-md-6
+                              input#email.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="email"
+                                value= translation_lang ? translation_lang.email:"Email Address"
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text"
+                                placeholder="Enter a customer translation" name="email"
+                                value=translation && translation_lang && translation.email!=  translation_lang.email? translation.email:''
+                              )
+
+                          .row.mb-4.first_name
+                            label.form-label(for="first_name") Shipping First Name
+                            .col-md-6
+                              input.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="first_name"
+                                value= translation_lang ? translation_lang.first_name:"First Name"
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text"
+                                placeholder="Enter a customer translation" name="first_name"
+                                value= translation && translation_lang &&  translation.first_name!=  translation_lang.first_name?translation.first_name : ''
+                              )
+                          .row.mb-4.last_name
+                            label.form-label(for="last_name") Shipping Last Name
+                            .col-md-6
+                              input.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="last_name"
+                                value= translation_lang ? translation_lang.last_name:"Last Name"
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text",
+                                placeholder="Enter a customer translation" name="last_name"
+                                value= translation && translation_lang && translation.last_name!=  translation_lang.last_name?translation.last_name:''
+                              )
+
+                          .row.mb-4.phone
+                            label.form-label(for="phone") Shipping Phone
+                            .col-md-6
+                              input#phone.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="phone"
+                                value=translation_lang ? translation_lang.phone:"Phone"
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text"
+                                placeholder="Enter a customer translation" name="phone"
+                                value= translation && translation_lang && translation.phone!=  translation_lang.phone?translation.phone:''
+                              )
+
+                            .row.mb-4.street_address
+                              label.form-label(for="street_address") Street adress
+                              .col-md-6
+                                input.form-control.input-text(
+                                  readonly
+                                  type="text"
+                                  name="street_address"
+                                  value=translation_lang ? translation_lang.street_address:"Street adress"
+                                )
+                              .col-md-6
+                                input.form-control.input-text(
+                                  type="text",
+                                  placeholder="Enter a customer translation" name="street_address"
+                                  value=translation && translation_lang && translation.street_address!=  translation_lang.street_address?translation.street_address:''
+                                )
+
+                          .row.mb-4.address_number
+                            label.form-label(for="address_number") Shipping Address
+                            .col-md-6
+                              input.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="address_number"
+                                value=translation_lang ? translation_lang.address_number:"Address"
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text",
+                                placeholder="Enter a customer translation" name="address_number"
+                                value=translation && translation_lang && translation.address_number!=  translation_lang.address_number?translation.address_number:''
+                              )
+
+                          .row.mb-4.city
+                            label.form-label(for="city") Shipping City
+                            .col-md-6
+                              input.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="city"
+                                value=translation_lang ? translation_lang.city:"City"
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text"
+                                placeholder="Enter a customer translation" name="city"
+                                value=translation && translation_lang && translation.city!=  translation_lang.city?translation.city:''
+                              )
+
+                          .row.mb-4.zip_code
+                            label.form-label(for="zip_code") Shipping Zip code
+                            .col-md-6
+                              input.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="zip_code"
+                                value=translation_lang ? translation_lang.zip_code:"Zip Code"
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text"
+                                placeholder="Enter a customer translation" name="zip_code"
+                                value= translation && translation_lang && translation.zip_code!=  translation_lang.zip_code?translation.zip_code:''
+                              )
+
+                          .row.mb-4.country_action
+                            label.form-label(for="country_action") Country code prompt
+                            .col-md-6
+                              input.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="country_action"
+                                value =translation_lang ? translation_lang.country_action:"Select a Country"
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text"
+                                placeholder="Enter a customer translation" name="country_action"
+                                value=translation && translation_lang && translation.country_action!=  translation_lang.country_action?translation.country_action:''
+                              )
+
+                          .row.mb-4.country
+                            label.form-label(for="state") Country
+                            .col-md-6
+                              input.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="country"
+                                value =translation_lang ? translation_lang.country:"Country"
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text"
+                                placeholder="Enter a customer translation" name="country"
+                                value=translation && translation_lang && translation.country!=translation_lang.country ? translation.country : ''
+                              )
+
+                          .row.mb-4.select_country
+                            label.form-label(for="select_country") Select Country
+                            .col-md-6
+                              input.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="select_country"
+                                value =translation_lang ? translation_lang.select_country:"Select a Country"
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text"
+                                placeholder="Enter a customer translation" name="select_country"
+                                value=translation && translation_lang && translation.select_country!=  translation_lang.select_country?translation.select_country:''
+                              )
+
+                          .row.mb-4.state
+                            label.form-label(for="state") Province prompt
+                            .col-md-6
+                              input.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="state"
+                                value =translation_lang ? translation_lang.state:"Select a State"
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text"
+                                placeholder="Enter a customer translation" name="state"
+                                value=translation && translation_lang && translation.state!=translation_lang.state ? translation.state : ''
+                              )
+
+                          .row.mb-4.select_state
+                            label.form-label(for="select_state") Select State
+                            .col-md-6
+                              input.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="select_state"
+                                value =translation_lang ? translation_lang.select_state:"Select a State"
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text"
+                                placeholder="Enter a customer translation" name="select_state"
+                                value=translation && translation_lang && translation.select_state!=translation_lang.select_state ? translation.select_state : ''
+                              )
+
+                          .row.mb-4.company
+                            label.form-label(for="company") Company
+                            .col-md-6
+                              input.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="company"
+                                value=translation_lang ? translation_lang.company:"Company name(optional)"
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text"
+                                placeholder="Enter a customer translation" name="company"
+                                value=translation && translation_lang && translation.company!=translation_lang.company ? translation.company : ''
+                              )
+
+                          .row.mb-4.marketing_checkbox
+                            label.form-label(for="marketing_checkbox") Accepts marketing checkbox
+                            .col-md-6
+                              input.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="marketing_checkbox"
+                                value= translation_lang ? translation_lang.marketing_checkbox:`Sign up for exclusive offers and news`
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text"
+                                placeholder="Enter a customer translation" name="marketing_checkbox"
+                                value=translation && translation_lang && translation.marketing_checkbox!=  translation_lang.marketing_checkbox?translation.marketing_checkbox:''
+                              )
+
+                          .row.mb-4.billing_details
+                            label.form-label(for="billing_details") Billing details title
+                            .col-md-6.billing_details
+                              input.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="billing_details"
+                                value=translation_lang ? translation_lang.billing_details:`Billing Details`
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text"
+                                placeholder="Enter a customer translation" name="billing_details"
+                                value=translation && translation_lang && translation.billing_details!=  translation_lang.billing_details?translation.billing_details:''
+                              )
+
+                          .row.mb-4
+                            label.form-label(for="same_billing_details") Billing details are the same
+                            .col-md-6
+                              input.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="same_billing_details"
+                                value=translation_lang ? translation_lang.same_billing_details:"Billing address is the same as shipping"
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text"
+                                placeholder="Enter a customer translation" name="same_billing_details"
+                                value=translation && translation_lang && translation.same_billing_details!=  translation_lang.same_billing_details?translation.same_billing_details:''
+                              )
+
+                          .row.mb-4
+                            label.form-label(for="who_buying") Buying for
+                            .col-md-6
+                              input.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="who_buying"
+                                value=translation_lang ? translation_lang.who_buying:"Who are you buying for?"
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text"
+                                placeholder="Enter a customer translation" name="who_buying"
+                                value=translation && translation_lang && translation.who_buying!=  translation_lang.who_buying?translation.who_buying:''
+                              )
+                              
+                          .row.mb-4
+                            label.form-label(for="buying_for_myself") Buying for myself
+                            .col-md-6
+                              input.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="buying_for_myself"
+                                value=translation_lang ? translation_lang.buying_for_myself:"I’m buying for myself"
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text"
+                                placeholder="Enter a customer translation" name="buying_for_myself"
+                                value=translation && translation_lang && translation.buying_for_myself!=  translation_lang.buying_for_myself?translation.buying_for_myself:''
+                              )
+                          
+                          .row.mb-4
+                            label.form-label(for="buying_for_someone") Buying for someone
+                            .col-md-6
+                              input.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="buying_for_someone"
+                                value=translation_lang ? translation_lang.buying_for_someone:"This is a gift for someone else"
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text"
+                                placeholder="Enter a customer translation" name="buying_for_someone"
+                                value=translation && translation_lang && translation.buying_for_someone!=  translation_lang.buying_for_someone?translation.buying_for_someone:''
+                              )
+                          
+                          .row.mb-4
+                            label.form-label(for="giftee_email") Giftee email
+                            .col-md-6
+                              input.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="giftee_email"
+                                value=translation_lang ? translation_lang.giftee_email:"Enter the email you want your gift to be sent to."
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text"
+                                placeholder="Enter a customer translation" name="giftee_email"
+                                value=translation && translation_lang && translation.giftee_email!=  translation_lang.giftee_email?translation.giftee_email:''
+                              )
+                          
+                          .row.mb-4
+                            label.form-label(for="delivery_date") Delivery date
+                            .col-md-6
+                              input.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="delivery_date"
+                                value=translation_lang ? translation_lang.delivery_date:"Select a delivery date"
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text"
+                                placeholder="Enter a customer translation" name="delivery_date"
+                                value=translation && translation_lang && translation.delivery_date!=  translation_lang.delivery_date?translation.delivery_date:''
+                              )
+                          
+                          .row.mb-4
+                            label.form-label(for="send_immediately") Send immediately
+                            .col-md-6
+                              input.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="send_immediately"
+                                value=translation_lang ? translation_lang.delivery_date:"Send immediately"
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text"
+                                placeholder="Enter a customer translation" name="send_immediately"
+                                value=translation && translation_lang && translation.send_immediately!=  translation_lang.send_immediately?translation.send_immediately:''
+                              )
+                          
+                          .row.mb-4
+                            label.form-label(for="send_infuture") Send at a future date
+                            .col-md-6
+                              input.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="send_infuture"
+                                value=translation_lang ? translation_lang.delivery_date:"Send at a future date"
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text"
+                                placeholder="Enter a customer translation" name="send_infuture"
+                                value=translation && translation_lang && translation.send_infuture!=  translation_lang.send_infuture?translation.send_infuture:''
+                              )
+
+                          .row.mb-4
+                            label.form-label(for="delivery_message_txt") Delivery Message
+                            .col-md-6
+                              input.form-control.input-text(
+                                readonly
+                                type="text"
+                                name="delivery_message_txt"
+                                value=translation_lang ? translation_lang.delivery_date:"Send at a future date"
+                              )
+                            .col-md-6
+                              input.form-control.input-text(
+                                type="text"
+                                placeholder="Enter a customer translation" name="delivery_message_txt"
+                                value=translation && translation_lang && translation.delivery_message_txt!=  translation_lang.delivery_message_txt?translation.delivery_message_txt:''
+                              )
+
+                    .accordion-item.border-0
+                      h2#headingTwo.accordion-header
+                        button.accordion-button.collapsed(type='button' data-bs-toggle='collapse' data-bs-target='#collapseTwo' aria-expanded='false' aria-controls='collapseTwo')
+                          | Shipping options
+                      #collapseTwo.accordion-collapse.collapse(aria-labelledby='headingTwo' data-bs-parent='#accordionExample')
+                        .accordion-body
+                          .card
+                            .card-body.p-0
+                              .row.mb-4
+                                label.form-label(for="shipping_option_titles") Shipping options title
+                                .col-md-6
+                                  input.form-control.input-text(
+                                    readonly
+                                    type="text",
+                                    name="shipping_option_title"
+                                    value=translation_lang ? translation_lang.shipping_option_title:`Shipping Options`
+                                  )
+                                .col-md-6
+                                  input.form-control.input-text(
+                                    type="text",
+                                    placeholder="Enter a customer translation" name="shipping_option_title"
+                                    value=translation && translation_lang && translation.shipping_option_title!=  translation_lang.shipping_option_title?translation.shipping_option_title:''
+                                  )
+
+                              .row.mb-4
+                                label.form-label(for="error") Error
+                                .col-md-6
+                                  input.form-control.input-text(
+                                    readonly
+                                    type="text",
+                                    name="shipping_option_title_error"
+                                    value=translation_lang ? translation_lang.shipping_option_title_error:`Shipping Options` 
+                                  )
+                                .col-md-6
+                                  input.form-control.input-text(
+                                    type="text",
+                                    placeholder="Enter a customer translation", name="shipping_option_title_error"
+                                    value=translation && translation_lang && translation.shipping_option_title_error!=  translation_lang.shipping_option_title_error?translation.shipping_option_title_error:''
+                                  )
+
+                    .accordion-item.border-0
+                      h2#headingThree.accordion-header
+                        button.accordion-button.collapsed.dettils(type='button' data-bs-toggle='collapse' data-bs-target='#collapseThree' aria-expanded='false' aria-controls='collapseThree')
+                          | Order Summary
+                      #collapseThree.accordion-collapse.collapse(aria-labelledby='headingThree' data-bs-parent='#accordionExample')
+                        .accordion-body
+                          strong 
+                          .card
+                            .card-body.p-0
+                              #translation_3.g-3
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="order_summary_titles") Order summary title
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="order_summary_title", value=translation_lang ? translation_lang.order_summary_title:`Order Summary`, name="order_summary_title")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation", value=translation && translation_lang && translation.order_summary_title!=  translation_lang.order_summary_title?translation.order_summary_title:'' , name="order_summary_title")
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="show_order") Show Order Summary
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, value=translation_lang ? translation_lang.show_order_summary:`Show Order Summary` id ="show_order_summary" ,name="show_order_summary")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation", value=translation && translation_lang && translation.show_order_summary!=  translation_lang.show_order_summary?translation.show_order_summary:'' , name="show_order_summary")
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="hide_order_summary") Hide Order Summary
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="hide_order_summary", value=translation_lang ? translation_lang.hide_order_summary:`Hide Order Summary`, name="hide_order_summary")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" , value=translation && translation_lang && translation.hide_order_summary!=  translation_lang.hide_order_summary?translation.hide_order_summary:'' name="hide_order_summary")
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="subtotal") Subtotal
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, value=translation_lang ? translation_lang.subtotal:`Subtotal`, id ="subtotal" name="subtotal")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" , value=translation && translation_lang && translation.subtotal!=  translation_lang.subtotal?translation.subtotal:'' name="subtotal")
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="discount_code") Discount code
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="discount_code", value=translation_lang ? translation_lang.discount_code:`Discount code` ,name="discount_code")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" ,value=translation && translation_lang && translation.discount_code!=  translation_lang.discount_code?translation.discount_code:'' name="discount_code")
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="discount") Discount
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, value=translation_lang ? translation_lang.discount:`Discount` id ="discount" name="discount")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" , value=translation && translation_lang && translation.discount!=  translation_lang.discount?translation.discount:'' name="discount")
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="delivery") Delivery
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, value=translation_lang ? translation_lang.delivery:`Delivery` id ="delivery" name="delivery")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" ,value=translation && translation_lang && translation.delivery!=  translation_lang.delivery?translation.delivery:'' name="delivery")
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="free") Free
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, value=translation_lang ? translation_lang.free:`Free` id="free" name="free")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" ,value=translation && translation_lang && translation.free!=  translation_lang.free?translation.free:'' name="free")
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="total") Total
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, value=translation_lang ? translation_lang.total:`Total` name="total" id="total")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation",value=translation && translation_lang && translation.total!=  translation_lang.total?translation.total:'' name="total")
+
+                    .accordion-item.border-0
+                      h2#headingfour.accordion-header
+                        button.accordion-button.collapsed.dettils(type='button' data-bs-toggle='collapse' data-bs-target='#collapsefour' aria-expanded='false' aria-controls='collapsefour')
+                          | Discounts
+                      #collapsefour.accordion-collapse.collapse(aria-labelledby='headingThree' data-bs-parent='#accordionExample')
+                        .accordion-body
+                          .card
+                            .card-body.p-0
+                              #translation_4.g-3
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="invalid_discount_codes") Discount code invalid
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="invalid_discount_code", value=translation_lang ? translation_lang.invalid_discount_code:`Make sure that the code you have applied is correct, not used before or expired.` name="invalid_discount_code")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation",value=translation && translation_lang && translation.invalid_discount_code!=  translation_lang.invalid_discount_code?translation.invalid_discount_code:'', name ="invalid_discount_code")
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="discount_code_labels") Discount code label
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="discount_code_label", value=translation_lang ? translation_lang.discount_code_label:`Discount code` name="discount_code_label")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="discount_code_label",value=translation && translation_lang && translation.discount_code_label!=  translation_lang.discount_code_label?translation.discount_code_label:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="apply_buttons") Apply Button
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="apply_button", value=translation_lang ? translation_lang.apply_button:`Apply` name="apply_button")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="apply_button",value=translation && translation_lang && translation.apply_button!=  translation_lang.apply_button?translation.apply_button:'')
+
+                    .accordion-item.border-0
+                      h2#headingfive.accordion-header
+                        button.accordion-button.collapsed.dettils(type='button' data-bs-toggle='collapse' data-bs-target='#collapsefive' aria-expanded='false' aria-controls='collapsefive')
+                          | Payment methods
+                      #collapsefive.accordion-collapse.collapse(aria-labelledby='headingfive' data-bs-parent='#accordionExample')
+                        .accordion-body
+                          .card
+                            .card-body.p-0
+                              #translation_5.g-3
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="payment_methods") Payment method
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="payment_method", value =translation_lang ? translation_lang.payment_method:`Payment method` name="payment_method")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="payment_method",value=translation && translation_lang && translation.payment_method!=  translation_lang.payment_method?translation.payment_method:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="credit_card") Pay with credit card
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="credit_card", value=translation_lang ? translation_lang.credit_card:`Credit Card` name="credit_card")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="credit_card",value=translation && translation_lang && translation.credit_card!=  translation_lang.credit_card?translation.credit_card:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="and_more") And more
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="and_more", value=translation_lang ? translation_lang.and_more:`& more` name="and_more")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="and_more",value=translation && translation_lang && translation.and_more!=  translation_lang.and_more?translation.and_more:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="credit_card_holder_label") Credit card holder label
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="credit_card_holder_label", value=translation_lang ? translation_lang.credit_card_holder_label:`Credit card holder` name="credit_card_holder_label")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="credit_card_holder_label" ,value=translation && translation_lang && translation.credit_card_holder_label!=  translation_lang.credit_card_holder_label?translation.credit_card_holder_label:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="credit_card_number_label") Credit card number label
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="credit_card_number_label", value=translation_lang ? translation_lang.credit_card_number_label:`Credit card number` name="credit_card_number_label")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="credit_card_number_label",value=translation && translation_lang && translation.credit_card_number_label!=  translation_lang.credit_card_number_label?translation.credit_card_number_label:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="credit_card_expiry_date") Credit card expire date label
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="credit_card_expiry_date", value=translation_lang ? translation_lang.credit_card_expiry_date:`Expire date` name="credit_card_expiry_date")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="credit_card_expiry_date" value=translation && translation_lang && translation.credit_card_expiry_date!=  translation_lang.credit_card_expiry_date?translation.credit_card_expiry_date:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="credit_card_number_placeholder") Credit card number placeholder
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="credit_card_number_placeholder", value=translation_lang ? translation_lang.credit_card_number_placeholder:`Card number` name="credit_card_number_placeholder")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="credit_card_number_placeholder",value=translation && translation_lang && translation.credit_card_number_placeholder!=  translation_lang.credit_card_number_placeholder?translation.credit_card_number_placeholder:'')
+
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="expire_date_placeholder") Credit card expire date placeholder
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="expire_date_placeholder", value=translation_lang ? translation_lang.expire_date_placeholder:`MM/YY` name="expire_date_placeholder")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="expire_date_placeholder", value=translation && translation_lang && translation.expire_date_placeholder!=  translation_lang.expire_date_placeholder?translation.expire_date_placeholder:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="expiry_date_long") Credit card expire date placeholder long
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="expiry_date_long", value=translation_lang ? translation_lang.expiry_date_long:`MM/YYYY` name="expiry_date_long")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="expiry_date_long" ,value=translation && translation_lang && translation.expiry_date_long!=  translation_lang.expiry_date_long?translation.expiry_date_long:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="security_code") Credit card cvv label
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="security_code", value=translation_lang ? translation_lang.security_code:`Security Code` name="security_code")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="security_code" , value=translation && translation_lang && translation.security_code!=  translation_lang.security_code?translation.security_code:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="cvv_placeholder") Credit card cvv placeholder
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="cvv_placeholder", value=translation_lang ? translation_lang.cvv_placeholder:`CVV` name="cvv_placeholder")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="cvv_placeholder" , value=translation && translation_lang && translation.cvv_placeholder!=  translation_lang.cvv_placeholder?translation.cvv_placeholder:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="valid_card") Please enter valid card
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="valid_card", value=translation_lang ? translation_lang.valid_card:`Please enter a valid credit card!` name="valid_card")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="valid_card" ,value=translation && translation_lang && translation.valid_card!=  translation_lang.valid_card?translation.valid_card:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="redirected_to_external_window") Redirected to external window
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="redirected_to_external_window", value=translation_lang ? translation_lang.redirected_to_external_window:`After clicking the 'Complete Purchase' button you will be redirected to a secure payment window to complete your transaction` name="redirected_to_external_window")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="redirected_to_external_window" ,value=translation && translation_lang && translation.redirected_to_external_window!=  translation_lang.redirected_to_external_window?translation.redirected_to_external_window:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="redirected_to_free_purchase") Redirected to free purchase
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="redirected_to_free_purchase", value=translation_lang ? translation_lang.redirected_to_free_purchase:`After clicking the 'Complete order' button you will be able to proceed checkout for free` name="redirected_to_free_purchase")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="redirected_to_free_purchase",value=translation && translation_lang && translation.redirected_to_free_purchase!=  translation_lang.redirected_to_free_purchase?translation.redirected_to_free_purchase:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="cash_on_delivery") Cash on delivery
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="cash_on_delivery", value=translation_lang ? translation_lang.cash_on_delivery:`Cash on Delivery` name="cash_on_delivery")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="cash_on_delivery" , value=translation && translation_lang && translation.cash_on_delivery!=  translation_lang.cash_on_delivery?translation.cash_on_delivery:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="bank_transfer") Bank transfer
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="bank_transfer", value=translation_lang ? translation_lang.bank_transfer:`Bank transfer`, name="bank_transfer")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="bank_transfer" ,value=translation && translation_lang && translation.bank_transfer!=  translation_lang.bank_transfer?translation.bank_transfer:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="klarna_pay_later") Klarna pay later
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="klarna_pay_later", value=translation_lang ? translation_lang.klarna_pay_later:`Klarna Pay Later` name="klarna_pay_later")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="klarna_pay_later",value=translation && translation_lang && translation.klarna_pay_later!=  translation_lang.klarna_pay_later?translation.klarna_pay_later:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="klarna_slice_it") Klarna slice it
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="klarna_slice_it", value=translation_lang ? translation_lang.klarna_slice_it:`Klarna Slice It`  name="klarna_slice_it")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="klarna_slice_it" ,value=translation && translation_lang && translation.klarna_slice_it!=  translation_lang.klarna_slice_it?translation.klarna_slice_it:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="bank_transfer") Pay via bank transfer
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="bank_transfer", value=translation_lang ? translation_lang.direct_bank_transfer:`Pay via a direct bank transfer. When selecting this option, you'll receive instructions on the thank you page how to proceed with the payment.` name="direct_bank_transfer")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name ="direct_bank_transfer" ,value=translation && translation_lang && translation.direct_bank_transfer!=  translation_lang.direct_bank_transfer?translation.direct_bank_transfer:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="complete_purchase_button") Complete purchase button
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="complete_purchase_button", value=translation_lang ? translation_lang.complete_purchase_button:`Complete Purchase` name="complete_purchase_button")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="complete_purchase_button", value=translation && translation_lang && translation.complete_purchase_button!=  translation_lang.complete_purchase_button?translation.complete_purchase_button:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="complete_purchase_with") Complete purchase with button
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="complete_purchase_with", value=translation_lang ? translation_lang.complete_purchase_with:`Complete Purchase with` name="complete_purchase_with")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="complete_purchase_with", value=translation && translation_lang && translation.complete_purchase_with!=  translation_lang.complete_purchase_with?translation.complete_purchase_with:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="secured_transaction") Secured transaction
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="secured_transaction", value=translation_lang ? translation_lang.secured_transaction:`Transaction secured over SSL` name="secured_transaction")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="secured_transaction", value=translation && translation_lang && translation.secured_transaction!=  translation_lang.secured_transaction?translation.secured_transaction:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="free_on_completed") Free on completed
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="free_on_completed", value=translation_lang ? translation_lang.free_on_completed:`Free` name="free_on_completed")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="free_on_completed" ,value=translation && translation_lang && translation.free_on_completed!=  translation_lang.free_on_completed?translation.free_on_completed:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="free_purchase") Free purchase
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="free_purchase", value=translation_lang ? translation_lang.free_purchase:`Free purchase` name="free_purchase")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="free_purchase" , value=translation && translation_lang && translation.free_purchase!=  translation_lang.free_purchase?translation.free_purchase:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="ineligible_country") Ineligible country
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="ineligible_country", value=translation_lang ? translation_lang.ineligible_country:`Your billing country is not eligible for this payment method.` name="ineligible_country")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="ineligible_country" ,value=translation && translation_lang && translation.ineligible_country!=  translation_lang.ineligible_country?translation.ineligible_country:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="ineligilble_country_steps") Ineligible country step
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="ineligilble_country_steps", value=translation_lang ? translation_lang.ineligilble_country_steps:`Please use another method.` name="ineligilble_country_steps")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="ineligilble_country_steps", value=translation && translation_lang && translation.ineligilble_country_steps!=  translation_lang.ineligilble_country_steps?translation.ineligilble_country_steps:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="too_low_amount") Too low amount
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="too_low_amount", value=translation_lang ? translation_lang.too_low_amount:`Amount is too low to use this payment method.` name="too_low_amount")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation", name ="too_low_amount" placeholder="Enter a customer translation" ,value=translation && translation_lang && translation.too_low_amount!=  translation_lang.too_low_amount?translation.too_low_amount:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="too_low_amt_steps") Too low amount step
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="too_low_amt_step",  value=translation_lang ? translation_lang.too_low_amt_step:`Please add more items in your cart or use another method.` name="too_low_amt_step")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" ,name ="too_low_amt_step" ,value=translation && translation_lang && translation.too_low_amt_step!=  translation_lang.too_low_amt_step?translation.too_low_amt_step:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="pay_button") Pay Button
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="pay_price", value=translation_lang ? translation_lang.pay_price:`Pay %{price}` name="pay_price")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="pay_price",value=translation && translation_lang && translation.pay_price!=  translation_lang.pay_price?translation.pay_price:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="confirm") Confirm Button
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="confirm", value=translation_lang ? translation_lang.confirm:`Confirm` name="confirm")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="confirm",
+                                    value=translation && translation_lang && translation.confirm !=  translation_lang.confirm ? translation.confirm:'')
+
+                    .accordion-item.border-0
+                      h2#headingsix.accordion-header
+                        button.accordion-button.collapsed.dettils(type='button' data-bs-toggle='collapse' data-bs-target='#collapsesix' aria-expanded='false' aria-controls='collapsesix')
+                          | Footer links
+                      #collapsesix.accordion-collapse.collapse(aria-labelledby='headingsix' data-bs-parent='#accordionExample')
+                        .accordion-body
+                          .card
+                            .card-body.p-0
+                              #translation_6.g-3
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="return_policy_links") Returns policy link
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="return_policy_link", value=translation_lang ? translation_lang.return_policy_link:`Returns Policy` name="return_policy_link")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="return_policy_link", value=translation && translation_lang && translation.return_policy_link!=  translation_lang.return_policy_link?translation.return_policy_link:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="privacy_policy_link") Privacy policy link
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="privacy_policy_link", value=translation_lang ? translation_lang.privacy_policy_link:"Privacy Policy " name="privacy_policy_link")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="privacy_policy_link" ,value=translation && translation_lang && translation.privacy_policy_link!=  translation_lang.privacy_policy_link?translation.privacy_policy_link:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="terms_and_cond") Terms and conditions link
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="terms_and_cond", value=translation_lang ? translation_lang.terms_and_cond:"Terms and Conditions" name="terms_and_cond")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="terms_and_cond" ,value=translation && translation_lang && translation.terms_and_cond!=  translation_lang.terms_and_cond?translation.terms_and_cond:'')
+
+                    .accordion-item.border-0
+                      h2#headingseven.accordion-header
+                        button.accordion-button.collapsed.dettils(type='button' data-bs-toggle='collapse' data-bs-target='#collapseseven' aria-expanded='false' aria-controls='collapseseven')
+                          |  Scarcity timer
+                      #collapseseven.accordion-collapse.collapse(aria-labelledby='headingseven' data-bs-parent='#accordionExample')
+                        .accordion-body
+                          .card
+                            .card-body.p-0
+                              #translation_8.g-3
+                                .row.mb-4.scarcity_title
+                                  label.form-label.lbl-text(for="scarcity_title") Title
+                                  .col-md-6
+                                    input.form-control.input-text(
+                                      readonly
+                                      type="text"
+                                      name="scarcity_title"
+                                      value=translation_lang ? translation_lang.scarcity_title:`Strong demand! Complete your order before it's too late!`
+                                    )
+                                  .col-md-6
+                                    input.form-control.input-text(
+                                      type="text"
+                                      placeholder="Enter a customer translation"
+                                      name="scarcity_title"
+                                      value=translation && translation_lang && translation.scarcity_title!=  translation_lang.scarcity_title?translation.scarcity_title:''
+                                    )
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="scarcity_clock_prefix") Clock prefix
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="scarcity_clock_prefix", value=translation_lang ? translation_lang.scarcity_clock_prefix:`Your cart is reserved for` name="scarcity_clock_prefix")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="scarcity_clock_prefix",value=translation && translation_lang && translation.scarcity_clock_prefix!=  translation_lang.scarcity_clock_prefix?translation.scarcity_clock_prefix:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="scarcity_clock_suffix") Clock prefix
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="scarcity_clock_suffix", value=translation_lang ? translation_lang.scarcity_clock_suffix:`minutes.` name="scarcity_clock_suffix")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="scarcity_clock_suffix",value=translation && translation_lang && translation.scarcity_clock_suffix!=  translation_lang.scarcity_clock_suffix?translation.scarcity_clock_suffix:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="scarcity_timer_finished") Timer finished
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="scarcity_timer_finished", value=translation_lang ? translation_lang.scarcity_timer_finished:`Your cart reservation has ended.` name="scarcity_timer_finished")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="scarcity_timer_finished",value=translation && translation_lang && translation.scarcity_timer_finished!=  translation_lang.scarcity_timer_finished?translation.scarcity_timer_finished:'')
+
+                    .accordion-item.border-0
+                      h2#headingeight.accordion-header
+                        button.accordion-button.collapsed.dettils(type='button' data-bs-toggle='collapse' data-bs-target='#collapseeight' aria-expanded='false' aria-controls='collapseeight')
+                          | Loading screens
+                      #collapseeight.accordion-collapse.collapse(aria-labelledby='headingeight' data-bs-parent='#accordionExample')
+                        .accordion-body
+                          .card
+                            .card-body.p-0
+                              #translation_7.g-3
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="processing_payments") Processing payment
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="processing_payment", value=translation_lang ? translation_lang.processing_payment:`Processing your payment` name="processing_payment")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="processing_payment",value=translation && translation_lang && translation.processing_payment!=  translation_lang.processing_payment?translation.processing_payment:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="create_order") Creating order
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="create_order", value=translation_lang ? translation_lang.create_order:`Creating your order` name="create_order")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="create_order",value=translation && translation_lang && translation.create_order!=  translation_lang.create_order?translation.create_order:'' )
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="loading_checkout") Loading checkout
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="loading_checkout", value=translation_lang ? translation_lang.loading_checkout:`Loading your checkout` name="loading_checkout")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="loading_checkout",value=translation && translation_lang && translation.loading_checkout!=  translation_lang.loading_checkout?translation.loading_checkout:'' )
+
+                    .accordion-item.border-0
+                      h2#headingnine.accordion-header
+                        button.accordion-button.collapsed.dettils(type='button' data-bs-toggle='collapse' data-bs-target='#collapsenine' aria-expanded='false' aria-controls='collapsenine')
+                          | Post purchase upsell controls
+                      #collapsenine.accordion-collapse.collapse(aria-labelledby='headingnine' data-bs-parent='#accordionExample')
+                        .accordion-body
+                          .card
+                            .card-body.p-0
+                              #translation_8.g-3
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="purchase_buttons") Purchase button
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="purchase_button", value=translation_lang ? translation_lang.purchase_button:`Purchase` name="purchase_button")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="purchase_button" ,value=translation && translation_lang && translation.purchase_button!=  translation_lang.purchase_button?translation.purchase_button:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="cancel_button") Cancel button
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="cancel_button", value=translation_lang ? translation_lang.cancel_button:`No, thanks` name="cancel_button")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="cancel_button",value=translation && translation_lang && translation.cancel_button!=  translation_lang.cancel_button?translation.cancel_button:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="buy_button") Buy button
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="buy_button", value=translation_lang ? translation_lang.buy_button:`Add to order for`, name="buy_button")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" ,name="buy_button",value=translation && translation_lang && translation.buy_button!=  translation_lang.buy_button?translation.buy_button:'' )
+
+                    .accordion-item.border-0
+                      h2#headingten.accordion-header
+                        button.accordion-button.collapsed.dettils(type='button' data-bs-toggle='collapse' data-bs-target='#collapseten' aria-expanded='false' aria-controls='collapseten')
+                          | Upsells
+                      #collapseten.accordion-collapse.collapse(aria-labelledby='headingten' data-bs-parent='#accordionExample')
+                        .accordion-body
+                          .card
+                            .card-body.p-0
+                              #translation_9.g-3
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="order_complete") Order completed
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="order_completed", value=translation_lang ? translation_lang.order_completed:`Order completed` name="order_completed")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="order_completed",value=translation && translation_lang && translation.order_completed!=  translation_lang.order_completed?translation.order_completed:'')
+
+                    .accordion-item.border-0
+                      h2#headingelvn.accordion-header
+                        button.accordion-button.collapsed.dettils(type='button' data-bs-toggle='collapse' data-bs-target='#collapseelvn' aria-expanded='false' aria-controls='collapseelvn')
+                          | Thank You Page
+                      #collapseelvn.accordion-collapse.collapse(aria-labelledby='headingelvn' data-bs-parent='#accordionExample')
+                        .accordion-body
+                          .card
+                            .card-body.p-0
+                              #translation_10.g-3
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="purchase_completed_titles") Purchase completed title
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="purchase_completed_title", value=translation_lang ? translation_lang.purchase_completed_title:`Purchase completed` name="purchase_completed_title")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="purchase_completed_title",value=translation && translation_lang && translation.purchase_completed_title!=  translation_lang.purchase_completed_title?translation.purchase_completed_title:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="order_receive") Order received new
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="order_receive", value=translation_lang ? translation_lang.order_receive:`Order completed` name="order_receive")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="order_receive" ,value=translation && translation_lang && translation.order_receive!=  translation_lang.order_receive?translation.order_receive:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="order_received") Order received
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="order_received", value=translation_lang ? translation_lang.order_received:`We've successfully received your order` name="order_received")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="order_received",value=translation && translation_lang && translation.order_received!=  translation_lang.order_received?translation.order_received:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="details") Details
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="details" value=translation_lang ? translation_lang.details:`We've sent you an order confirmation email. After confirming your order it can take up to 2 working days for us to fulfil it.`  name="details")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="details" ,value=translation && translation_lang && translation.details!=  translation_lang.details?translation.details:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="thanks") Thanks
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="thanks" value=translation_lang ? translation_lang.thanks:`Thanks` name="thanks")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="thanks" ,value=translation && translation_lang && translation.thanks!=  translation_lang.thanks?translation.thanks:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="shipping_address_title") Shipping address title
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="shipping_address_title", value=translation_lang ? translation_lang.shipping_address_title:`Shipping Address` name="shipping_address_title")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="shipping_address_title" ,value=translation && translation_lang && translation.shipping_address_title!=  translation_lang.shipping_address_title?translation.shipping_address_title:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="billing_address_title") Billing address title
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="billing_address_title", value=translation_lang ? translation_lang.billing_address_title:`Billing Address`  name="billing_address_title")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="billing_address_title",value=translation && translation_lang && translation.billing_address_title!=  translation_lang.billing_address_title?translation.billing_address_title:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="billing_same_as_shipping") Billing same as shipping
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="billing_same_as_shipping", value=translation_lang ? translation_lang.billing_same_as_shipping:`Billing address is the same as shipping address` name="billing_same_as_shipping")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="billing_same_as_shipping" ,value=translation && translation_lang && translation.billing_same_as_shipping!=  translation_lang.billing_same_as_shipping?translation.billing_same_as_shipping:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="shipping_method_title") Shipping method title
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="shipping_method_title", value=translation_lang ? translation_lang.shipping_method_title:`Shipping Method` name="shipping_method_title")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="shipping_method_title",value=translation && translation_lang && translation.shipping_method_title!=  translation_lang.shipping_method_title?translation.shipping_method_title:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="payment_titles") Payment method title
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="payment_title", value=translation_lang ? translation_lang.payment_title:`Payment Method` name="payment_title")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="payment_title",value=translation && translation_lang && translation.payment_title!=  translation_lang.payment_title?translation.payment_title:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="order_recap") Order recap title
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="order_recap", value=translation_lang ? translation_lang.order_recap:`Order Recap` name="order_recap")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="order_recap",value=translation && translation_lang && translation.order_recap!=  translation_lang.order_recap?translation.order_recap:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="additional_items") Upsell items title
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="additional_items", value=translation_lang ? translation_lang.additional_items:`Additional Items` name="additional_items")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="additional_items",value=translation && translation_lang && translation.additional_items!=  translation_lang.additional_items?translation.additional_items:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="back_to_shop") Back to shop
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="back_to_shop", value=translation_lang ? translation_lang.back_to_shop:`Continue shopping` name="back_to_shop")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="back_to_shop" ,value=translation && translation_lang && translation.back_to_shop!=  translation_lang.back_to_shop?translation.back_to_shop:'')
+
+                    .accordion-item.border-0
+                      h2#headingtw.accordion-header
+                        button.accordion-button.collapsed.dettils(type='button' data-bs-toggle='collapse' data-bs-target='#collapsetw' aria-expanded='false' aria-controls='collapseelvn')
+                          | Cart recovery emails
+                      #collapsetw.accordion-collapse.collapse(aria-labelledby='headingelvn' data-bs-parent='#accordionExample')
+                        .accordion-body
+                          .card
+                            .card-body.p-0
+                              #translation_11.g-3
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="default_subject") Default subject
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="default_subjects", value=translation_lang ? translation_lang.default_subjects:`Your cart is waiting for you!` name="default_subjects")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="default_subjects",value=translation && translation_lang && translation.default_subjects!=  translation_lang.default_subjects?translation.default_subjects:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="default_title") Default title
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="default_title", value=translation_lang ? translation_lang.default_title:`You've left items in your cart!` name="default_title")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="default_title",value=translation && translation_lang && translation.default_title!=  translation_lang.default_title?translation.default_title:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="default_greeting") Default greeting
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="default_greeting", value=translation_lang?translation_lang.default_greeting:`Hi` name="default_greeting")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="default_greeting",value=translation && translation_lang && translation.default_greeting!=  translation_lang.default_greeting?translation.default_greeting:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="default_message") Default message
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="default_message" value=translation_lang ? translation_lang.default_greeting:`you added items to your shopping cart and haven't completed your purchase. You can complete it now while they're still available. Your cart is currently waiting for you!` name="default_message")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="default_message",value=translation && translation_lang && translation.default_greeting!=  translation_lang.default_greeting?translation.default_greeting:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="default_call_to_actions") Default call to action
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="default_call_to_action", value=translation_lang ? translation_lang.default_call_to_action:`Return to my order` name="default_call_to_action")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="default_call_to_action",value=translation && translation_lang && translation.default_call_to_action!=  translation_lang.default_call_to_action?translation.default_call_to_action:'')
+
+                                .row.mb-4
+                                  label.
+                                  form-label.lbl-text(for="orr") Or
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="or" value=translation_lang ? translation_lang.or:`Or` name="or")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="or" ,value=translation && translation_lang && translation.or!=  translation_lang.or?translation.or:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="visit_website") Visit website
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="visit_website", value=translation_lang ? translation_lang.visit_website:`Visit our website` name="visit_website")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="visit_website",value=translation && translation_lang && translation.visit_website!=  translation_lang.visit_website?translation.visit_website:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="cart_title") Cart title
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="cart_title", value=translation_lang ? translation_lang.cart_title:`The items you've left in the cart` name="cart_title")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="cart_title",value=translation && translation_lang && translation.cart_title!=  translation_lang.cart_title?translation.cart_title:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="default_disclaimer") Default disclaimer
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="default_disclaimer", value=translation_lang ? translation_lang.default_disclaimer:`You are receiving this automatic reminder because you started ordering items on`  name="default_disclaimer")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="default_disclaimer",value=translation && translation_lang && translation.default_disclaimer!=  translation_lang.default_disclaimer?translation.default_disclaimer:'')
+
+                    .accordion-item.border-0
+                      h2#headingtw.accordion-header
+                        button.accordion-button.collapsed.dettils(type='button' data-bs-toggle='collapse' data-bs-target='#collapseth' aria-expanded='false' aria-controls='collapseelvn')
+                          | Cart recovery sms
+                      #collapseth.accordion-collapse.collapse(aria-labelledby='headingelvn' data-bs-parent='#accordionExample')
+                        .accordion-body
+                          .card
+                            .card-body.p-0
+                              #translation_12.g-3
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="accept_marketing_checkboxs") Accepts marketing checkbox
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="accept_marketing_checkbox", value=translation_lang ? translation_lang.accept_marketing_checkbox:`Sign up for exclusive offers and news via text messages & email` name="accept_marketing_checkbox")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name="accept_marketing_checkbox",value=translation && translation_lang && translation.accept_marketing_checkbox!=  translation_lang.accept_marketing_checkbox?translation.accept_marketing_checkbox:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="consent") Consent
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="consent" value=translation_lang ? translation_lang.consent:`I consent to receive recurring automated marketing by text message through an automatic telephone dialing system. Consent is not a condition to purchase. STOP to cancel, HELP for help. Message and Data rates apply.`  name="consent")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" placeholder="Enter a customer translation" name ="consent",value=translation && translation_lang && translation.consent!=  translation_lang.consent?translation.consent:'')
+
+                    .accordion-item.border-0.mb-4
+                      h2#headinglst.accordion-header
+                        button.accordion-button.collapsed.dettils(type='button' data-bs-toggle='collapse' data-bs-target='#collapselst' aria-expanded='false' aria-controls='collapseelvn')
+                          | Error messages
+                      #collapselst.accordion-collapse.collapse(aria-labelledby='headingelvn' data-bs-parent='#accordionExample')
+                        .accordion-body
+                          .card
+                            .card-body.p-0
+                              #translation_13.g-3
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="first_name_required") First name required
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="first_name_required", value=translation_lang ? translation_lang.first_name_required:`First name field is required.` name="first_name_required")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" name="first_name_required" placeholder="Enter a customer translation",value=translation && translation_lang && translation.first_name_required!=  translation_lang.first_name_required?translation.first_name_required:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="valid_firstname") First name Validation
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="valid_firstname", value=translation_lang && translation_lang.valid_firstname ||`First name not be Integer.` name="valid_firstname")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" name="valid_firstname" placeholder="Enter a customer translation",value=translation && translation_lang && translation.valid_firstname!=  translation_lang.valid_firstname?translation.valid_firstname:'')
+                                
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="email_required") Email required
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="email_required", value=translation_lang ? translation_lang.email_required:`Email field is required.` name="email_required")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" name="email_required" placeholder="Enter a customer translation",value=translation && translation_lang && translation.email_required!=  translation_lang.email_required?translation.email_required:'')
+                                
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="valid_email") Email Validation
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="valid_email", value=translation_lang ? translation_lang.valid_email:`Enter valid email.` name="valid_email")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" name="valid_email" placeholder="Enter a customer translation",value=translation && translation_lang && translation.valid_email!=  translation_lang.valid_email?translation.valid_email:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="phone_required") Phone no. required
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="phone_required", value=translation_lang ? translation_lang.phone_required:`Phone no. field is required.` name="phone_required")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" name="phone_required" placeholder="Enter a customer translation",value=translation && translation_lang && translation.phone_required!=  translation_lang.phone_required?translation.phone_required:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="valid_phone") Phone Validation
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="valid_phone", value=translation_lang ? translation_lang.valid_phone:`Enter valid mobile no.` name="valid_phone")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" name="valid_phone" placeholder="Enter a customer translation",value=translation && translation_lang && translation.valid_phone!=  translation_lang.valid_phone?translation.valid_phone:'')
+                                
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="zip_required") Zip code required
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="zip_required", value=translation_lang ? translation_lang.zip_required:`Zip code field is required.` name="zip_required")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" name="zip_required" placeholder="Enter a customer translation",value=translation && translation_lang && translation.zip_required!=  translation_lang.zip_required?translation.zip_required:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="valid_zip") Zip code Validation
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="valid_zip", value=translation_lang ? translation_lang.valid_zip:`Enter valid Zip code.` name="valid_zip")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" name="valid_zip" placeholder="Enter a customer translation",value=translation && translation_lang && translation.valid_zip!=  translation_lang.valid_zip?translation.valid_zip:'')
+                                
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="city_required") City required
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="city_required", value=translation_lang ? translation_lang.city_required:`City field is required.` name="city_required")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" name="city_required" placeholder="Enter a customer translation",value=translation && translation_lang && translation.city_required!=  translation_lang.city_required?translation.city_required:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="state_required") State required
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="state_required", value=translation_lang ? translation_lang.state_required:`State field is required.` name="state_required")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" name="state_required" placeholder="Enter a customer translation",value=translation && translation_lang && translation.state_required!=  translation_lang.state_required?translation.state_required:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="country_required") Country required
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="country_required", value=translation_lang ? translation_lang.country_required:`Country field is required.` name="country_required")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" name="country_required" placeholder="Enter a customer translation",value=translation && translation_lang && translation.country_required!=  translation_lang.country_required?translation.country_required:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="address_required") Address required
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="address_required", value=translation_lang ? translation_lang.address_required:`Address field is required.` name="address_required")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" name="address_required" placeholder="Enter a customer translation",value=translation && translation_lang && translation.address_required!=  translation_lang.address_required?translation.address_required:'')   
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="invalid") Invalid Fields
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="invalid", value=translation_lang ? translation_lang.invalid:`Please make sure you've filled all fields correctly!` name="invalid")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" name="invalid" placeholder="Enter a customer translation",value=translation && translation_lang && translation.invalid!=  translation_lang.invalid?translation.invalid:'')
+
+                                .row.mb-4
+                                  label.form-label.lbl-text(for="payment_failed") Payment failed
+                                  .col-md-6
+                                    input.form-control.input-text(type="text", readonly, id="payment_failed", value=translation_lang ? translation_lang.payment_failed:`There was an error while processing your payment, please try again!`  name="payment_failed")
+                                  .col-md-6
+                                    input.form-control.input-text(type="text" id="customer_translation" name="payment_failed" placeholder="Enter a customer translation" ,value=translation && translation_lang && translation.payment_failed!=  translation_lang.payment_failed?translation.payment_failed:'')
+
+                .text-center
+                  button.btn.btn-primary.ms-auto.svae-btn-code(type="submit") Save Checkout
+
+block scripts
+  script.
+    var store_id = `!{store_id}`;
+    var translation = !{JSON.stringify(translation)};
+
+  script(type='text/javascript' src='/assets/js/custom/translations.js')   

@@ -1,0 +1,83 @@
+extends ../layouts/backend_layout
+
+block header_breadcrumb
+  nav
+    ol.breadcrumb
+      li.breadcrumb-item Home
+      li.breadcrumb-item.active Account Settings
+
+block content 
+  main#main.main        
+    section.section.profile
+      .row
+        .col-xl-6.account-txt
+          h2 Account Settings
+          p #{user.first_name} #{user.last_name}
+
+        .col-xl-6
+          .card
+            .card-body.p-0   
+              h5.card-title.p-0.mb-1 Profile image
+              p.mb-4.profile-data Upload profile image
+              form#edit_profile.row.g-3(method="post")
+                input#store_id(type="hidden" name="store_id" value=store_id)
+
+                .row.mb-3.profile-row-Details
+                  .col-lg-11.ps-0.col-form-label(for="profileImage")
+                    if(user.avatar)
+                      a.remove-profile#avatar_delete_btn.ms-4 Remove
+                      //- a.update-profile#avatar_upload_btn Update
+                  .col-lg-1.pe-0
+                    img#blah.rounded(src=`${user.avatar ? `/uploads/${user.avatar}` : "/assets/img/profile-img.jpg"}` alt="Profile")
+                    input#avatar(type='file' name='file' accept="image/*" style='display: none;')
+
+
+                .row.mb-3
+                  .col-md-6.col-lg-6.pe-0
+                    p.mb-2.label-write First name
+                    input.form-control.required.w-100(
+                      type="text",
+                      name="first_name",
+                      value=user.first_name
+                    )
+                  .col-md-6.col-lg-6.pe-0
+                    p.mb-2.label-write Last name
+                    input.form-control.required.w-100(
+                      type="text",
+                      name="last_name",
+                      value=user.last_name
+                    )
+                .row.mb-3
+                  .col-md-12.pe-0
+                    p.mb-2.label-write Email
+                    input.form-control.required(
+                      type="email",
+                      name="email",
+                      value=user.email
+                      disabled
+                    )
+
+                .row.mb-3
+                  .col-md-12
+                    button.btn.btn-primary.save-changes.ms-auto.mt-4(type="submit") Save Updates
+
+
+              form#edit_password.row.g-3(method="post")
+                h2.change-password-txt Change password
+                .row.mb-3
+                  .col-md-12
+                    p.mb-2.label-write Current Password
+                    input#current-password.form-control.required(type="password", name="current_password" placeholder='Enter Current password')
+                .row.mb-3
+                  .col-md-12
+                    p.mb-2.label-write New Password
+                    input#new-password.form-control.required(type="password", name="new_password" placeholder='Enter New password')
+                    div
+                      div#new-password-strength-status
+                .row.mb-3
+                  .col-md-12
+                    p.mb-2.label-write Confirm new password
+                    input#confirm-password.form-control.required(type="password", name="confirm_password" placeholder='Confirm new password')
+                    button.btn.btn-primary.save-changes.ms-auto.mt-4(type="submit") Update Password
+block scripts
+  script(type='text/javascript', src='/assets/js/custom/accountSettings.js')

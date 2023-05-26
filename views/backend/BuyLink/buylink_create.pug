@@ -1,0 +1,127 @@
+extends ../../layouts/backend_layout
+
+block header_breadcrumb
+  nav
+    ol.breadcrumb
+      li.breadcrumb-item Home
+      li.breadcrumb-item.active Buy Link
+
+block content 
+  main#main.main
+    section.section.add-shipping-rate
+      div.pagetitle.row
+        h1.col-6 Buy Link
+        div.col-6.d-flex.justify-content-end
+          button.btn.btn-primary.me-sm-5(type="button" id="create_buylink" disabled) Create new buy link
+
+        section.section.buy-link
+          input(type="hidden" name="store_id" value=store_id)
+          form.row
+            div.row
+              div.col-lg-5
+                div
+                  div.buy-link-card.mt-5.d-flex.flex-column
+                    h2 Products        
+                    p Select the product you want to generate a direct buy link, re-directing your customers directly to your checkout.
+
+              div.col-lg-7
+                div.main-right-upper
+                  div.card.mt-5
+                    div.card-body.p-0
+                      div.tab-content
+                        div.card-items-wrapper
+                          div.buylink_product_section
+                          div.card-items-footer.row
+                            div.col-6 Actions
+                            div.col-6.d-flex.justify-content-end
+                              button.btn.btn-secondary#add_buylink(type='button') Add product
+
+            div.row
+              div.col-lg-5
+                div
+                  div.buy-link-card.pt-4.d-flex.flex-column
+                    h2 Buy Link
+                    p
+                      | The buy link is created from the product variety, quantity and discount code. Make sure to 
+                      span.highlight save your link 
+                      | after creating it.
+
+              div.col-lg-7
+                div.card.mt-5
+                  div.card-body.pt-3
+                    div.tab-content.pt-2
+                      div.card-section
+                        div.mt-1.main-right-upper
+                          div
+                            label Buy link URL
+                            span.ml-2.fs-10.displaynone.highlight.link_updated Link is updated.  
+                            input(type='hidden' , id="store_id" , name="store_id" ,value=store_id)
+                          div.form-row
+                            div.form-group.col
+                              div.input-group.clipboard-control
+                                .input-group.mb-3
+                                  input.form-control#buylink_url(
+                                    readonly
+                                    name="buylink_url"
+                                    placeholder='https://pay.checkout-master.com/RL6H601G/buylink-checkout/BUYLINK_DATA'
+                                  )
+                                  button.input-group-text.copy_buylink_url(type="button") Copy
+
+                          div.form-row.my-3
+                            div.form-group.col
+                              div.form-check.buy_link_form_check
+                                input#buylink_apply_discount.form-check-input(
+                                  type="checkbox",
+                                  name="apply_discount" value="1"
+                                )
+                                label.custom-control-label.ms-2(for='buylink_apply_discount') Apply discount code
+
+                          div.displaynone.discount_code_section
+                            div.form-group.col
+                              label(for='buylink_discount') Discount Code
+                              input#buylink_discount.form-control(
+                                type="text"
+                                name="discount_code"
+                              )
+                              small *Make sure that you have already created your discount code in your e-commerce platform
+
+
+    div#add_buylink_modal.modal.fade(aria-hidden='true' role='dialog' tabindex='-1')
+      div.modal-dialog.modal-dialog-scrollable.modal-lg
+        div.modal-content
+          div.modal-header.row
+            div.modal-header-titled.col-6
+              h3.modal-title Select items
+            div.searchbox
+              .input-group
+                span.input-group-text
+                  i.bi.bi-search(aria-hidden='true')
+                input.form-control(type="text" placeholder="Search..." name="product_search" value="")
+
+          div.modal-body.add_buylink_body
+          div.modal-footer
+            button.btn.btn-secondary(type="button" id="add_buylink_modal_close") Close
+            button.btn.btn-primary(type="button" id ="add_buy_link") Add
+
+    div#buylink_variant_modal.modal.fade(aria-hidden='true' role='dialog' tabindex='-1')
+      div.modal-dialog.modal-dialog-scrollable.modal-lg
+        input(type="hidden" name="product_id" value="")
+        input(type="hidden" name="buylink_product_index" value="")
+
+        div.modal-content
+          div.modal-header.row
+            div.modal-header-titled.col-6
+              h3.modal-title Select Product Variant
+
+          div.modal-body.buylink_variant_modal_body
+          div.modal-footer
+            button.btn.btn-secondary(type="button" id="buylink_variant_close") Close
+            button.btn.btn-primary(type="button" id ="buylink_variant_update") Add
+
+block scripts
+  script.
+    var store_id = `!{store_id}`;
+    var buylink_products = [];
+    var product_details = !{JSON.stringify(product_details)};
+
+  script(type='text/javascript' src='/assets/js/custom/buylink_create.js')

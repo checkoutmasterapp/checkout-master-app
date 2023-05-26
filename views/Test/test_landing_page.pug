@@ -1,0 +1,440 @@
+extends ../layouts/shopify_layout
+
+block header_style
+  link(rel="stylesheet", href=`/assets/css/landing-page.css`)
+
+block content 
+  main.main.checkout
+    section.main-outer-section
+      nav.nav-bar
+        div.container
+          div.row.align-items-center
+            div.col-lg-2
+              img(src="/assets/img/graphics.png")
+            div.col-lg-7
+              Ul.navigation-list
+                li Reviews
+                li Benefits
+                li How to use
+                li variants
+                li FAQs
+            div.col-lg-3
+              a.float-end.buy-now(href='#') Buy Now
+      div.container.mt-5
+        div.row
+          div.col-lg-6.swiper-img
+            //- img(src="/assets/img/facewash.png")
+            .gallery
+              .swiper-container.gallery-slider
+                .swiper-wrapper
+                  .swiper-slide
+                    img(src='//into-the-program.com/demo/images/sample010.jpg', alt='')
+                  .swiper-slide
+                    img(src='//into-the-program.com/demo/images/sample005.jpg', alt='')
+                  .swiper-slide
+                    img(src='//into-the-program.com/demo/images/sample012.jpg', alt='')
+                  .swiper-slide
+                    img(src='//into-the-program.com/demo/images/sample007.jpg', alt='')
+                  .swiper-slide
+                    img(src='//into-the-program.com/demo/images/sample008.jpg', alt='')
+                  .swiper-slide
+                    img(src='//into-the-program.com/demo/images/sample009.jpg', alt='')
+                .swiper-button-prev
+                .swiper-button-next
+              .swiper-container.gallery-thumbs
+                .swiper-wrapper
+                  .swiper-slide
+                    img(src='//into-the-program.com/demo/images/sample010.jpg', alt='')
+                  .swiper-slide
+                    img(src='//into-the-program.com/demo/images/sample005.jpg', alt='')
+                  .swiper-slide
+                    img(src='//into-the-program.com/demo/images/sample012.jpg', alt='')
+                  .swiper-slide
+                    img(src='//into-the-program.com/demo/images/sample007.jpg', alt='')
+                  .swiper-slide
+                    img(src='//into-the-program.com/demo/images/sample008.jpg', alt='')
+                  .swiper-slide
+                    img(src='//into-the-program.com/demo/images/sample009.jpg', alt='')
+          div.col-lg-6.face-fack-txt
+            h1 Plum Green Tea Face Wash 
+            p Pore Cleansing Face Wash with Matmarine and Zinc Acetyl Glucosamina (75 ml) 
+            div.Reviews
+              ul.Starse
+                li
+                  i.bi.bi-star-fill.strat
+                li
+                  i.bi.bi-star-fill.strat
+                li
+                  i.bi.bi-star-fill.strat
+                li
+                  i.bi.bi-star-fill.strat
+                li
+                  i.bi.bi-star-fill.strat
+              h5.m-0.ms-2 5 Star Rated
+              p.m-0.ms-2 Best-rated Facewash
+              h6.m-0.ms-2 14k Reviews
+            p.plam-green.mt-4 Plum Green Tea Face Wash you can finally get ride of blacheards, excess oils and deard skin cells, all the form the comfort of your home.
+            div.details
+              p.plam-green.align-items-center.d-flex
+                i.bi.bi-check2.me-2.check-icon
+                | A Potent Ontioxidant that Fight Excess Oil & Pimple Causing Impurities.
+              p.plam-green.align-items-center.d-flex
+                i.bi.bi-check2.me-2.check-icon
+                | Prevents Pimples & Brightens Skin by Gently Exfoliating Dead Skin Cells & Clogged Pores.
+              p.plam-green.align-items-center.d-flex
+                i.bi.bi-check2.me-2.check-icon
+                | Foam Meter gentle yet effective lathering high.
+              p.plam-green.align-items-center.d-flex
+                i.bi.bi-check2.me-2.check-icon
+                | Its helps Gentle and non Drying.
+              p.plam-green.align-items-center.d-flex
+                i.bi.bi-check2.me-2.check-icon
+                | Even out your skin tone and texture while reducing pore size.
+              p.plam-green.align-items-center.d-flex
+                i.bi.bi-check2.me-2.check-icon
+                | Treat your skin a professional Microdermabrasian.
+              p.plam-green.align-items-center.d-flex.mb-5
+                i.bi.bi-check2.me-2.check-icon
+                | Improve your skin’s collagen production.
+
+            a.mt-5.buy-now(href='#') Buy Now
+            h6.mt-4.checout-granty Guaranteed safe checkout
+            div.payments-icon
+              img(src="/assets/img/master-group.png")
+              img(src="/assets/img/visa-group.png")
+              img(src="/assets/img/amrican-group.png")
+              img(src="/assets/img/paypel-group.png")
+            div.revie-comment.mt-3
+              img.rounded-circle(src="/assets/img/clin.png")
+              h5.m-0.rating
+                i.bi.bi-star-fill.strat 
+                | 4.5
+              p.m-0.comment "I wasn't sure if it would work, but it did! I love it"  -
+              b Karen
+      section.custmor-say.mt-5
+        div.container
+          h1.text-center.pt-5.Customers What Our Customers Say
+            .swiper-container.gallery-testmonials
+                .swiper-wrapper
+                  .swiper-slide
+                    img(src='//into-the-program.com/demo/images/sample010.jpg', alt='')
+                  .swiper-slide
+                    img(src='//into-the-program.com/demo/images/sample005.jpg', alt='')
+                  .swiper-slide
+                    img(src='//into-the-program.com/demo/images/sample012.jpg', alt='')
+                  .swiper-slide
+                    img(src='//into-the-program.com/demo/images/sample007.jpg', alt='')
+                  .swiper-slide
+                    img(src='//into-the-program.com/demo/images/sample008.jpg', alt='')
+                  .swiper-slide
+                    img(src='//into-the-program.com/demo/images/sample009.jpg', alt='')
+                .swiper-button-prev
+                .swiper-button-next
+          .row.mt-4
+            div.col-lg-4
+              div.custmor-review-main
+                ul.Starse.d-flex
+                  li
+                    i.bi.bi-star-fill.strat
+                  li
+                    i.bi.bi-star-fill.strat
+                  li
+                    i.bi.bi-star-fill.strat
+                  li
+                    i.bi.bi-star-fill.strat
+                  li
+                    i.bi.bi-star-half
+                  h5.m-0.ms-2.rating-1
+                    | 4.5/5
+                p 
+                  |“I' ve always suffered from hormonal and auto-immune related acne. It is the worst. This Product works wonders. Don't pop your zits. Zap them with this magic wand. Its very suitable for Skin Care.”
+                div.custmor-pic-details
+                  div.custmor-pic
+                    img.rounded-circle(src="/assets/img/clin.png")
+                  div.details.ms-3
+                    b Brooke L. Edmondson
+                    p.m-0 Verified Customer
+            div.col-lg-4
+              div.custmor-review-main
+                ul.Starse.d-flex
+                  li
+                    i.bi.bi-star-fill.strat
+                  li
+                    i.bi.bi-star-fill.strat
+                  li
+                    i.bi.bi-star-fill.strat
+                  li
+                    i.bi.bi-star-fill.strat
+                  li
+                    i.bi.bi-star-half
+                  h5.m-0.ms-2.rating-1
+                    | 4.5/5
+                p 
+                  |“I' ve always suffered from hormonal and auto-immune related acne. It is the worst. This Product works wonders. Don't pop your zits. Zap them with this magic wand. Its very suitable for Skin Care.”
+                div.custmor-pic-details
+                  div.custmor-pic
+                    img.rounded-circle(src="/assets/img/clin.png")
+                  div.details.ms-3
+                    b Brooke L. Edmondson
+                    p.m-0 Verified Customer
+            div.col-lg-4
+              div.custmor-review-main
+                ul.Starse.d-flex
+                  li
+                    i.bi.bi-star-fill.strat
+                  li
+                    i.bi.bi-star-fill.strat
+                  li
+                    i.bi.bi-star-fill.strat
+                  li
+                    i.bi.bi-star-fill.strat
+                  li
+                    i.bi.bi-star-half
+                  h5.m-0.ms-2.rating-1
+                    | 4.5/5
+                p 
+                  |“I' ve always suffered from hormonal and auto-immune related acne. It is the worst. This Product works wonders. Don't pop your zits. Zap them with this magic wand. Its very suitable for Skin Care.”
+                div.custmor-pic-details
+                  div.custmor-pic
+                    img.rounded-circle(src="/assets/img/clin.png")
+                  div.details.ms-3
+                    b Brooke L. Edmondson
+                    p.m-0 Verified Customer
+      section.skin-desreve
+        div.container
+          div.row
+            .col-lg-6.first-skin
+              h1 Your Skin Deserve Better
+              p Are you struggling with annoying Dry Skin, blackheads, Gone, or wrinkles and don't went to spend a fortune on facial treatments?
+              h4 Introducing the Plum Green Tea Face Wash:
+              div.row
+                .col-lg-6
+                  div.Fast-results
+                    img(src="/assets/img/girl-vector.png")
+                    h3 Fast Results
+                    p Why waste time  when you can stop your Dry Skin from growing in a few short sessions?
+                .col-lg-6
+                  div.Fast-results
+                    img(src="/assets/img/watchGroup.png")
+                    h3 Fast Results
+                    p Why waste time  when you can stop your Dry Skin from growing in a few short sessions?
+                .col-lg-6
+                  div.Fast-results
+                    img(src="/assets/img/clenderGrou4033.png")
+                    h3 Fast Results
+                    p Why waste time  when you can stop your Dry Skin from growing in a few short sessions?
+                .col-lg-6.mb-5
+                  div.Fast-results
+                    img(src="/assets/img/resultd.png")
+                    h3 Fast Results
+                    p Why waste time  when you can stop your Dry Skin from growing in a few short sessions?
+              a.buy-now(href='#') Buy Now
+            .col-lg-6
+              img(src="/assets/img/grup-face.png")  
+      section
+        div.main-baneer
+          h1 Plum Face Wash help you in many ways 
+      section.skin-desreve
+        div.container
+          div.row
+            .col-lg-6
+              img(src="/assets/img/grup-face.png")  
+            .col-lg-6.first-skin
+              h1 Your Skin Deserve Better
+              p Are you struggling with annoying Dry Skin, blackheads, Gone, or wrinkles and don't went to spend a fortune on facial treatments?
+              h4 Introducing the Plum Green Tea Face Wash:
+              div.row.mt-4
+                .col-lg-12.d-flex.align-items-center
+                  div.Fast-results-1.me-4
+                    img(src="/assets/img/girl-vector.png")
+                  div.contant-result
+                    h3 Trending Skin Impressions
+                    p A luxurious powder witheral complex that adds highlight to the face and body.
+                .col-lg-12.d-flex.align-items-center.mt-2
+                  div.Fast-results-1.me-4
+                    img(src="/assets/img/watchGroup.png")
+                  div.contant-result
+                    h3 Pore Cleaning
+                    p A luxurious powder witheral complex that adds highlight to the face and body.
+                .col-lg-12.d-flex.align-items-center.mt-2
+                  div.Fast-results-1.me-4
+                    img(src="/assets/img/clenderGrou4033.png")
+                  div.contant-result
+                    h3 Skin Rejuvenation
+                    p A luxurious powder witheral complex that adds highlight to the face and body.
+                .col-lg-12.mb-5.d-flex.align-items-center.mt-2
+                  div.Fast-results-1.me-4
+                    img(src="/assets/img/resultd.png")
+                  div.contant-result
+                    h3 Deep Lite Therapy
+                    p A luxurious powder witheral complex that adds highlight to the face and body.
+              a.buy-now(href='#') Buy Now
+      section.plum-fash
+        div.container.plamm-innner
+          h1 How to use Plum Wash
+          p The Plam Face Wash is a minimally abrasive tool that gently removes some of the uneven, dead skin cells from the top layer of your skin.
+          div.row
+            div.col-lg-3.position-relative.facing-outer
+              center
+                img.mx-auto.ist-imag(src="/assets/img/1.png")
+                div.content-inner-plum
+                  h5.plum-data-1 Wash your Face
+                  h6.plum-data-2 Wash your face with a clean water and clean it.
+            div.col-lg-3
+              center
+                img.mx-auto(src="/assets/img/2.png")
+                h5.plum-data-1.mt-3 Mix with clean water
+                h6.plum-data-2 Apply on your hand and mix with a little water.
+            div.col-lg-3
+              center
+                img.mx-auto(src="/assets/img/3.png")
+                h5.plum-data-1.mt-3 Apply on Face & Rub
+                h6.plum-data-2 Now apply cream on your face and rub  it for 7-8 seconds.
+            div.col-lg-3.position-relative.facing-outer
+              center
+                img.mx-auto.utht-imag(src="/assets/img/4.png")
+                div.content-inner-plum
+                  h5.plum-data-1 Wash your Face
+                  h6.plum-data-2 After that, wash your face and clean it with a soft cloth.
+
+      section.pt-5
+        div.container
+          div.row
+            div.col-lg-6
+              img(src="/assets/img/mouth.png")
+            div.col-lg-6.hunder-outer
+              img.mt-5(src="/assets/img/logo100.png")
+              h2 Satisfaction Guaranteed
+              p We want you to stop struggling with insecurity and once. So, we’ve decided to take the risk out of your purchase and offer you a 
+                b 90-day-money-back-guarantee.
+              p if for any reason you decided that covan isn’t everything you ever needed to keep your skin acne-free, healthy and radiant - send the device back to us 
+                b within 90 days, and we’ll refund your money, No questions asked!
+              p Its’s time to start being excited about how your skin looks in the mirror. And Covan is the most affordable, efficient and safe device to help you do that!
+      section.cart-section
+        div.container
+          h2 Plum Variants
+          p.cart-peraa The Plam Face Wash is a minimally abrasive tool that gently removes some of the uneven, dead skin cells from the top layer of your skin.
+          div.row
+            div.col-lg-4
+              div.main-product
+                img.w-100.rounded(src="/assets/img/1st-product.png")
+                h3 Chamomile White Tea Range
+                p Pore Cleansing Face Wash
+                hr.m-auto.w-25
+                h6 Original Price 
+                  span $30.22 
+                h1 $20.22
+                div.main-bottom-shop-now
+                  div.increse
+                    i.minus.bi.bi-dash
+                    h5.m-0 1
+                    i.plus.bi.bi-plus
+                  div.buynoe-modlly
+                    button.buy-now-11(href='#') Buy Now
+            div.col-lg-4
+              div.main-product
+                img.w-100.rounded(src="/assets/img/1st-product.png")
+                h3 Chamomile White Tea Range
+                p Pore Cleansing Face Wash
+                hr.m-auto.w-25
+                h6 Original Price 
+                  span $30.22 
+                h1 $20.223
+                div.main-bottom-shop-now
+                  div.increse
+                    i.minus.bi.bi-dash
+                    h5.m-0 1
+                    i.plus.bi.bi-plus
+                  div.buynoe-modlly
+                    button.buy-now-11(href='#') Buy Now
+            div.col-lg-4
+              div.main-product
+                img.w-100.rounded(src="/assets/img/1st-product.png")
+                h3 Chamomile White Tea Range
+                hr.m-auto.w-25
+                p Pore Cleansing Face Wash
+                h6 Original Price 
+                  span $30.22 
+                h1 $20.22
+                div.main-bottom-shop-now
+                  div.increse
+                    i.minus.bi.bi-dash
+                    h5.m-0 1
+                    i.plus.bi.bi-plus
+                  div.buynoe-modlly
+                    button.buy-now-11(href='#') Buy Now
+
+      section.accrodin-main
+        #accordionFlushExample.accordion.accordion-flush
+          .accordion-item
+            h2#flush-headingOne.accordion-header
+              button.accordion-button.collapsed(type='button', data-bs-toggle='collapse', data-bs-target='#flush-collapseOne', aria-expanded='false', aria-controls='flush-collapseOne')
+                | How often i can use Covan ?
+            #flush-collapseOne.accordion-collapse.collapse(aria-labelledby='flush-headingOne', data-bs-parent='#accordionFlushExample')
+              .accordion-body
+                | Placeholder content for this accordion, which is intended to demonstrate the 
+          .accordion-item
+            h2#flush-headingTwo.accordion-header
+              button.accordion-button.collapsed(type='button', data-bs-toggle='collapse', data-bs-target='#flush-collapseTwo', aria-expanded='false', aria-controls='flush-collapseTwo')
+                | What is the difference between a serum and a moisturizer ?
+            #flush-collapseTwo.accordion-collapse.collapse(aria-labelledby='flush-headingTwo', data-bs-parent='#accordionFlushExample')
+              .accordion-body
+                | Placeholder content for this accordion, which is intended to demonstrate the 
+          .accordion-item
+            h2#flush-headingThree.accordion-header
+              button.accordion-button.collapsed(type='button', data-bs-toggle='collapse', data-bs-target='#flush-collapseThree', aria-expanded='false', aria-controls='flush-collapseThree')
+                | Can I use a face oil if I have oily skin ?
+            #flush-collapseThree.accordion-collapse.collapse(aria-labelledby='flush-headingThree', data-bs-parent='#accordionFlushExample')
+              .accordion-body
+                | Placeholder content for this accordion, which is intended to demonstrate the 
+          .accordion-item
+            h2#flush-headingFour.accordion-header
+              button.accordion-button.collapsed(type='button', data-bs-toggle='collapse', data-bs-target='#flush-collapseFour', aria-expanded='false', aria-controls='flush-collapseFour')
+                | Can I use a face oil if I have oily skin ?
+            #flush-collapseFour.accordion-collapse.collapse(aria-labelledby='flush-headingFour', data-bs-parent='#accordionFlushExample')
+              .accordion-body
+                | Placeholder content for this accordion, which is intended to demonstrate the 
+block scripts
+  script.
+       
+    var slider = new Swiper ('.gallery-slider', {
+        slidesPerView: 1,
+        centeredSlides: true,
+        loop: true,
+        loopedSlides: 6,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+
+    
+    var thumbs = new Swiper ('.gallery-thumbs', {
+        slidesPerView: 'auto',
+        spaceBetween: 10,
+        centeredSlides: true,
+        loop: true,
+        slideToClickedSlide: true,
+    });
+
+    
+
+    
+    slider.controller.control = thumbs;
+    thumbs.controller.control = slider;
+
+
+
+
+
+    var slider = new Swiper ('.gallery-testmonials', {
+        slidesPerView: 3,
+        centeredSlides: true,
+        loop: true,
+        spaceBetween: 20,
+        loopedSlides: 6,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });

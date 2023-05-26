@@ -1,0 +1,53 @@
+extends ../../layouts/backend_layout
+
+block header_breadcrumb
+  nav
+    ol.breadcrumb
+      li.breadcrumb-item Home
+      li.breadcrumb-item.active Custom Template
+
+block content 
+  main#main.main
+    div.choose-contant
+      h1 
+        |Choose a 
+        span.tamplete-clr custom template 
+        |for your Checkout Page
+      p Choose your checkout page from a large choice of templates adapted to your online store. You can then customize your checkout page with your logos, colors and texts
+    div.apply-section
+        div.heading
+          h2 Templates collection
+        div.filters
+          img.image-filtere.me-2(src="/assets/img/Vector.png")
+          span.me-5.filter-txt Filter By
+          //- select.slet-options.checkout_template_filter(name='')
+          //-   option(value='volvo') All
+          //-   option(value='saab') One
+          //-   option(value='mercedes') Two
+          select.slet-options.checkout_template_filter(name='template_limit')
+            option(value="4" selected) 4
+            option(value="8") 8
+            option(value="12") 12
+            option(value="16") 16
+            option(value="20") 20
+            option(value="24") 24
+            option(value="28") 28
+            option(value="32") 32
+    section.section.profile.checkout-template-section.m-0
+      
+
+      div.checkout_template_section_html
+
+      div.load-btn.mt-4.load_more
+        button#load_more_button.btn.btn-primary Load more
+
+
+
+block scripts
+  script.
+    var limit = 4;
+    var offset = 0;
+    var store_id = `!{store_id}`;
+    var customize_checkout = !{JSON.stringify(customize_checkout)};
+
+  script(type="text/javascript" src="/assets/js/custom/checkout_templates.js")

@@ -1,0 +1,192 @@
+extends ../../layouts/backend_layout
+
+block header_breadcrumb
+  nav
+    ol.breadcrumb
+      li.breadcrumb-item Home
+      li.breadcrumb-item.active Upsell
+
+block content 
+  main#main.main
+    section.section.upsell
+      input(type="hidden" name="store_id" value=store_id)
+      div.row
+        div.col-xl-6
+          div
+            div.main-right-upper
+              div.upsell-card.d-flex.flex-column
+                h2 Upsell Triggers
+                p Select a product that will trigger the post-purchase upsell when bought. You can select products and categories. We recommend not to mix them as triggers.
+
+              div.card
+                div.card-body.pt-3
+                  div.tab-content.row.align-items-baseline
+                    div.col-12
+                      .selected-products
+                      .selected_collections
+
+                    div.col-12.add-uppsel-section
+                      div.name_view.text-center Select a product or category trigger
+                      div.class_but.d-flex.justify-content-between
+                        div.mt-1
+                          button#add_product_button.btn.btn-secondary.rounded-r-none.mx-1.w-100 Add Product
+                        div.mt-1
+                          button#add_category_button.btn.btn-primary.border-l-0.rounded-l-none.mx-1 Add category
+            div.main-right-upper.mt-5
+              div.upsell-card.pt-4.d-flex.flex-column
+                h2 Upsell Offer Title
+                p.mb-4 Add an attention-grabbing title for your post-purchase upsell. Offer title is required for your upsell.
+
+              div.card
+                div.card-body.p-0
+                  div.tab-content
+                    div.space-y-4
+                      span.block.text-sm.font-bold(for="") Title
+                      div.mt-2
+                        input.text-sm.form-control#upsell-offer-title.required(
+                          type="text"
+                          placeholder="Wait! Limited time offer!"
+                          name="upsell_title"
+                          value="Wait! Limited time offer!"
+                        )
+            div.main-right-upper.mt-5
+              div.upsell-card.pt-4.d-flex.flex-column
+                h2 Post-Purchase Upsell Offers
+                p Create up to 3 product upsell offers. When the customer adds or discards an upsell, the next offer will be shown.
+              div.card
+              div.card-body.pt-3
+                div.tab-content.upsell_offer_html.upsell_offer_sortable
+
+
+        div.col-xl-6
+          div
+            div.add-uppsel-section
+              div.upsell-card.d-flex.flex-column
+                h2 Summary
+              div.card.card_c
+                div.card-body.pt-3
+                  div.tab-content.pt-2
+                    div.row
+                      div.flex.items-center.col-10
+                        div.flex-1.upsell-status.upsell_status Active
+                      div.col-2
+                        .form-check.form-switch
+                          input#flexSwitchCheckDefault.form-check-input(type='checkbox' role='switch' checked)
+                  div.add-uppsel-section.mt-3
+                    div 
+                      ul.text-sm.list-disc.list-inside.space-y-4
+                        li.space-y-4.trigger-summery 
+                          label When a customer buys:
+                          div.trigger_summery_section
+                        li.space-y-4.offer-summery These offers will be shown:
+                        div.text-muted.upsell_title_summery Wait! Limited time offer!
+                        div.offer_summery_section
+
+            div.card
+              div.card-body.p-0
+                div.tab-content.p-0
+                  div.main-right-upper.mt-5
+                    div.space-y-4.upsell-card 
+                      h2.text-sm.font-weight-bold.text-uppercase Need help?
+                      p.text-sm Make the most out of your post-purchase upsells by learning more in our Help Center or reaching out to our customer support team.
+                      div.mt-4.text-center.upsell_acnhor
+                        a.text-sm(href="#") Read more about upsells
+
+            
+              div.col-12
+                button.btn.btn-primary.me-3#create_upsell.w-100.mt-5(disabled=true) Create Upsell
+
+      // Model Section Start
+      div#add_product_model.modal.fade(aria-hidden='true' data-function='products-picker' role='dialog' tabindex='-1')
+        div.modal-dialog.modal-dialog-scrollable.modal-lg
+          div.modal-content
+            div.modal-header.row
+              div.modal-header-titled.col-6
+                h3.modal-title Select items for your upsell trigger
+                p.items_selected 0 items selected
+              div.col-6.d-flex.justify-content-end
+                div.custom-control.custom-checkbox
+                  input#upsell_trigger_selectall_products.custom-control-input(type='checkbox')
+                  label.custom-control-label(for='upsell_trigger_selectall_products') Select all 
+              div.searchbox
+                .input-group
+                  span.input-group-text
+                    i.bi.bi-search(aria-hidden='true')
+                  input.form-control(type="text" placeholder="Search..." name="product_search" value="")
+            div.modal-body.products-body.check-product
+            div.modal-footer
+              button#cancel_btn_products.btn.btn-primary(type='button' ) Cancel
+              button.add_product.btn.btn-primary(data-function='add-products' type='button' disabled="true") Add Product
+
+      div#add_category_modal.modal.fade(aria-hidden='true' data-function='products-picker' role='dialog' tabindex='-1')
+        div.modal-dialog.modal-dialog-scrollable.modal-lg
+          div.modal-content
+            div.modal-header.row
+              div.modal-header-titled.col-6                                
+                h3.modal-title Select items for your upsell trigger
+                p.items_selected 0 items selected
+              div.col-6.d-flex.justify-content-end
+                div.custom-control.custom-checkbox
+                  input#upsell_trigger_selectall_collections.custom-control-input(type='checkbox')
+                  label.custom-control-label(for='upsell_trigger_selectall_collections') Select all
+              div.searchbox
+                .input-group
+                  span.input-group-text
+                    i.bi.bi-search(aria-hidden='true')
+                  input.form-control(type="text" placeholder="Search..." name="category_search" value="")
+            div.modal-body.categories-body
+            div.modal-footer
+              button#cancel_btn_categories.btn.btn-primary(type='button' ) Cancel
+              button#add_category.btn.btn-primary(type='button' disabled="true") Add Category
+
+      div#upsell_offer_product_modal.modal.fade(aria-hidden='true' data-function='products-picker' role='dialog' tabindex='-1')
+        div.modal-dialog.modal-dialog-scrollable.modal-lg
+          input(type="hidden" name="sort_order" value="0")
+          div.modal-content
+            div.modal-header.row
+              div.modal-header-titled.col-6
+                h3.modal-title Select product for your upsell offer
+              div.col-6.d-flex.justify-content-end
+              div.searchbox
+                .input-group
+                  span.input-group-text
+                    i.bi.bi-search(aria-hidden='true')
+                  input.form-control(type="text" placeholder="Search..." name="offers_product_search" value="")
+
+            div.modal-body.upsell_offer_product_body
+            div.modal-footer
+              button#upsell_offer_product_cancel.btn.btn-primary(type='button' ) Cancel
+              button#upsell_offer_product_add.btn.btn-primary(type='button' disabled="true") Add Product
+
+      div#edit_upsell_variant_offer_modal.modal.fade(aria-hidden='true' data-function='products-picker' role='dialog' tabindex='-1')
+        div.modal-dialog.modal-dialog-scrollable.modal-lg
+          div.modal-content
+            div.modal-header.row
+              div.modal-header-titled.col-6
+                h3.modal-title Edit product variants
+            div.modal-body.edit_upsell_variant_offer_body(data-function='items-container')
+            div.modal-footer
+              button#edit_upsell_variant_offer_cancel.btn.btn-primary(type='button' ) Cancel
+              button#edit_upsell_variant_offer_update.btn.btn-primary(type='button') Apply
+
+      div#product_trigger_overlap_model.modal.fade(aria-hidden='true' role='dialog' tabindex='-1')
+        div.modal-dialog.modal-dialog-scrollable.modal-lg
+          div.modal-content
+            div.modal-header
+              div.modal-header-titled
+                h3.modal-title Overlapping triggers
+                p You are running A/B test on multiple products. If you decide to stop the A/B test, turn the triggers you want to stop using the Status toggle.
+            div.modal-body
+            div.modal-footer
+              button#product_trigger_overlap_model_close.btn.btn-primary(type='button' ) Close
+
+block scripts
+  script.
+    var store_id = `!{store_id}`;
+    var product_details = !{JSON.stringify(product_details)};
+    var collection_details = !{JSON.stringify(collection_details)};
+    var exist_upsell_lists = !{JSON.stringify(exist_upsell_lists)};
+
+    var upsell_triggers = !{JSON.stringify(upsell_triggers)};
+    var upsell_trigger_offers = !{JSON.stringify(upsell_trigger_offers)};
+  script(type='text/javascript' src='/assets/js/custom/upsell.js')

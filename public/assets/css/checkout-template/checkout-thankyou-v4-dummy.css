@@ -1,0 +1,267 @@
+@import url("https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&family=Jost:ital,wght@0,400;0,700;1,300&family=Lato:ital,wght@0,300;1,300;1,400;1,700&family=Urbanist:wght@400;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.checkout-thankyou-v4 {
+    font-family: "Urbanist" !important;
+}
+
+.checkout-thankyou-v4 .icon-iteam-smry img {
+    max-width: 72px;
+}
+
+.checkout-thankyou-v4 .custum-inner-container {
+    padding: 20px 120px;
+}
+
+.checkout-thankyou-v4 .hedder-defgine {
+    background-color: #ffffff;
+    box-shadow: 0px 1px 4px rgba(38, 35, 55, 0.1);
+}
+
+.checkout-thankyou-v4 .image-logos img {
+    width: 90px;
+    height: 33px;
+}
+
+.checkout-thankyou-v4 .image-logos {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.checkout-thankyou-v4 .thank-you-section {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.19);
+    padding: 25px 25px 35px 25px;
+    background-color: #fff;
+}
+
+.checkout-thankyou-v4 .order-smrey {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.19);
+    padding: 25px 25px 35px 25px;
+    background-color: #fff;
+}
+
+.checkout-thankyou-v4 .user-name {
+    font-family: "Urbanist" !important;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0em;
+    color: #1c1c1c;
+    text-align: left;
+}
+
+.checkout-thankyou-v4 .icon-airplane img {
+    height: 30px;
+    width: 30px;
+}
+
+.checkout-thankyou-v4 .main-ship-cheak {
+    border: 1px solid #dfdfdf;
+    padding: 12px 15px 12px 15px;
+}
+
+.checkout-thankyou-v4 .check img {
+    height: 20px;
+    width: 20px;
+}
+
+.checkout-thankyou-v4 .main-ship-cheak {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.checkout-thankyou-v4 .shipping {
+    align-items: center;
+}
+
+.checkout-thankyou-v4 .user-datils-addres {
+    margin-left: 15px;
+}
+
+.checkout-thankyou-v4 .user-datils-addres h4 {
+    font-family: "Urbanist" !important;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19px;
+    color: #000000;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.checkout-thankyou-v4 .user-datils-addres p {
+    font-family: "Urbanist" !important;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    margin-bottom: 5px !important;
+    color: #000000;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.checkout-thankyou-v4 .btn-contonue-shoping button {
+    width: 100%;
+    background: button_color;
+    height: 54px;
+    color: #ffffff;
+    font-family: "Urbanist" !important;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 22px;
+    margin-top: 25px;
+    border-radius: 5px;
+    letter-spacing: 0em;
+    border: 0;
+    text-align: center;
+}
+
+.checkout-thankyou-v4 .order-smry-t {
+    font-family: "Urbanist" !important;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #1c1c1c;
+}
+
+.checkout-thankyou-v4 .order-main {
+    justify-content: space-between;
+}
+
+.checkout-thankyou-v4 .iteam-deatiles h4 {
+    font-family: "Urbanist" !important;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19px;
+    color: #1c1c1c;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.checkout-thankyou-v4 .iteam-deatiles p {
+    font-family: "Urbanist" !important;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+    color: #1c1c1c;
+    text-align: left;
+}
+
+.checkout-thankyou-v4 .crose {
+    text-align: right;
+}
+
+.checkout-thankyou-v4 .crose img {
+    height: 13px;
+    width: 13px;
+}
+
+.checkout-thankyou-v4 .iteam-price {
+    font-family: "Urbanist" !important;
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 35px;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #1c1c1c;
+}
+
+.checkout-thankyou-v4 .order-main.d-flex.mt-3 {
+    border-bottom: 1px solid #dfdfdf;
+    padding-bottom: 16px;
+}
+
+.toatal-thx-data {
+    font-family: "Urbanist" !important;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0px;
+    color: #1c1c1c;
+    text-align: left;
+}
+
+.checkout-thankyou-v4 .toatal-thx-data span {
+    font-family: "Urbanist" !important;
+    color: #1c1c1c;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19px;
+    letter-spacing: 0px;
+    text-align: left;
+}
+
+.checkout-thankyou-v4 .last-fotr-total h5 {
+    font-family: "Urbanist" !important;
+    font-size: 20px;
+    color: #1c1c1c;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0px;
+    text-align: left;
+}
+
+.checkout-thankyou-v4 .last-fotr-total h5 span {
+    font-family: "Urbanist" !important;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #1c1c1c;
+}
+
+.checkout-thankyou-v4 .total-ship-price {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.checkout-thankyou-v4 .main.checkout {
+    background-image: url(/assets/img/wewe.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.checkout-thankyou-v4 .main-inner-back-botom {
+    height: calc(100vh - 130px);
+}
+.checkout-thankyou-v4 .checkout-thankyou-footer-links a {
+    color: #fb7d5c;
+    padding-left: 10px;
+}
+@media (max-width: 767px) {
+    .checkout-thankyou-v4 .last-fotr-total h5 {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 992px) {
+    .checkout-thankyou-v4 .custum-inner-container {
+        padding: 8px 0px;
+    }
+
+    .checkout-thankyou-v4 .master-card {
+        margin-right: 13px !important;
+    }
+
+    .checkout-thankyou-v4 .main-inner-back-botom {
+        height: 100%;
+    }
+
+    .checkout-thankyou-v4 .order-smrey {
+        margin-top: 25px;
+    }
+}
+
+.checkout-thankyou-v4 .shopify_body .main.checkout,
+body #main.checkout {
+    padding-bottom: 0px !important;
+}

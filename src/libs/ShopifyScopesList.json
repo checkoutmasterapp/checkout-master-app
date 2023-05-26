@@ -1,0 +1,53 @@
+{
+    "Products": {
+        "read_products": "read_products",
+        "write_products": "write_products"
+    },
+    "Customers": {
+        "read_customers": "read_customers",
+        "write_customers": "write_customers"
+    },
+    "Discounts": {
+        "read_discounts": "read_discounts",
+        "write_discounts": "write_discounts"
+    },
+    "Fulfillment_services": {
+        "read_fulfillments": "read_fulfillments"
+    },
+    "GDPR_data_requests": {
+        "read_gdpr_data_request": "read_gdpr_data_request"
+    },
+    "Gift_cards": {
+        "read_gift_cards": "read_gift_cards"
+    },
+    "Inventory": {
+        "read_inventory": "read_inventory",
+        "write_inventory": "write_inventory"
+    },
+    "Order_editing": {
+        "read_order_edits": "read_order_edits",
+        "write_order_edits": "write_order_edits"
+    },
+    "Orders": {
+        "read_orders": "read_orders",
+        "write_orders": "write_orders"
+    },
+    "Price_rules": {
+        "read_price_rules": "read_price_rules",
+        "write_price_rules": "write_price_rules"
+    },
+    "Products_listings": {
+        "read_product_listings": "read_product_listings"
+    },
+    "Script_tags": {
+        "read_script_tags": "read_script_tags",
+        "write_script_tags": "write_script_tags"
+    },
+    "Shipping": {
+        "read_shipping": "read_shipping"
+    },
+    "Themes": {
+        "read_themes": "read_themes",
+        "write_themes": "write_themes"
+    }
+}

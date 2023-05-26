@@ -1,0 +1,83 @@
+extends ../../layouts/backend_layout
+
+block header_breadcrumb
+    nav
+        ol.breadcrumb
+            li.breadcrumb-item Home
+            li.breadcrumb-item.active Cart Recovery
+
+block content 
+    main#main.main
+        section.section.add-cart.section.profile
+            form#add_cart_recovery.row(method="post")
+                input.form-control( type= 'hidden', name= "store_id", value= store_id)                
+
+                div.row
+                    div.col-lg-5
+                        div.add-shipping-rate-card.d-flex.flex-column.card_lef
+                            h2 Add a new cart recovery email  
+                            h6 Leaving any field blank will load a default text based  on your language.
+                            button.btn.btn-primary.me-4(type="submit") Save Email
+
+                    div.col-lg-7
+                        div.card
+                            div.card-body.pt-3.form_input
+                                div.form-group.py-2
+                                    p.label-write Schedule after
+                                    select.form-select(name="cart_recovery_schedule_time")
+                                        option(value="10_mins") Schedule after: 10 Mins
+                                        option(value="one_hour") Schedule after: One hour
+                                        option(value="three_hours") Schedule after: Three hours
+                                        option(value="five_hours") Schedule after: Five hours
+                                        option(value="eight_hours") Schedule after: Eight hours
+                                        option(value="tweleve_hours") Schedule after: Tweleve hours
+                                        option(value="one_day") Schedule after: One day
+                                        option(value="two_days") Schedule after: Two days
+                                        option(value="three_days") Schedule after: Three days
+                                        option(value="five_days") Schedule after: Five days
+
+                                div.form-group.py-2    
+                                    p.label-write Email Subject
+                                    input.form-control(
+                                        type='text'
+                                        placeholder="Email Subject"
+                                        name="cart_recovery_email_subject"
+                                    )
+
+                                div.form-group.py-2   
+                                    p.label-write Email Title
+                                    input.form-control(
+                                        type="text"
+                                        placeholder="Email Title"
+                                        name="cart_recovery_email_title"                                        
+                                    )
+
+                                div.form-group.py-2  
+                                    p.label-write Email Body
+                                    textarea.form-control(
+                                        type='text' 
+                                        cols="30" rows="10"
+                                        placeholder="Email Body"
+                                        name="cart_recovery_email_body"
+                                    )
+                                    small.form-text.text-muted when delete pre filled text use instructions / Use simple HTML for this. You can use {first_name} to display the name of the customer.
+
+                                div.form-group.py-2  
+                                    p.label-write Call to Action Button Title
+                                    input.form-control(
+                                        type="text"
+                                        placeholder="Call to Action Button Title"
+                                        name="cart_recovery_action_button_title"
+                                    )
+                                div.form-group.py-2  
+                                    p.label-write Footer Text  
+                                    input.form-control(
+                                        type="text"
+                                        placeholder="Footer Text"
+                                        name="cart_recovery_footer_text"
+                                    )
+block scripts
+    script.
+        var store_id = `!{store_id}`;
+
+    script(type='text/javascript' src='/assets/js/custom/cart_recovery.js')

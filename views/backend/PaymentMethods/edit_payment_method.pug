@@ -1,0 +1,361 @@
+extends ../../layouts/backend_layout
+
+block header_breadcrumb
+  nav
+    ol.breadcrumb
+      li.breadcrumb-item Home
+      li.breadcrumb-item.active Payment Methods
+
+block content 
+  main#main.main
+    // Show Express Flash Messages Start
+    - const messages = getMessages()
+    if messages.info
+      .alert.alert-info.alert-dismissible.fade.show.flash_alert
+        each msg in messages.info
+          .info= msg
+        button.btn-close.alert_close(type='button' data-bs-dismiss='alert' aria-label='Close')
+    if messages.success
+      .alert.alert-success.alert-dismissible.fade.show.flash_alert
+        each msg in messages.success
+          .success=msg
+        button.btn-close.alert_close(type='button' data-bs-dismiss='alert' aria-label='Close')
+    if messages.error
+      .alert.alert-danger.alert-dismissible.fade.show.flash_alert
+        each msg in messages.error
+          .info= msg
+        button.btn-close.alert_close(type='button' data-bs-dismiss='alert' aria-label='Close')
+    // Show Express Flash Messages End
+
+    section.section.profile
+      div
+        .row
+          .col-xl-4
+            div
+              .profile-card.pt-4.d-flex.flex-column.card_lef
+                h2 New payment method
+                h6 This information can be found in the dashboard of your payment provider
+
+          .col-xl-8
+            .card
+              .card-body.pt-3
+                .tab-content.pt-2
+                  form#edit_payment_method.row.g-3(method="post" autocomplete="off")
+                    input.form-control(type= 'hidden' id="store_id" name= "store_id" value= store_id)
+
+                    .col-12-field
+                      label.form-label Payment provider
+                      input.form-control(
+                        readOnly
+                        type="text",
+                        id="method_name"
+                        name="method_name"
+                        value=payment_method?payment_method.method_name:''
+                      )
+
+                    // Stripe Payment Details
+                    div.displaynone.payment_section.stripe_method
+                      .col-12-field
+                        label.form-label Publish Key
+                        input.form-control(
+                          type="text"
+                          id="publishable_key"
+                          name ="publishable_key"
+                          value =payment_method?payment_method.publishable_key:''
+                        )
+                      .col-12-field
+                        label.form-label Secret Key
+                        input#secret.form-control(
+                          type="password"
+                          name="secret"
+                          value=payment_method?payment_method.secret:''
+                        )
+
+                    // checkout Payment Details
+                    div.displaynone.payment_section.checkout_method
+                      .col-12-field
+                        label.form-label Public Key
+                        input.form-control(
+                          type="text"
+                          id="publishable_key"
+                          name ="chk_publishable_key"
+                          value =payment_method?payment_method.publishable_key:''
+                        )
+                      .col-12-field
+                        label.form-label Secret Key
+                        input#secret.form-control(
+                          type="password"
+                          name="chk_secret"
+                          value=payment_method?payment_method.secret:''
+                        )
+                      //- .col-12-field
+                      //-   input#gateway_testmode.custom-control-input(
+                      //-     type='checkbox'
+                      //-     name='testmode'
+                      //-     checked=payment_method&&payment_method.testmode==true?true:false
+                      //-   )
+                      //-   label.custom-control-label(for='gateway_testmode') Enable test mode
+                      //- .col-12-field
+                      //-   smal *If you enable test mode, you must use the checkout for test purposes only
+
+                    div.displaynone.payment_section.stripe_method.checkout_method.card-section.car_border.mt-2
+                      h4.mb-1 Credit card logos
+                      .dark.mb-2 *selecting the CC logos is purely cosmetical, check your accepted cards with your Payment Provider
+                      .custom-control.custom-control-inline.custom-checkbox
+                        input#gateway_accepts_visa.custom-control-input.input-paymnt(
+                          type='checkbox'
+                          name='card_accepted[]' value='accepts_visa'
+                        )
+                        label.custom-control-label(for='gateway_accepts_visa')
+                          img.payment-iamger(src="/assets/img/visa-1.png")
+
+                      .custom-control.custom-control-inline.custom-checkbox
+                        input#gateway_accepts_mastercard.custom-control-input.input-paymnt(
+                          type='checkbox'
+                          name='card_accepted[]' value='accepts_mastercard'
+                        )
+                        label.custom-control-label(for='gateway_accepts_mastercard')
+                          img.payment-iamger(src="/assets/img/master-1.png")
+
+                      .custom-control.custom-control-inline.custom-checkbox
+                        input#gateway_accepts_amex.custom-control-input.input-paymnt(
+                          type='checkbox'
+                          name='card_accepted[]' value='accepts_amex'
+                        )
+                        label.custom-control-label(for='gateway_accepts_amex')
+                          img.payment-iamger(src="/assets/img/amreicanex.png")
+
+                      .custom-control.custom-control-inline.custom-checkbox
+                        input#gateway_accepts_maestro.custom-control-input.input-paymnt(
+                          type='checkbox'
+                          name='card_accepted[]' value='accepts_maestro'
+                        )
+                        label.custom-control-label(for='gateway_accepts_maestro')
+                          img.payment-iamger(src="/assets/img/mastro.png")
+
+                      .custom-control.custom-control-inline.custom-checkbox
+                        input#gateway_accepts_jcb.custom-control-input.input-paymnt(
+                          type='checkbox'
+                          name='card_accepted[]' value='accepts_jcb'
+                        )
+                        label.custom-control-label(for='gateway_accepts_jcb')
+                          img.payment-iamger(src="/assets/img/jcb.png")
+
+                      .custom-control.custom-control-inline.custom-checkbox
+                        input#gateway_accepts_discover.custom-control-input.input-paymnt(
+                          type='checkbox'
+                          name='card_accepted[]' value='accepts_discover'
+                        )
+                        label.custom-control-label(for='gateway_accepts_discover')
+                          img.payment-iamger(src="/assets/img/discover.png")
+
+                      .custom-control.custom-control-inline.custom-checkbox
+                        input#gateway_accepts_diners_club.custom-control-input.input-paymnt(
+                          type='checkbox'
+                          name='card_accepted[]' value='accepts_diners_club'
+                        )
+                        label.custom-control-label(for='gateway_accepts_diners_club')
+                          img.payment-iamger(src="/assets/img/club.png")
+
+                    div.displaynone.payment_section.stripe_method
+                      h4.mb-1 Custom transaction description
+                      .dark.mb-2 *modify the text that appears on the Credit Card charges from your store ( max. 20 symbols )
+                      .custom-control.custom-checkbox
+                        input.form-control(
+                          type='input'
+                          placeholder="Custom descriptor"
+                          name="soft_descriptor"
+                          value =payment_method?payment_method.soft_descriptor:''
+                        )
+
+                    // Paypal Payment Details
+                    div.displaynone.payment_section.paypal_method
+                      .col-12-field
+                        label.form-label Paypal Email
+                        input.form-control.payment_method_input.paypal_input(
+                          type="email",
+                          placeholder="Paypal Email"
+                          autocomplete="payment_email_key"
+                          name="payment_email" value=payment_method?payment_method.payment_email:''
+                        )
+
+                    div.displaynone.payment_section.paypal_method.card-section.car_border.mt-2
+                      if(payment_method.access_token)
+                        div.d-flex
+                          <i class="bi bi-check-circle-fill card-button-icon"></i>
+                          p Tracking information is being sent to PayPal
+                      else
+                        div.d-flex
+                          .dark.col Connect your PayPal account to send tracking information
+                          div.col
+                            <span id="lippButton"></span>
+
+                    // Payout Master Payment Details
+                    div.displaynone.payment_section.payout_master_method
+                      .col-12-field
+                        label.form-label Payout Master Token
+                        input.form-control.payment_method_input.payout_master_input(
+                          type="text",
+                          name="access_token"
+                          placeholder="Payout Master Token"
+                          autocomplete="new_token"
+                          value=payment_method?payment_method.access_token:''
+                        )
+
+                    // Revolut Payment Method
+                    div.displaynone.payment_section.revolut_method
+                      .col-12-field
+                        label.form-label Revolut Public ID
+                        input.form-control.payment_method_input.revolut_input(
+                          type="text",
+                          name="revolut_public_id"
+                          placeholder="Revolut Public ID"
+                          autocomplete="new_revolut_public_id"
+                          value=payment_method?payment_method.revolut_public_id:''
+                        )
+                      .col-12-field
+                        label.form-label Revolut Secret Key
+                        input.form-control.payment_method_input.checkout_input(
+                          type="password",
+                          name="revolut_secret"
+                          placeholder="Secret Key"
+                          autocomplete="new_revolut_secret"
+                          value=payment_method?payment_method.revolut_secret:''
+                        )
+
+                    // Apple Pay Payment Method
+                    div.displaynone.payment_section.apple_pay_method
+                      div.col-12-field
+                        label.form-label Merchant Identifier
+                        small Type your desired merchant ID name in the Identifier section
+                        input.form-control.payment_method_input.apple_pay_input(
+                          type="text"
+                          name="apple_merchantIdentifier"
+                          placeholder="Enter your identifier"
+                          autocomplete="new_apple_merchantIdentifier"
+                          value=payment_method?payment_method.apple_merchantIdentifier:''
+                        )
+
+                      div.col-12-field
+                        label.form-label Apple Certificate.pem File
+                        input.form-control.payment_method_input(
+                          type="file" accept=".pem"
+                          name="apple_certificate_pem"
+                          placeholder="Certificate.pem"
+                          autocomplete="new_apple_certificate_pem"
+                        )
+
+                      div.col-12-field
+                        label.form-label Apple Certificate.key File
+                        input.form-control.payment_method_input(
+                          type="file" accept=".key"
+                          name="apple_certificate_key"
+                          placeholder="Certificate.key"
+                          autocomplete="new_apple_certificate_key"
+                        )
+
+                    // Additional instructions Section
+                    section.displaynone.col-xl-12.payment_section.stripe_method
+                      .profile-card.pt-4.d-flex.flex-column.card_lef
+                        h2 Additional instructions
+                        h6 Follow these steps to complete your checkout integration
+                        h5 To find your API Keys open your Stripe Console
+                      .tab-content.pt-2
+                        ul
+                          li 1. Go to your Stripe Account > Developers > API Keys
+                          li 2. Copy your Publishable Key and Secret Key from the &quot;Standard Keys&quot; section
+                          li 3. Paste them into Checkout Master and Save
+                          li If have any trouble setting it up, make sure to follow the complete 
+                            a(href="#") Stripe instructions
+
+                    section.displaynone.col-xl-12.payment_section.checkout_method
+                      .profile-card.pt-4.d-flex.flex-column.card_lef
+                        h2 Additional instructions
+                        h6 Add a Webhook to your Checkout.com Settings
+                      .card
+                        .card-section
+                          p Go to your Checkout.com Account &gt; Settings &gt; Select your store &gt; Channel settings &gt; Actions &gt; Channel URL - Edit &gt; Webhook - Manage
+                          p.m-0 In the Webhooks interface add the following webhook on API V2:
+                            code https://app.checkout-master.com/checkout-webhook
+                          p With these events: 
+                            code Payment captured
+                            code.ms-1 Payment capture declined
+
+                    section.displaynone.col-xl-12.payment_section.klarna_method
+                      .tab-content.pt-2
+                        h6 To find your API Keys open your Klarna Console 
+                        ul
+                          li 1. Go to your Klarna Account > Developers > API Keys
+                          li 2. Copy your Publishable Key and Secret Key from the &quot;Standard Keys&quot; section
+                          li 3. Paste them into Checkout Master and Save
+
+                    section.displaynone.col-xl-12.payment_section.revolut_method
+                      .profile-card.pt-4.d-flex.flex-column.card_lef
+                        h2 Additional instructions
+                        h6 To find your API Keys open your Revolut Console
+                      .tab-content.pt-2
+                        ul
+                          li 1. Go to your Revolut Account > Developers > API Keys
+                          li 2. Copy your Publishable Key and Secret Key from the &quot;Standard Keys&quot; section
+                          li 3. Paste them into Checkout Master and Save
+
+                    // Apple Pay Instruction Section
+                    section.displaynone.col-xl-12.payment_section.apple_pay_method
+                      .profile-card.pt-4.d-flex.flex-column.card_lef
+                        h2 Additional instructions
+                        h6 To Configure Apple Pay
+
+                      .tab-content.pt-2.mb-2
+                        a(href="https://www.checkout.com/docs/previous/payments/payment-methods/wallets/apple-pay/set-up-apple-pay" target="_blank")
+                          | For Set up Apple Pay follow the complete checkout.com instructions
+
+                        .tab-content.pt-2
+                          strong 1. Apple Certificate.pem File
+                          p Upload Certificate file created in Step 4:
+                            code 7. Convert this .cer file into a .pem file so you can use it in your code. Enter the following command in your terminal
+
+                          strong 1. Apple Certificate.key File
+                          p Upload Certificate file created in Step 4:
+                            code 1. Open a terminal and create a .csr and .key file using this command:
+
+
+                    .d-flex.justify-content-end
+                      button.btn.btn-danger.delete_payment_method(
+                        type="button"
+                        payment_method_id=`${payment_method?payment_method.id:''}`
+                        is_last=`${last_payment_method}`
+                        is_published=`${auth_store && auth_store.customize_checkout_publish == true ? true:false}`
+                      ) DELETE PAYMENT METHOD 
+                      button.btn.btn-primary.save-btn(
+                        type="submit"
+                        id=`${payment_method?payment_method.id:''}`
+                      ) SAVE PAYMENT METHOD
+
+block scripts
+  script.
+    var store_id = `!{store_id}`;
+    var payment_method = !{JSON.stringify(payment_method)};
+
+  script(type='text/javascript' src='/assets/js/custom/payment_methods.js')
+
+  /////////// Paypal Auth Script
+  script(src='https://www.paypalobjects.com/js/external/api.js')
+  //- script(src='https://www.paypalobjects.com/js/external/connect/api.js')
+  script.
+    paypal.use( ['login'], function (login) {
+      login.render ({
+        "appid":`!{process.env.PAYPAL_CLIENT_ID}`,
+        "authend":`!{process.env.PAYPAL_MODE}`,
+        "scopes":"openid",
+        "containerid":"lippButton",
+        "responseType":"code id_Token",
+        "locale":"en-us",
+        "buttonType":"CWP",
+        "buttonShape":"pill",
+        "buttonSize":"lg",
+        "fullPage":"true",
+        //- "returnurl":`!{process.env.APP_URL}/paypal/callback`
+        "returnurl":`http://192.168.0.73:8001/paypal/callback`
+        //- "returnurl":`https://dev.checkout-master.com/paypal/callback`
+      });
+    });

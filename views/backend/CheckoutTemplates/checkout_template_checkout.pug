@@ -1,0 +1,488 @@
+extends ../../layouts/backend_layout
+
+block header_style
+  link(rel="stylesheet", href=`/assets/css/store-css/${store_detail.id}.css`)
+
+block content 
+  main#main.main.checkout
+    section.main-inner-shoping-details
+      .container-fluid.cstm-cont.brtd-defin
+        .row
+          .col-lg-12
+            .publish_checkout.mb-3
+              input(type="hidden" id="storeId" value=store_id)
+              a.btn.btn-primary.save-checkout.me-sm-3.mb-2.mb-sm-0(
+                href=`/${store_id}/customize-checkout`
+              ) Customise Checkout
+              button.btn.btn-primary.mb-4.mb-xl-0.publish_button(
+                type="button"
+                disabled= (customize_checkout_publish ? false : true)
+              ) Publish Checkout
+        .row.store_logo_header.ss-kjmar.mx-0
+          .col.main-inner-header
+            if(customize_checkout && customize_checkout.store_logo)
+              a(href=`https://${store_detail.store_domain}`)
+                img.logo-set.h-12(src=`${customize_checkout?customize_checkout.store_logo:""}`)
+
+          .col.image-logos
+            if(customize_checkout && customize_checkout.security_badge)
+              img.h-12.security-logo(src=`${customize_checkout?customize_checkout.security_badge:''}` )
+            else
+              img.h-12.me-1.master-card(src='/assets/img/Mastecard.png')
+              img.h-12(src="/assets/img/visa-9.png" alt="")
+
+    section.main-iner-upr-details-cards
+      .container-fluid.cstm-cont
+        div.row.mx-0.set-row-v2
+          div.col-md-6.resposive-set-ped.px-0
+            .sec-logo.my-3.ss-kjej
+              a.anker-st-clor(href=`https://${store_detail.store_domain}`) 
+                svg.arow(xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512')
+                  path(d='M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z')
+                  span.bac-ward.ms-2 back to card
+
+            // Display a scarcity timer on the Checkout
+            if(customize_checkout && customize_checkout.display_timer)
+              div.main-fire.d-flex
+                div.fire-img
+                  img.ms-3.img-fire(src='/assets/img/fire1.png')
+                div.fire-txt
+                  p.mb-0.ms-3.pera-degine
+                    | #{language_translation.scarcity_title}
+                  p.mb-0.ms-3.pera-degine-1.scarcity_clock_section.displaynone
+                    | #{language_translation.scarcity_clock_prefix} clock_timer #{language_translation.scarcity_clock_suffix}
+
+            div.resposive-smry-cart
+              div.resposive-dhdh 
+                div.cart-smry-header
+                  .card-icon-txt
+                    svg.cart-icon(xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512')
+                      path.path-color-cart-buket(d='M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z')
+                    span.ms-2.iteam-in-car Cart Summary (2)
+                div.price-arrow
+                  div.pric-sectin
+                    span.line-crose-itm $93.64 <br>
+                    span.ofeer-price $53.64
+                  svg.cart-iocn(xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512')
+                    path.path-color-arrow(d='M169.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 274.7 54.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z')
+              div.smry-data-show
+                h2.smrry-txt.pt-4.ss-kjej Order Summary
+                div.smry-dta.first-smry 
+                  div.image-tital
+                    div.image-smry
+                      img(src='/assets/img/image18.png')
+                    div.tital-smry.ms-3
+                      h6.item-tital Cosmetic facial massage
+                      p.per_col-size Color: Pink
+                        span.ms-4 Size: S
+                  div.crose-price 
+                    div.crose
+                      a(href="#") 
+                        svg.x-mark(xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512')
+                          path.path-color-cros(d='M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z')
+                    h5.price-iteam $24,95
+                div.smry-dta 
+                  div.image-tital
+                    div.image-smry
+                      img(src='/assets/img/cream.png')
+                    div.tital-smry.ms-3
+                      h6.item-tital Face cream
+                      p.per_col-size Color: Pink
+                        span.ms-4 Size: S
+
+                  div.crose-price 
+                    div.crose
+                      a(href="#") 
+                        svg.x-mark(xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512')
+                          path.path-color-cros(d='M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z')
+                    h5.price-iteam $24,95
+                h4.dis-code Discount code			
+                input-group.mb-3
+                  div.offer.d-flex
+                    input.form-control.ofrr-cupn(type='text' placeholder="WIN2023", aria-label.w-100="Recipient's username" aria-describedby='button-addon2')
+                    button#button-addon2.btn.btn-ofrrt-in(type='button') Apply
+                h5.text__order-ship.mt-3 Subtotal 
+                  span.float-end.price.iteam__sh $ 49,90
+                h5.text__order-ship Free shipping
+                  span.float-end.price.iteam__sh $ 00,00
+                h5.text__order-ship.extra-pad Estimated taxes
+                  span.float-end.price.iteam__sh $ 3.74
+                div.total-all-iteam-2
+                  h5.tatl-txt Total
+                    span.float-end $53.64
+
+            div.left-side
+              // Contact information Section
+              div.cont-infooo.d-flex.justify-content-between.mt-4
+                p.mb-0.info-txt_i.mt-2 Contact information
+                p.mb-0.info-tzxt-log.mt-2 Already have an account?
+                  a.ms-1.login-txtx(href="#") Log in 	
+
+              div.row.mt-4.set-row-v2
+                div.col-lg-6.ss-kjej
+                  input.w-100.names-in(
+                    type="text"
+                    name="first_name"
+                    placeholder=`${language_translation?language_translation.first_name:'First Name'}`,
+                  )
+                div.col-lg-6.ss-kjej
+                  input.w-100.names-in(
+                    type="text"
+                    name="last_name"
+                    placeholder=`${language_translation?language_translation.last_name:'Last Name'}`,
+                  )
+
+              div.row.set-row-v2
+                div.col-lg-6.ss-kjej
+                  input.w-100.names-in(
+                    type="email"
+                    name="email"
+                    placeholder=`${language_translation?language_translation.email:'Email Address'}`,
+                  )
+
+                if(customize_checkout && customize_checkout.require_phone_number)
+                  div.col-lg-6.ss-kjej
+                    .input-group.phone-number-filed.mb-3.select-wreper
+                      select.ctnry-selet
+                        option us 
+                        option pak
+                        option ind
+                        option can
+                      input.form-t.op-no(
+                        type="text"
+                        name="phone"
+                        placeholder="+1 "
+                        aria-label="Text input with dropdown button"
+                      )
+
+              div.cheak-condition-v2
+                input.names-in.accnt.mb-0.cheak-style(
+                  type="checkbox"
+                  name="check_accepts_marketing"
+                  checked= customize_checkout && customize_checkout.check_accepts_marketing == true ? true : false
+                )
+                label.cheak-bx #{language_translation?language_translation.accept_marketing_checkbox:'Sign up for exclusive offers and news'}
+
+              // Shipping address Section
+              h2.shipin-add.ss-kjej.meth-ship Shipping address
+              if(customize_checkout && customize_checkout.require_address_number)
+                div.row.ss-kjej.set-row-v2
+                  div.col
+                    input.w-100.names-in(
+                      type="text"
+                      name="address"
+                      placeholder= `${language_translation?language_translation.address_number:'Address'}`
+                    )
+              div.row.ss-kjej.set-row-v2
+                div.col-lg-4.define-order-1
+                  input.w-100.names-in(
+                    type="text"
+                    name="zip_code"
+                    placeholder=`${language_translation?language_translation.zip_code:'Zip Code'}`
+                  )
+                div.col-lg-4.define-order-2
+                  input.w-100.names-in(
+                    type="text"
+                    name="city"
+                    placeholder=`${language_translation?language_translation.city:'City'}`
+                  )
+                div.col-lg-4.select-wreper-2.define-order-3
+                  select#shipping_country.names-in-cuntry(name='shipping_country')
+                    if(countries && countries.length !== 0)
+                      option(value="") Country
+                      each country in countries
+                        option(
+                          value=(country.country_name)
+                          country_code=(country.country_code)
+                        ) #{country.country_name}
+                div.col-lg-4.select-wreper-2.define-order-3.displaynone.shipping_state_section
+                  select#shipping_state.names-in-cuntry(name='shipping_state')
+                    option(value="") State
+
+              // Shipping method Section
+              h2.shipin-add.ss-kjej Shipping method
+              div.shipping_method_html
+
+              div.cheak-condition-v2.mt-5
+                input.shipping-free.names-in.ttt.accnt.mb-0.cheak-style(
+                  type="checkbox"
+                  name='billing_checkbox',
+                )
+                label.cheak-bx.ms-2
+                  | #{language_translation?language_translation.billing_same_as_shipping:'Billing address is same as Shipping address'}
+              div.billing-form.billing_address_.mt-2
+                div.row.set-row-v2
+                  div.col-lg-6.col-sm-12
+                    input.w-100.names-in(
+                      type="text"
+                      name="billing_first_name",
+                      placeholder=`${language_translation?language_translation.first_name:"First Name"}`
+                    ) 
+                  div.col-lg-6.col-sm-12
+                    input.w-100.names-in(
+                      type="text"
+                      name="billing_last_name",
+                      placeholder=`${language_translation?language_translation.last_name:"Last Name"}`
+                    )
+                div.row.set-row-v2
+                  div.col
+                    input.w-100.names-in(
+                      type="text"
+                      name="billing_address"
+                      placeholder= `${language_translation?language_translation.address_number:'Address'}`
+                    )
+                div.row.set-row-v2
+                  div.col-lg-6.col-sm-12
+                    input.w-100.names-in(
+                      type="text"
+                      name="billing_zip_code"
+                      placeholder=`${language_translation?language_translation.zip_code:'Zip Code'}`
+                    ) 
+                  div.col-lg-6.col-sm-12
+                    input.w-100.names-in(
+                      type="text"
+                      name="billing_city",
+                      placeholder=`${language_translation?language_translation.city:'City'}`
+                    )
+                div.row.set-row-v2
+                  div.col-lg-6.col-sm-12.col-md-6.select-wreper-3
+                    select#billing_country.names-in-cuntry(name="billing_country") 
+                      if(countries && countries.length !== 0)
+                        option(value="") #{language_translation && language_translation.select_country ? language_translation.select_country:'Select a Country'}
+                        each country in countries
+                          option(
+                            value=(country.country_name)
+                            country_code=(country.country_code)
+                          ) #{country.country_name}
+
+                  div.col-lg-6.col-sm-12.col-md-6.select-wreper-4.displaynone.billing_state_section
+                    select#billing_state.names-in-cuntry(name="billing_state")
+                div.row.set-row-v2
+                  div.col
+                    input.w-100.names-in(
+                      type="text"
+                      name="billing_company_name"
+                      placeholder="Company Name(optional)"
+                    )
+
+
+              // Payment method Section
+              if(payment_methods && payment_methods.length > 0)
+                div.row.paymnt-method-lock.ss-kjmar.set-row-v2
+                  div.paymnt-method-section.add-spa-n
+                    div.col.p-0
+                      h2.shipin-add Payment method 
+                    div.col.top-gap-ttt
+                      svg.lockk(xmlns='http://www.w3.org/2000/svg' fill="#808080" viewBox='0 0 448 512')
+                        path(d='M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z')
+                      span.ms-1.lockk Transaction secured over SSL
+
+                  each payment_method in payment_methods
+
+                    if(payment_method && payment_method.method_name =='PayPal' && payment_method.access_token)
+                      label.main-full-width.mb-2.payment_method_paypal
+                        .main-inr-payment
+                          .main-inner-payment
+                            p #{payment_method?payment_method.method_name:''}
+                          .main-inner-payment
+                            input.shipping-free.payment_shipping(
+                              type='radio'
+                              name='payment_method',
+                              value=payment_method && payment_method.method_name
+                            )
+
+                    if(payment_method && payment_method.method_name =='Stripe')
+                      label.main-full-width.mb-2.payment_method_stripe
+                        .main-inr-payment
+                          .main-inner-payment
+                            p.card-txt-degine !{language_translation? `${language_translation.credit_card}`:'Pay with credit card'}
+                            .main-iner-right-pay !{payment_method.card_html}
+                          .main-inner-payment
+                            input.shipping-free.payment_shipping(
+                              type='radio',
+                              name='payment_method',
+                              value=payment_method && payment_method.method_name
+                            )
+
+                        div.credit_card_section.credit_card_stripe.displaynone
+                          div.row.gap-card-in.ss-kjej.set-row-v2.mt-3
+                            div.col-lg-4.col-sm-12
+                              label.w-100.card-txt-degine Card number <br>
+                              input.w-100.names-in(type='text' maxlength="16" name='' placeholder='0000 0000 0000 0000',)
+                            div.col
+                              label.w-100.card-txt-degine Expiry code <br>
+                              input.w-100.names-in(type='month', )
+                            div.col
+                              label.w-100.card-txt-degine CVC/CW <br>
+                              div.tolmain-e
+                                input.w-100.names-in(type='text' maxlength="3" name='' placeholder='000',)
+                                img.reoer(src="/assets/img/ree.png" alt="")
+
+                    if(payment_method && payment_method.method_name =='Payout Master')
+                      label.main-full-width.mb-2.payment_method_payoutmaster
+                        .main-inr-payment
+                          .main-inner-payment
+                            p !{language_translation? `${language_translation.credit_card}`:'Pay with credit card'}
+                            .main-iner-right-pay !{payment_method.card_html}
+                          .main-inner-payment
+                            input.shipping-free.payment_shipping(
+                              type='radio',
+                              name='payment_method',
+                              value=payment_method && payment_method.method_name
+                            )
+
+                    if(payment_method && payment_method.method_name =='Checkout.com')
+                      label.main-full-width.mb-2.payment_method_checkout
+                        .main-inr-payment
+                          .main-inner-payment
+                            p !{language_translation? `${language_translation.credit_card}`:'Pay with credit card'}
+                            .main-iner-right-pay !{payment_method.card_html}
+                          .main-inner-payment
+                            input.shipping-free.payment_shipping(
+                              type='radio',
+                              name='payment_method',
+                              value=payment_method && payment_method.method_name
+                            )
+
+                        div.credit_card_section.credit_card_checkout.displaynone
+                          div.row.gap-card-in.ss-kjej.set-row-v2.mt-3
+                            div.col-lg-4.col-sm-12
+                              label.w-100.card-txt-degine Card number <br>
+                              input.w-100.names-in(type='text' maxlength="16" name='' placeholder='0000 0000 0000 0000',)
+                            div.col
+                              label.w-100.card-txt-degine Expiry code <br>
+                              input.w-100.names-in(type='month', )
+                            div.col
+                              label.w-100.card-txt-degine CVC/CW <br>
+                              div.tolmain-e
+                                input.w-100.names-in(type='text' maxlength="3" name='' placeholder='000',)
+                                img.reoer(src="/assets/img/ree.png" alt="")
+
+                    if(payment_method && payment_method.method_name =='Revolut')
+                      label.main-full-width.mb-2.payment_method_revolt
+                        .main-inr-payment
+                          .main-inner-payment
+                            p !{language_translation? `${language_translation.credit_card}`:'Pay with credit card'}
+                            .main-iner-right-pay !{payment_method.card_html}
+                          .main-inner-payment
+                            input.shipping-free.payment_shipping(
+                              type='radio',
+                              name='payment_method',
+                              value=payment_method && payment_method.method_name
+                            )
+
+                    if(payment_method && payment_method.method_name =='Apple pay' && user_agent_type === 'ios_phone')
+                      .apple_pay_gateway_content
+                      .apple_pay_gateway.displaynone
+                        label.main-full-width.mb-2.payment_method_apple_pay
+                          .main-inner-payment
+                            <apple-pay-button class="apple-pay-button apple-pay-button-black" id="apple_pay_button" buttonstyle="black" type="buy" locale="en"></apple-pay-button>
+                          .main-inner-payment.displaynone_important
+                            input.shipping-free.payment_method_apple_pay_input(
+                              type='radio'
+                              name='payment_method'
+                              value=payment_method && payment_method.method_name
+                              style=`accent-color:${customize_checkout?customize_checkout.accent_color:'#C23B19'} !important`
+                            )
+
+                  label.main-full-width.mb-2.payment_method_free_purchase
+                    .main-inr-payment
+                      .main-inner-payment Free purchase
+                      .main-inner-payment
+                        input.shipping-free.payment_shipping(
+                          type="radio"
+                          name='payment_method'
+                          value="free_payment"
+                        )
+
+                // Payment 3DS Secuity Verification
+                .col-md-12
+                  div#payment_gateway_security
+                
+                // Payment Section End
+                div.btn-confrm-d.big-btn-show
+                  button.btn-Confirm
+                    svg.lockk(xmlns='http://www.w3.org/2000/svg' fill="#fff" viewBox='0 0 448 512')
+                      path.lock-icon-fill( d='M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z')
+                    span.ms-2 Confirm	
+
+          div.col-md-6.paddd-5.main-inner-back-after
+            div.smry-data-mainn
+              h2.smrry-txt Order Summary
+              div.smry-dta 
+                div.image-tital
+                  div.image-smry
+                    img(src='/assets/img/image18.png')
+                  div.tital-smry.ms-4
+                    h6.item-tital Cosmetic facial massage
+                    p.per_col-size Color: Pink
+                      span.ms-4 Size: S
+
+                div.crose-price 
+                  div.crose
+                    a(href="#") 
+                      svg.x-mark(xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512')
+                        path.path-color-cros(d='M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z')
+                  h5.price-iteam !{money_format}24,95
+              div.smry-dta 
+                div.image-tital
+                  div.image-smry
+                    img(src='/assets/img/cream.png')
+                  div.tital-smry.ms-4
+                    h6.item-tital Face cream
+                    p.per_col-size Color: Pink
+                      span.ms-4 Size: S
+
+                div.crose-price 
+                  div.crose
+                    a(href="#") 
+                      svg.x-mark(xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512')
+                        path.path-color-cros(d='M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z')
+                  h5.price-iteam !{money_format}24,95	
+              h4.dis-code Discount code			
+              input-group.mb-3
+                div.offer.d-flex
+                  input.form-control.ofrr-cupn(type='text' placeholder="WIN2023", aria-label.w-100="Recipient's username" aria-describedby='button-addon2')
+                  button#button-addon2.btn.btn-ofrrt-in(type='button') Apply
+              h5.text__order-ship.mt-3 Subtotal 
+                span.float-end.price.iteam__sh !{money_format}49,90
+              h5.text__order-ship Free shipping
+                span.float-end.price.iteam__sh !{money_format}00,00
+              h5.text__order-ship Estimated taxes
+                span.float-end.price.iteam__sh !{money_format}3.74
+              div.total-all-iteam
+                h5.tatl-txt Total
+                  span.float-end !{money_format}53.64
+
+            div.customize_about_sections
+              if(customize_checkout && customize_checkout.customize_about_sections )
+                each customize_about_section, about_section_index in customize_checkout.customize_about_sections 
+                  div.main-squre_payment.d-flex.mainh__Wdwd
+                    div.squre_payment-img
+                      img(src=`${customize_about_section.section_icon}`)
+                    div.squre_payment-txtt.ms-4
+                      h4 #{customize_about_section?customize_about_section.section_title:''}
+                      p #{customize_about_section?customize_about_section.section_description:''}
+
+            if(customize_checkout && customize_checkout.display_branding)
+              div.ftr.d-flex 
+                p Powered by:
+                img(src="/assets/img/logo-bottom.svg" alt="")
+
+            div.btn-confrm-d.short-screen-show
+              button.btn-Confirm
+                svg.lockk(xmlns='http://www.w3.org/2000/svg' fill="#fff" viewBox='0 0 448 512')
+                  path.lock-icon-fill(d='M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z')
+                span.ms-2 Confirm
+
+block scripts
+  script.
+    var store_id = `!{store_id}`;
+    var PAYMENT_MODE = `!{process.env.PAYMENT_MODE}`;
+
+    var money_format = `!{money_format}`;
+    var customize_checkout = !{JSON.stringify(customize_checkout)};
+    var shipping_options = !{JSON.stringify(shipping_options)};
+
+
+  script(type='text/javascript' src='/assets/js/custom/checkout_template_checkout.js')

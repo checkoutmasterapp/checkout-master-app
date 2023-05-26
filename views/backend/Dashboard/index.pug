@@ -1,0 +1,210 @@
+extends ../../layouts/backend_layout
+
+block header_breadcrumb
+  nav
+    ol.breadcrumb
+      li.breadcrumb-item Home
+      li.breadcrumb-item.active Dashboard
+
+block content
+  main#main.main
+    section.section.dashboard
+
+      if(shipping_rate_count == 0 || payment_method_count == 0 || user_subscriptions == 0 || !session.auth_store.customize_checkout_publish)
+        div.row.storesetup_onboarding
+          .col-md-12.mx-auto.inner-data-dashboard
+            .pagetitle.dashboard-heading
+              h1 Get started  <br> 
+                span with Checkout Master
+              p Start processing with your checkout on steroids. Just follow the steps bellow and once it's done you can publish your checkout.
+
+            .card
+              .card-body.inner-degin-body.text-sm-start.shiping-mathiod
+                div.d-flex.align-items-center.justify-content-between.card_custom
+                  div.nubrining-dta.d-flex.align-items-center
+                    div.number
+                      h6.m-0 1
+                    div.dta-contnt
+                      span Confirm Shipping Rates on your checkout
+                  if(shipping_rate_count == 0)
+                    div.card-button.text-center.text-sm-end.mt-3.mt-sm-0 
+                      a#shipping_rates_button.btn.btn-primary(href=`/${session.auth_store.id}/shipping-rates`) Add
+                  else
+                    <i id="shipping_rates_icon" class="bi bi-check-circle-fill card-button-icon"></i>
+
+            .card
+              .card-body.inner-degin-body.text-sm-start
+                div.d-flex.align-items-center.justify-content-between.card_custom
+                  div.nubrining-dta.d-flex.align-items-center
+                    div.number
+                      h6.m-0 2
+                    div.dta-contnt
+                      span Add Payment Methods to your checkout
+                  if(payment_method_count == 0)
+                    div.card-button.text-center.text-sm-end.mt-3.mt-sm-0 
+                      a#payment_methods_button.btn.btn-primary(href=`/${session.auth_store.id}/payment-methods`) Add
+                  else
+                    <i id="payment_methods_icon" class="bi bi-check-circle-fill card-button-icon"></i>
+
+            .card
+              .card-body.inner-degin-body.text-sm-start
+                div.d-flex.align-items-center.justify-content-between.card_custom
+                  div.nubrining-dta.d-flex.align-items-center
+                    div.number
+                      h6.m-0 3
+                    div.dta-contnt
+                      span Add your billing details to start your subscription (7 days Trial)
+                  if(user_subscriptions == 0)
+                    div.card-button.text-center.text-sm-end.mt-3.mt-sm-0 
+                      a#payment_methods_button.btn.btn-primary(href=`/${session.auth_store.id}/billing-details`) Add
+                  else
+                    <i id="billing_details_icon" class="bi bi-check-circle-fill card-button-icon"></i>
+
+            .card
+              .card-body.inner-degin-body.text-sm-start
+                div.d-flex.align-items-center.justify-content-between.card_custom                    
+                  div.nubrining-dta.d-flex.align-items-center
+                    div.number
+                      h6.m-0 4
+                    div.dta-contnt
+                      span Add Checkout Master on your store’s theme
+                  if(session.auth_store && (!session.auth_store.customize_checkout_preview || !session.auth_store.customize_checkout_publish))
+                    div.card-button.text-center.text-sm-end.mt-3.mt-sm-0 
+                      a#customize_checkout_button.btn.btn-primary(href=`/${session.auth_store.id}/customize-checkout`)
+                        if(session.auth_store.customize_checkout_publish && !session.auth_store.customize_checkout_preview)
+                          |Preview
+                        else if(session.auth_store && (!session.auth_store.customize_checkout_publish && session.auth_store.customize_checkout_preview))
+                          |Publish
+                        else
+                          |Preview & Publish
+                  else
+                    <i id="customize_checkout_icon" class="bi bi-check-circle-fill card-button-icon"></i>
+
+      else
+        section.section.profile
+          div.col-md-12
+            .dashboard-metrics-filter
+              label.dassh Dashboard
+              .calendar.float-end
+                .d-flex
+                  label.degin-labl  
+                    svg(width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg')
+                      path(d='M17 3L17 7' stroke='#333333' stroke-width='1.2' stroke-linecap='round')
+                      path(d='M7 3L7 7' stroke='#333333' stroke-width='1.2' stroke-linecap='round')
+                      path(d='M3 10C3 8.11438 3 7.17157 3.58579 6.58579C4.17157 6 5.11438 6 7 6H17C18.8856 6 19.8284 6 20.4142 6.58579C21 7.17157 21 8.11438 21 10V11H3V10Z' stroke='#333333' stroke-width='1.2')
+                      rect(x='3' y='6' width='18' height='15' rx='2' stroke='#333333' stroke-width='1.2')
+                      path(d='M6 15H10' stroke='#333333' stroke-width='1.2' stroke-linecap='round')
+                      path(d='M14 15H18' stroke='#333333' stroke-width='1.2' stroke-linecap='round')
+                      path(d='M6 18H10' stroke='#333333' stroke-width='1.2' stroke-linecap='round')
+                      path(d='M14 18H18' stroke='#333333' stroke-width='1.2' stroke-linecap='round') 
+                    | From
+                    input.border-0.lab-date.performance_filter.m-0(type="text" name="from" id="from_date")
+                  label.degin-labl 
+                    svg(width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg')
+                      path(d='M17 3L17 7' stroke='#333333' stroke-width='1.2' stroke-linecap='round')
+                      path(d='M7 3L7 7' stroke='#333333' stroke-width='1.2' stroke-linecap='round')
+                      path(d='M3 10C3 8.11438 3 7.17157 3.58579 6.58579C4.17157 6 5.11438 6 7 6H17C18.8856 6 19.8284 6 20.4142 6.58579C21 7.17157 21 8.11438 21 10V11H3V10Z' stroke='#333333' stroke-width='1.2')
+                      rect(x='3' y='6' width='18' height='15' rx='2' stroke='#333333' stroke-width='1.2')
+                      path(d='M6 15H10' stroke='#333333' stroke-width='1.2' stroke-linecap='round')
+                      path(d='M14 15H18' stroke='#333333' stroke-width='1.2' stroke-linecap='round')
+                      path(d='M6 18H10' stroke='#333333' stroke-width='1.2' stroke-linecap='round')
+                      path(d='M14 18H18' stroke='#333333' stroke-width='1.2' stroke-linecap='round')
+                    | To  
+                    input.border-0.lab-date.performance_filter.m-0(type="text" name='to' id="to_date")
+            .float-end.performance_filter_error.error
+
+          div.row.storesetup_complete.w-100.mt-5
+            .col-lg-4.mt-2
+              <div class="dashboard--y card">
+                <div class="metric ">
+                  <div class="metric-number metric-number--big shop_conversion_rate">0<span class="accent">%</span></div>
+                  <h5>Online Store conversion rate</h5>
+                </div>
+                <div class="details">
+                  <div class="details-row">
+                    <div class="details-row-title">
+                      <div class="icon"><i class="icon ion-ios-cart accent"></i></div>
+                      <div class="title">
+                        <div class="details-row-stat added_to_cart_percentage">0.00 %</div>
+                        <span class="label">Added to cart</span>
+                      </div>
+                    </div>
+                    <span class="added_to_cart displaynone">0 times</span>
+                  </div>
+                  <div class="details-row">
+                    <div class="details-row-title">
+                      <div class="icon"><i class="icon ion-card accent"></i></div>
+                      <div class="title">
+                        <div class="details-row-stat reached_checkout_percentage">0.00%</div>
+                        <span class="label">Reached checkout</span>
+                      </div>
+                    </div>
+                      <span class="reached_checkout displaynone">0 times</span>
+                  </div>
+                  <div class="details-row">
+                    <div class="details-row-title">
+                      <div class="icon"><i class="icon ion-android-checkmark-circle accent"></i></div>
+                      <div class="title">
+                        <div class="details-row-stat reached_count_percentage">0%</div>
+                        <span class="label">Completed checkout</span>
+                      </div>
+                    </div>
+                    <span class="completed_checkout displaynone">0 times</span>
+                  </div>
+                </div>
+              </div>
+            .col-lg-4.mt-2
+              <div class="card dashboard dashboard--y dashbord_upsell_section">
+                <div class="metric">
+                  <div class="metric-number metric-number--big upsell_revenue">€0.00</div>
+                  <h5>Upsells Amount</h5>
+                </div>
+                <div class="details">
+                  <div class="details-row">
+                    <div class="details-row-title">
+                      <div class="title">
+                        <div class="details-row-stat upsell_shown_percentage">0.00 %</span></div>
+                        <span class="label">Shown Upsell</span>
+                      </div>
+                    </div>
+                    <span class="upsell_shown_times displaynone">0 times</span>
+                  </div>
+                  <div class="details-row">
+                    <div class="details-row-title">
+                      <div class="title">
+                        <div class="details-row-stat upsell_added_percentage">0 %</div>
+                        <span class="label">Added Upsell</span>
+                      </div>
+                    </div>
+                      <span class="upsell_added displaynone">0 times</span>
+                  </div>
+                  <div class="details-row">
+                    <div class="details-row-title">
+                      <div class="title">
+                        <div class="details-row-stat upsell_purchased_percentage">0 %</div>
+                        <span class="label">Purchased Upsell</span>
+                      </div>
+                    </div>
+                      <span class="upsell_purchased displaynone">0 times</span>
+
+                  </div>
+                </div>
+              </div>
+
+            .col-lg-4.pe-0.mt-2
+              <div class="card dashboard dashboard--y email_recovery_section">
+                <div class="icon"><i class="icon ion-email"></i></div>
+                <div class="metric border-0 ">
+                  <div class="metric-number metric-number--big email_recovery_count">€0.00</div>
+                  <h5>Email Recovery</h5>
+                </div>
+              </div>
+
+
+
+
+
+block scripts
+  script.
+    var store_id = `!{store_id}`;
+  script(type='text/javascript' src='/assets/js/custom/dashboard.js')

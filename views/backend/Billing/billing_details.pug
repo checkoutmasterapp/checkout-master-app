@@ -1,0 +1,259 @@
+extends ../../layouts/backend_layout
+
+block header_breadcrumb
+  nav
+    ol.breadcrumb
+      li.breadcrumb-item Home
+      li.breadcrumb-item.active Billing Details
+
+block content 
+  main#main.main
+    section.section.profile
+      .invoice-details-section
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link biling-txt active" id="home-tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Billing Details</button>
+          </li>
+          if(user_billings_invoices && user_billings_invoices.length !== 0)
+            <li class="nav-item" role="presentation">
+              a(href=(`/${store_id}/invoice-details`))
+                <button class="nav-link biling-txt" id="profile-tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Invoices</button>
+            </li>
+        </ul>
+
+        #myTabContent.tab-content
+          #home-tab-pane.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='home-tab' tabindex='0')
+            section.section.billing-details
+              form#billing_form(method="post" action="/billing-detail")
+                input(type="hidden" name="store_id" value =store_id)
+                div.tio-biiling
+                  div.deatils
+                    h5 Billing Details 
+                  div.buttons
+
+
+                div.row.mt-2
+                  div.col-lg-6
+                    div
+                      div.billing-details-card.pt-4.d-flex.flex-column
+                        h2 Billing Plan 
+                        p Shopify transaction fees will be replaced by Checkout Master transaction fees for all payments going through Checkout Master.             
+
+                  div.col-lg-6
+                    div.card
+                      div.card-body.pt-3
+                        div.tab-content.pt-2
+                          each package in subscription_packages
+                            label.preferences-wrapper
+                              div.custom-control.custom-radio
+                                input.custom-control-input.required(
+                                  type='radio',
+                                  id=`subscription_package_${package.id}`
+                                  name="subscription_package" value=`${package.id}`
+                                  stript_object_id=`${package.stript_object_id}`
+                                  stripe_metered_price_id=`${package.stripe_metered_price_id}`
+                                  checked=(billing_details && billing_details.subscription_package_id===package.id ? true : false)
+                                )
+                                label.custom-control-label(for=`subscription_package_${package.id}`)
+
+                              div.billing-plan
+                                div.preferences-wrapper-title !{package.package_name}
+                                div.preferences-wrapper-subtitle !{package.package_description}
+                              div.preferences-wrapper-price $!{package.price}
+
+                div.row
+                  div.col-lg-6
+                    div
+                      div.billing-details-card.pt-4.d-flex.flex-column
+                        h2 Billing Details 
+                        p  These are the details that are going to be shown on your invoice.   
+                        p  Please fill them correctly, otherwise your accountant will give you trouble 🙃. 
+
+                  div.col-lg-6
+                    div.card
+                      div.card-body
+                        .form-group.row.mb-2
+                          .col-md-12
+                            label.label-write Company Name
+                            input.form-control.required(
+                              type='text'
+                              name='billing_company'
+                              placeholder="Company Name"
+                              autocomplete="new_billing_company"
+                              value=`${billing_details ? billing_details.billing_company: ''}`
+                            )
+                        .form-group.row.mb-2
+                          .col-md-12.I-dont-companty
+                            input#donot_have_company.form-check-input.me-2.company-radio(
+                              type='checkbox'
+                              checked = billing_details && billing_details.billing_company == "" ? true : false
+                            )
+                            label(for="donot_have_company") I don't have a company
+
+
+                        .form-group.row.mb-2
+                          .col-md-6
+                            label.label-write First Name
+                            input.form-control.required(
+                              type='text',
+                              name='billing_first_name'
+                              placeholder="First Name"
+                              autocomplete="new_billing_first_name"
+                              value=`${billing_details ? billing_details.billing_first_name: ''}`
+                            )
+
+                          .col-md-6
+                            label.label-write Last Name
+                            input.form-control.required(
+                              type='text'
+                              name='billing_last_name'
+                              placeholder="Last Name"
+                              autocomplete="new_billing_last_name"
+                              value=`${billing_details ? billing_details.billing_last_name: ''}`
+                            )
+
+                        .form-group.row.mb-2
+                          .col-md-12
+                            label.label-write Street address
+                            input.form-control.required(
+                              type='text'
+                              name='billing_address'
+                              placeholder="Street address"
+                              autocomplete="new_billing_address"
+                              value=`${billing_details ? billing_details.billing_address: ''}`
+                            )
+
+                        .form-group.row.mb-2
+                          .col-md-6
+                            label.label-write City
+                            input.form-control.required(
+                              type='text',
+                              name='billing_city'
+                              placeholder="City"
+                              autocomplete="new_billing_city"
+                              value=`${billing_details ? billing_details.billing_city: ''}`
+                            )
+                          .col-md-6
+                            label.label-write Zip code
+                            input.form-control.required(
+                              type='text',
+                              name='billing_zip'
+                              placeholder="Zip code"
+                              autocomplete="new_billing_zip"
+                              value=`${billing_details ? billing_details.billing_zip: ''}`
+                            )
+
+                        .form-group.row.mb-2
+                          .col-md-6
+                            label.label-write Country
+                            select.form-select#billing_select(name='billing_country_code')
+                              if(countries && countries.length !== 0)
+                                each country in countries
+                                  option(
+                                    value=(country.country_code)
+                                    selected=(billing_details && billing_details.billing_country_code == country.country_code ? true : false)
+                                  ) #{country.country_name}
+
+                          .col-md-6
+                            label.label-write State/Province
+                            input.form-control(
+                              type='text'
+                              name='billing_state'
+                              placeholder="State / Province"
+                              autocomplete="new_billing_state"
+                              value=`${billing_details ? billing_details.billing_state: ''}`
+                            )
+
+                div.row
+                  div.col-lg-6
+                    div
+                      div.billing-details-card.pt-4.d-flex.flex-column
+                        h2 Billing Method
+                        p Enjoy your 7 days trial. You can switch plan anytime. You can add as many stores as you want
+
+                  div.col-lg-6
+                    div.card
+                      div.card-body.p-0
+                        h5.py-3.accordion-header.d-flex.justify-content-between.align-items-center Card Details
+                        div.tab-content.pt-2
+
+                          if(user_subscription_cards && user_subscription_cards.length > 0)
+                            each user_subscription_card in user_subscription_cards
+                              label.preferences-wrapper
+                                div.custom-control.custom-radio
+                                  input.custom-control-input.required(
+                                    type="radio"
+                                    id=`card_${user_subscription_card.id}`
+                                    name="selected_card"
+                                    value=`${user_subscription_card.stripe_card_id}`
+                                    checked=`${user_subscription_card.is_default}`
+                                  )
+                                  label.custom-control-label(for=`card_${user_subscription_card.id}`)
+
+                                div.billing-plan
+                                  div.preferences-wrapper-title Stripe Card
+                                  div.preferences-wrapper-subtitle
+                                    | •••• •••• •••• #{user_subscription_card.stripe_card_last4} (#{user_subscription_card.exp_month}/#{user_subscription_card.exp_year})
+                                div.preferences-wrapper-price #{user_subscription_card.stripe_card_brand}
+
+                            label.preferences-wrapper
+                              div.custom-control.custom-radio
+                                input.custom-control-input.required(
+                                  id=`card_default`
+                                  type="radio"
+                                  name="selected_card" value=`new_card`
+                                )
+                                label.custom-control-label(for=`card_default`)
+
+                              div.billing-plan
+                                div.preferences-wrapper-title Add New Card
+
+
+                          div(class=`accordion_card_default ${user_subscription_cards.length > 0 ? "displaynone" : ""}`)
+                            div.accordion-body
+                              .mb-3
+                                label.form-label Card Number
+                                input.form-control.required(
+                                  type='text'
+                                  name="card_number"
+                                  placeholder='4242 4242 4242 4242'
+                                )
+                              .row
+                                .col-lg-6
+                                  label.form-label Expiry date
+                                  input.form-control.required(
+                                    type='text'
+                                    maxlength="5"
+                                    name="expiry_date" placeholder='MM/YY'
+                                  )
+
+                                .col-lg-6
+                                  label.form-label.label-write CVV
+                                  input.form-control.required(
+                                    type='text'
+                                    name="card_cvv"
+                                    placeholder='CVV'
+                                  )
+
+
+                      div.col-12.d-flex
+                        .payment_gateway_security
+
+                    button.btn.btn-primary.me-4(type="submit") Subscription 
+                    if(current_subscriptions && current_subscriptions.status == true)
+                      span.me-4.subsciption-unsubscribe
+                        h6 For unsubscribe 
+                          a.un_subscribe()
+                            span Click here
+
+          </div>
+        </div>
+block scripts
+  script.
+    var store_id = `!{store_id}`;
+    var auth_user= !{JSON.stringify(auth_user)};
+    var billing_details = !{JSON.stringify(billing_details)};
+    var user_subscription_cards = !{JSON.stringify(user_subscription_cards)};
+    var current_billing_subscription = !{JSON.stringify(current_billing_subscription)};
+  script(type="text/javascript" src="/assets/js/jquery.inputmask.bundle.min.js")
+  script(type='text/javascript' src='/assets/js/custom/billing_details.js')

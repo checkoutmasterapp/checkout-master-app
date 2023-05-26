@@ -1,0 +1,123 @@
+extends ../../layouts/backend_layout
+
+block content 
+  main#main.thnks_pag.p-0
+    section.main-inner-shoping-details
+      .container
+        .row 
+          .publish_checkout.mb-2
+              input(type="hidden", id="storeId" value=store_id)
+              a.btn.btn-primary.save-checkout.me-sm-3.mb-2.mb-sm-0(href=`/${store_id}/customize-checkout`) Customise Checkout
+
+          .head_title.mb-3
+                .logo_sub
+                    if(preview_data && preview_data.store_logo)
+                      img.h-12.store-logo(src=`${preview_data.store_logo}`)
+
+                .brand-accent
+                  .brand-tc
+                    svg.flex-1(viewBox='0 0 26 26', background-color:#00d985;='', version='1.1', xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink')
+                      g(stroke='none', stroke-width='1', fill='none', fill-rule='evenodd')
+                        g(transform='translate(-870.000000, -205.000000)', fill='currentColor', fill-rule='nonzero')
+                          g(transform='translate(423.000000, 158.000000)')
+                            path(d='M460,73 C463.583333,73 466.645833,71.7291667 469.1875,69.1875 C471.729167,66.6458333 473,63.5833333 473,60 L473,60 L470.375,60 C470.375,62.875 469.364583,65.3229167 467.34375,67.34375 C465.322917,69.3645833 462.875,70.375 460,70.375 C457.125,70.375 454.677083,69.3645833 452.65625,67.34375 C450.635417,65.3229167 449.625,62.875 449.625,60 C449.625,57.125 450.635417,54.6770833 452.65625,52.65625 C454.677083,50.6354167 457.125,49.625 460,49.625 C461,49.625 461.958333,49.75 462.875,50 L462.875,50 L464.875,48 C463.291667,47.3333333 461.666667,47 460,47 C456.416667,47 453.354167,48.2708333 450.8125,50.8125 C448.270833,53.3541667 447,56.4166667 447,60 C447,63.5833333 448.270833,66.6458333 450.8125,69.1875 C453.354167,71.7291667 456.416667,73 460,73 Z M458.6875,65.1875 L471.6875,52.1875 L469.875,50.375 L458.6875,61.5 L454.6875,57.5 L452.875,59.375 L458.6875,65.1875 Z', style=`color:${customize_checkout?customize_checkout.accent_color:'#00d985'}`)
+                  .area-whitespace  #{language_translation?language_translation.order_completed:'Order completed'}
+
+        // Order Shipping Details
+        .row
+          .col-md-7.border-right
+            .thanks-page
+              .chekshade
+                .thanks_msg
+                  h2  #{language_translation?language_translation.thanks:'Thanks'} , Scarlet!
+                  p #{preview_data ? preview_data.thankyou_description : ""}
+                
+                .ions-box.chekshade
+                  .front-base
+                    .half-base
+                      .front-icons
+                        svg.w-6.h-6(xmlns='http://www.w3.org/2000/svg', fill='none', viewBox='0 0 24 24', stroke='currentColor')
+                          path(d='M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z')
+                          path(stroke-linecap='round', stroke-linejoin='round', stroke-width='2', d='M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0')
+                      .text-center 
+                    .center-base
+                      h3 #{shipping_options && shipping_options.length>0 ? shipping_options[shipping_options.length -1].shipping_rate_name:'Standard shipping'}
+                      p Scarlet Johansson
+                      p 7135 Hollywood BLVD
+                  .end-accent
+                    svg.flex-1(viewBox='0 0 26 26', version='1.1', xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink' style=`color:${customize_checkout?customize_checkout.accent_color:'#00d985'}`)
+                      g(stroke='none', stroke-width='1', fill='none', fill-rule='evenodd')
+                        g(transform='translate(-870.000000, -205.000000)', fill='currentColor', fill-rule='nonzero')
+                          g(transform='translate(423.000000, 158.000000)')
+                            path(d='M460,73 C463.583333,73 466.645833,71.7291667 469.1875,69.1875 C471.729167,66.6458333 473,63.5833333 473,60 L473,60 L470.375,60 C470.375,62.875 469.364583,65.3229167 467.34375,67.34375 C465.322917,69.3645833 462.875,70.375 460,70.375 C457.125,70.375 454.677083,69.3645833 452.65625,67.34375 C450.635417,65.3229167 449.625,62.875 449.625,60 C449.625,57.125 450.635417,54.6770833 452.65625,52.65625 C454.677083,50.6354167 457.125,49.625 460,49.625 C461,49.625 461.958333,49.75 462.875,50 L462.875,50 L464.875,48 C463.291667,47.3333333 461.666667,47 460,47 C456.416667,47 453.354167,48.2708333 450.8125,50.8125 C448.270833,53.3541667 447,56.4166667 447,60 C447,63.5833333 448.270833,66.6458333 450.8125,69.1875 C453.354167,71.7291667 456.416667,73 460,73 Z M458.6875,65.1875 L471.6875,52.1875 L469.875,50.375 L458.6875,61.5 L454.6875,57.5 L452.875,59.375 L458.6875,65.1875 Z',  style=`color:${customize_checkout?customize_checkout.accent_color:'#00d985'}`)
+              
+                .ions-box.chekshade
+                  .front-base
+                    .half-base
+                      .front-icons
+                        img.w-8(src='https://d2dehg7zmi3qpg.cloudfront.net/packs/media/images/payment_logos/visa-19fa4b8aaac9cdca54c50f843ae877c2.svg')
+                      .text-center 
+                    .center-base
+                      h3 #{language_translation?language_translation.payment_method:'Payment method'}   
+                      p Visa
+                      p **** **** **** 4242
+                  .end-accent
+                    svg.flex-1(viewBox='0 0 26 26', version='1.1', xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink')
+                      g(stroke='none', stroke-width='1', fill='none', fill-rule='evenodd')
+                        g(transform='translate(-870.000000, -205.000000)', fill='currentColor', fill-rule='nonzero')
+                          g(transform='translate(423.000000, 158.000000)')
+                            path(d='M460,73 C463.583333,73 466.645833,71.7291667 469.1875,69.1875 C471.729167,66.6458333 473,63.5833333 473,60 L473,60 L470.375,60 C470.375,62.875 469.364583,65.3229167 467.34375,67.34375 C465.322917,69.3645833 462.875,70.375 460,70.375 C457.125,70.375 454.677083,69.3645833 452.65625,67.34375 C450.635417,65.3229167 449.625,62.875 449.625,60 C449.625,57.125 450.635417,54.6770833 452.65625,52.65625 C454.677083,50.6354167 457.125,49.625 460,49.625 C461,49.625 461.958333,49.75 462.875,50 L462.875,50 L464.875,48 C463.291667,47.3333333 461.666667,47 460,47 C456.416667,47 453.354167,48.2708333 450.8125,50.8125 C448.270833,53.3541667 447,56.4166667 447,60 C447,63.5833333 448.270833,66.6458333 450.8125,69.1875 C453.354167,71.7291667 456.416667,73 460,73 Z M458.6875,65.1875 L471.6875,52.1875 L469.875,50.375 L458.6875,61.5 L454.6875,57.5 L452.875,59.375 L458.6875,65.1875 Z', style=`color:${customize_checkout?customize_checkout.accent_color:'#00d985'}`)
+                
+                a.continue(href='#' style=`background-color:${customize_checkout?customize_checkout.button_color:'#00d985'}`)  #{language_translation?language_translation.back_to_shop:'Continue shopping'} 
+          
+          .col-md-5
+            .main-inner-discount.pb-3
+              h2   #{language_translation?language_translation.order_summary_title:'Order Summary'} 
+            
+              .chekshade
+                .main-inner-cust-logo
+                  .main-inner-logo
+                    span.notification-bar 2
+                    
+                    img(src='/assets/img/neve-apparel.jpg')
+                  
+                    .main-inr-flex
+                      h4 Silky - Appareil D&apos;&Eacute;pilation D&eacute;finitive Au Laser
+                    
+                      p 3 pour 229.95&euro; (soit 76.6&euro; / unit&eacute;) TOP VENTE !
+                
+                  .main-inr-right-cash-cust
+                    h4 !{preview_data.money_format?preview_data.money_format.substring(0, 1):'$'}199.95
+                
+                .row
+                  .col-md-12
+                    .main-inner-dis-count-copn-pay.border-0
+                      p
+                        |  #{language_translation?language_translation.subtotal:'Subtotal'} 
+                        span !{preview_data.money_format?preview_data.money_format.substring(0, 1):'$'}199.95
+                      
+                      //- p
+                      //-   | Free Shipping
+                      //-   span !{preview_data.money_format?preview_data.money_format.substring(0, 1):'$'}0.00
+
+                      p#free-shipping #{shipping_options && shipping_options.length>0 ? shipping_options[shipping_options.length -1].shipping_rate_name:'Free'}
+                        if(shipping_options && shipping_options.length>0 && shipping_options[shipping_options.length -1].shipping_rate_price==0)
+                          span(style=`color:${customize_checkout?customize_checkout.accent_color:'#C23B19'}`) Free
+                        else
+                          span !{customize_checkout.money_format?customize_checkout.money_format.substring(0, 1):'$'}#{shipping_options && shipping_options.length>0?+shipping_options[shipping_options.length -1].shipping_rate_price+'.00':'0'}
+                
+                      .main-total-btm
+                        h4#total-preview-checkout
+                          | #{language_translation?language_translation.total:'Total'} 
+                          span !{preview_data.money_format?preview_data.money_format.substring(0, 1):'$'}99.97
+                    if(preview_data && preview_data.display_branding )  
+            .row
+              .col-md-12
+                .main-inr-btm-powerby
+                  img(src='/assets/img/power.png') 
+
+block scripts
+  script(type='text/javascript', src='/assets/js/custom/preview_checkout.js')
+  script(type='text/javascript', src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit')
+ 
+

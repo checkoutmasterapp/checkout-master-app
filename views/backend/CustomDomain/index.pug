@@ -1,0 +1,62 @@
+extends ../../layouts/backend_layout
+
+block header_breadcrumb
+  nav
+    ol.breadcrumb
+      li.breadcrumb-item Home
+      li.breadcrumb-item.active Custom Domain
+
+block content 
+  main#main.main
+    section.section.profile
+      .row
+        .col-md-6
+          .pagetitle  
+            h1 Connect your domain to Checkout Master
+            p Improve your checkout branding, customer trust & ads tracking performance by connecting your store domain to your checkout.
+
+        .col-md-6.select-domn
+          .card
+            .card-body.px-0.pt-0
+              if(!custom_domain)
+                form#add_custom_domain_form(method="post" autocomplete="off")
+                  input(type="hidden" name="store_id" value=`${store_id}`)
+                  input(type="hidden" name="domain_name" value=`${domain_name}`)
+
+                  div.col-12
+                    label.domain-label Select your custom domain
+                    .input-group.mb-4
+                      input.form-control.required(
+                        type="text"
+                        name="subdomain_name" value="checkout"
+                        autocomplete="new_subdomain_name"
+                      )
+                      span.input-group-text.txt-shopify .!{domain_name}
+
+                  button.ms-auto.save-btn.btn.btn-primary.save-checkout.mt-5.mb-2.mb-sm-0(type='submit') Connect Domain
+
+              else 
+                .pagetitle 
+                  h1 Custom domain
+                  p Your checkout will be displayed on the custom domain you have provided
+                  div.custom-domain-detail
+                    a(href=`/${store_id}/custom-domain/edit`)
+                      div.d-flex.align-items-center.justify-content-between.w-100
+                        span.domain-name !{custom_domain.custom_domain}
+
+                        div.domain-status
+                        if(custom_domain.verification_status === "awaiting")
+                          span.badge.awatting-verification Awaiting Verification
+
+                        if(custom_domain.verification_status === "pending")
+                          span.badge.pending-verification Pending Verification
+
+                        div.domain-action
+                          i.bi.bi-chevron-right
+
+block scripts 
+  script.
+    var store_id = `!{store_id}`;
+    var domain_name = `!{domain_name}`;
+
+  script(type='text/javascript' src='/assets/js/custom/custom_domain.js')

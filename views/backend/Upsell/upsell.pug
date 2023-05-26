@@ -1,0 +1,48 @@
+extends ../../layouts/backend_layout
+
+block header_breadcrumb
+  nav
+    ol.breadcrumb
+      li.breadcrumb-item Home
+      li.breadcrumb-item.active Upsell
+
+block content 
+  main#main.main
+    section.section.profile
+      div.displaynone.upsell_banner
+            div.under-data-payment
+              img(src='/assets/img/upsell-baneer.svg')
+              p No one Upsells has been added
+              a.btn.btn-primary(href=`/${store_id}/upsell/create`) Create New upsell
+
+
+      div.displaynone.upsell_listing
+        section.section
+          div.main-container.upsell-card
+            div.row
+              div.col-lg-8
+                h2
+                  | Manual post-purchase upsells
+                h6
+                  | Create your upsells to manually select your own product combinations. The post-purchase offers you create work together with automatic upsells, but have higher priority.
+              div.col-lg-4.d-flex.justify-content-center.justify-content-lg-end
+                div.mt-3 
+                  a.btn.btn-primary(href=`/${store_id}/upsell/create`) Create New upsell
+        section.section.shipping_rates.mt-4
+          input(type='hidden' class="store_id" value=store_id)
+          div.row
+            div.col-lg-12
+              div.card
+                div.card-body
+                  div.table-responsive
+                    table#upsell_table.table.bootstrap-custom-table
+                      thead
+                        tr 
+                          th Upsell Triggers
+                          th Upsell Offers
+                          th Created
+                          th Status
+                          th
+
+block scripts
+  script(type='text/javascript' src='/assets/js/custom/upsell_listing.js')

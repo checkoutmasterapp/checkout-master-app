@@ -1,0 +1,59 @@
+extends ../../layouts/backend_layout
+
+block header_breadcrumb
+    nav
+        ol.breadcrumb
+            li.breadcrumb-item Home
+            li.breadcrumb-item.active Manage Store
+
+block content
+    main#main.main
+        section.section.profile
+            div.row
+                div.col-md-12
+                    h2 Stores
+
+                each store_detail, store_index in store_details
+                    div.col-md-4
+                        div.card.info-card
+                            div.card-body
+                                h2 #{store_detail.store_name}
+                                span #{store_detail.store_domain}
+                                div.input-group.col
+                                    input.form-control#store_script(
+                                        readonly
+                                        type='text',
+                                        name="store_script",
+                                        value=`<script type="text/javascript" src="${process.env.APP_URL}/assets/js/shopify/checkout-integration.js" data-master-x-id="${store_detail.id}"></script>`
+                                    )
+                                    span.input-group-text.cursor-pointer.store_script_clipboard
+                                        img(src='/assets/img/copy_icon.svg')
+
+                                div.text-center.d-flex.mt-2
+                                    //- a.btn.btn-primary.mb-4.mb-xl-0.displaynone.go_dashboard(href=`${process.env.APP_URL}/${store_detail.id}/billing`) Renew
+                                    //- a.btn.btn-primary.mb-4.mb-xl-0.go_dashboard(href=`${process.env.APP_URL}/${store_detail.id}/dashboard`) Go to Dashboard
+                                    //- if(store_detail.customize_checkout_publish)
+                                    //-     a.btn.btn-primary.mb-4.mb-xl-0.publish_unpublish(href=`${process.env.APP_URL}/${store_detail.id}/store_disconnect`) UNPUBLISH
+                                    //- else
+                                    //-     a.btn.btn-primary.mb-4.mb-xl-0.publish_unpublish(href=`${process.env.APP_URL}/${store_detail.id}/preview-checkout`) Preview & Publish
+                                    //- a.p_b_delete 
+                                    //-     img(src='/assets/img/ring_duotone.svg')
+
+                                    a.btn.btn-primary(href=`${process.env.APP_URL}/${store_detail.id}/dashboard`) Go to Dashboard
+                                    if(store_detail.customize_checkout_publish)
+                                        a.btn.btn-primary(href=`${process.env.APP_URL}/${store_detail.id}/store_disconnect`) UNPUBLISH
+                                    else
+                                        a.btn.btn-primary(href=`${process.env.APP_URL}/${store_detail.id}/preview-checkout`) Preview & Publish
+                                    //- a.store_delete(store_id=`${store_detail.id}`)
+                                    //-     img(src='/assets/img/ring_duotone.svg')
+
+                div.col-md-4
+                    div.card.info-card
+                        div.card-body
+                            h2 New Store
+                            span Connect another store to your account
+                            div.text-center.d-flex.mt-2
+                                a.btn.btn-primary.mb-4.mb-xl-0(href=`${process.env.APP_URL}/create-new-store/${Buffer.from(store_id).toString('base64')}`) Add a new store
+
+block scripts
+    script(type='text/javascript' src='/assets/js/custom/manage_store.js')

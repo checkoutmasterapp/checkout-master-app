@@ -1,0 +1,44 @@
+extends ../../layouts/backend_layout
+
+block header_breadcrumb
+  nav
+    ol.breadcrumb
+      li.breadcrumb-item Home
+      li.breadcrumb-item.active Automatic Discounts
+
+block content 
+  main#main.main
+    section.displaynone.automatic_discount_banner.section.profile
+          div.under-data-payment
+            img(src='/assets/img/automatic-discount-banner.svg')
+            h2.cart-recovery-text  Create and manage discounts that apply automatically to a customer’s cart
+            a.btn.btn-primary(href=`/${store_id}/discount/create`) Create  new discount
+
+    section.section.displaynone.automatic_discount_listing.profile
+      input(type='hidden' class="store_id" value=store_id)
+      div.row
+        div.col-lg-12
+          div.card
+            div.card-header.text-center.textsm-start
+              .d-sm-flex.justify-content-between
+                h5.lst-heading Automatic discounts
+                .p-payment
+                  a.btn.btn-primary(href=`/${store_id}/discount/create`) Create  new discount
+
+            div.card-body
+              div.table-responsive-sm
+                table#automatic_discount_table.table.bootstrap-custom-table
+                  thead
+                    tr.automatic-heading-row
+                      th Title
+                      th Discount Triggers
+                      th Date
+                      th Usage
+                      th Status
+                      th Action
+
+block scripts
+  script.
+    var automatic_discount_count = `!{automatic_discount_count}`;
+
+  script(type='text/javascript' src='/assets/js/custom/automatic_discount_listing.js')

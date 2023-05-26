@@ -1,0 +1,271 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@300;400;500;700&family=Archivo:wght@300;400;500;700;800&family=Arimo:wght@400;500;700&family=Assistant:wght@400;500;600;700&family=Balsamiq+Sans:wght@400;700&family=Catamaran:wght@300;400;600;700&family=Commissioner:wght@400;500;600;700;800&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,700&family=DM+Sans:wght@400;500;700&family=Dosis:wght@300;400;500;600;700&family=EB+Garamond:wght@400;500;600;700&family=Golos+Text:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;700&family=Jost:ital,wght@0,400;0,700;1,300&family=Karla:wght@400;500;700;800&family=Lato:ital,wght@0,300;1,300;1,400;1,700&family=Libre+Franklin:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,900&family=Lora:wght@400;500;600;700&family=Manrope:wght@400;500;700&family=Montserrat:wght@300;400;500;600;700&family=Mulish:wght@400;500;700&family=Noto+Sans:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600;700;800&family=Oxygen:wght@300;400;700&family=PT+Sans:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,900&family=Quicksand:wght@300;400;500;600;700&family=Raleway:wght@100;200;400;500;800&family=Sofia+Sans:wght@400;500;600;700&family=Source+Sans+Pro:wght@400;600;700&family=Urbanist:wght@400;600;700&family=Work+Sans:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.checkout-thankyou-v1 {
+    font-family: "Raleway" !important;
+}
+
+.checkout-thankyou-v1 .icon-iteam-smry img {
+    max-width: 72px;
+}
+
+.checkout-thankyou-v1 .custum-inner-container {
+    padding: 20px 120px;
+}
+
+.checkout-thankyou-v1 .hedder-defgine {
+    background-color: #ffffff;
+    box-shadow: 0px 1px 4px rgba(38, 35, 55, 0.1);
+}
+
+.checkout-thankyou-v1 .image-logos img {
+    width: 90px;
+    height: 33px;
+}
+
+.checkout-thankyou-v1 .image-logos {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.checkout-thankyou-v1 .thank-you-section {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.19);
+    padding: 25px 25px 35px 25px;
+    background-color: #fff;
+}
+
+.checkout-thankyou-v1 .order-smrey {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.19);
+    padding: 25px 25px 35px 25px;
+    background-color: #fff;
+}
+
+.checkout-thankyou-v1 .user-name {
+    font-family: "Raleway" !important;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0em;
+    color: #1c1c1c;
+    text-align: left;
+}
+
+.checkout-thankyou-v1 .icon-airplane img {
+    height: 30px;
+    width: 30px;
+}
+
+.checkout-thankyou-v1 .main-ship-cheak {
+    border: 1px solid #dfdfdf;
+    padding: 12px 15px 12px 15px;
+}
+
+.checkout-thankyou-v1 .check img {
+    height: 20px;
+    width: 20px;
+}
+
+.checkout-thankyou-v1 .main-ship-cheak {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.checkout-thankyou-v1 .shipping {
+    align-items: center;
+}
+
+.checkout-thankyou-v1 .user-datils-addres {
+    margin-left: 15px;
+}
+
+.checkout-thankyou-v1 .user-datils-addres h4 {
+    font-family: "Raleway" !important;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19px;
+    color: #000000;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.checkout-thankyou-v1 .user-datils-addres p {
+    font-family: "Raleway" !important;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    margin-bottom: 5px !important;
+    color: #000000;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.checkout-thankyou-v1 .btn-contonue-shoping button {
+    width: 100%;
+    background: button_color;
+    height: 54px;
+    color: #ffffff;
+    font-family: "Raleway" !important;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 22px;
+    margin-top: 25px;
+    border-radius: 5px;
+    letter-spacing: 0em;
+    border: 0;
+    text-align: center;
+}
+
+.checkout-thankyou-v1 .order-smry-t {
+    font-family: "Raleway" !important;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #1c1c1c;
+}
+
+.checkout-thankyou-v1 .order-main {
+    justify-content: space-between;
+}
+
+.checkout-thankyou-v1 .iteam-deatiles h4 {
+    font-family: "Raleway" !important;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19px;
+    color: #1c1c1c;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.checkout-thankyou-v1 .iteam-deatiles p {
+    font-family: "Raleway" !important;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+    color: #1c1c1c;
+    text-align: left;
+}
+
+.checkout-thankyou-v1 .crose {
+    text-align: right;
+}
+
+.checkout-thankyou-v1 .crose img {
+    height: 13px;
+    width: 13px;
+}
+
+.checkout-thankyou-v1 .iteam-price {
+    font-family: "Raleway" !important;
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 35px;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #1c1c1c;
+}
+
+.checkout-thankyou-v1 .order-main.d-flex.mt-3 {
+    border-bottom: 1px solid #dfdfdf;
+    padding-bottom: 16px;
+}
+
+.toatal-thx-data {
+    font-family: "Raleway" !important;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0px;
+    color: #1c1c1c;
+    text-align: left;
+}
+
+.checkout-thankyou-v1 .toatal-thx-data span {
+    font-family: "Raleway" !important;
+    color: #1c1c1c;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19px;
+    letter-spacing: 0px;
+    text-align: left;
+}
+
+.checkout-thankyou-v1 .last-fotr-total h5 {
+    font-family: "Raleway" !important;
+    font-size: 20px;
+    color: #1c1c1c;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0px;
+    text-align: left;
+}
+
+.checkout-thankyou-v1 .last-fotr-total h5 span {
+    font-family: "Raleway" !important;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #1c1c1c;
+}
+
+.checkout-thankyou-v1 .total-ship-price {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.checkout-thankyou-v1 .main.checkout {
+    /* background-image: url(/assets/img/wewe.png);
+    background-size: cover;
+    background-repeat: no-repeat; */
+    background-color: #F8F8F9;
+}
+
+.checkout-thankyou-v1 .main-inner-back-botom {
+    height: calc(100vh - 130px);
+}
+.checkout-thankyou-v2 .checkout-thankyou-footer-links a {
+    color: #262337;
+    padding-left: 10px;
+}
+@media (max-width: 767px) {
+    .checkout-thankyou-v1 .last-fotr-total h5 {
+        font-size: 18px;
+    }
+    .checkout-thankyou-v1 .thank-you-section{
+        padding: 20px;
+    }
+}
+
+@media (max-width: 992px) {
+    .checkout-thankyou-v1 .custum-inner-container {
+        padding: 17px 15px;
+    }
+
+    .checkout-thankyou-v1 .master-card {
+        margin-right: 13px !important;
+    }
+
+    .checkout-thankyou-v1 .main-inner-back-botom {
+        height: 100%;
+    }
+
+    .checkout-thankyou-v1 .order-smrey {
+        margin-top: 25px;
+    }
+}
+
+.checkout-thankyou-v1 .shopify_body .main.checkout,
+body #main.checkout {
+    padding-bottom: 0px !important;
+}

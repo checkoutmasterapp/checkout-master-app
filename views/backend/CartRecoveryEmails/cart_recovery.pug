@@ -1,0 +1,42 @@
+extends ../../layouts/backend_layout
+
+block header_breadcrumb
+    nav
+        ol.breadcrumb
+            li.breadcrumb-item Home
+            li.breadcrumb-item.active Cart Recovery
+
+block content 
+    main#main.main
+        section.section.profile.displaynone.cart_recovery_banner
+            div.under-data-payment
+                img(src='/assets/img/cart-recovery-banner.svg')
+                h2.cart-recovery-text  Don't let your customers slip away,
+                h2.cart-recovery-text re-engage with them!
+                a.btn.btn-primary.recovery-add(href=`/${store_id}/cart-recovery/create`) Add a Recovery Email
+
+        section.section.main-inner-data-profile.displaynone.cart_recovery_listing
+            div.row
+                div.col-lg-12
+                    div.card
+                        div.card-header.text-center.textsm-start.py-4
+                            .d-sm-flex.justify-content-between
+                                h5 Cart Recovery
+                                .p-payment
+                                    a.btn.btn-primary(href=`/${store_id}/cart-recovery/create`) Add a Recovery Email
+                        div.card-body
+                            div
+                                table#recovery_email_table.table
+                                    thead
+                                        tr 
+                                            th Title
+                                            th Timing
+                                            th Created
+                                            th Preview
+
+
+block scripts
+    script.
+        var store_id = `!{store_id}`;
+
+    script(type='text/javascript' src='/assets/js/custom/cart_recovery.js')

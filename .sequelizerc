@@ -1,0 +1,16 @@
+const path = require('path');
+
+// npx sequelize db:migrate
+// npx sequelize db:migrate:undo:all
+// npx sequelize db:migrate:undo --name 2023_05_09_0000033_create-order-revenue_charge.js
+
+// npx sequelize db:seed:all
+// npx sequelize db:seed:undo:all
+// npx sequelize db:seed:undo --name 2022_12_20_000004_create-subscription_package.js
+
+module.exports = {
+  "config": path.resolve(`${__dirname}/src/db-migration/dbconfig.js`),
+  // "models-path": path.resolve(`${__dirname}/src/models`),
+  "migrations-path": path.resolve(`${__dirname}/src/db-migration/migrations`),
+  "seeders-path": path.resolve(`${__dirname}/src/db-migration/seeders`),
+};

@@ -1,0 +1,67 @@
+extends ../../layouts/backend_layout
+
+block content 
+    main#main.main
+        .pagetitle
+            a(href=`/${store_id}/cart-recovery`) Cart Recovery
+
+            section.cart-recovery
+                br
+                h5.email-preview-subject Subject: 
+                if cart_recovery && cart_recovery.cart_recovery_email_subject != ''
+                    h5.email-preview-text-title #{cart_recovery.cart_recovery_email_subject}
+                //- else 
+                //-     h5.email-preview-text-title #{translation_data ? translation_data.default_subjects:'Your cart is waiting for you!'}
+
+                
+                .container 
+                    div.col-xl-11 
+                        div
+                            div
+                                div.email-preview-body
+                                    div.email-preview-div
+                                        div.height-div
+                                            if customize_checkout && customize_checkout.store_logo != ''
+                                                img(src= customize_checkout.store_logo, height='50')
+                                            else 
+                                                p#email-preview-greetings  #{auth_store.store_name}
+                                        h2.email-title
+                                            if cart_recovery && cart_recovery.cart_recovery_email_title != ''
+                                                |#{cart_recovery.cart_recovery_email_title}
+                                            else 
+                                                |#{translation_data && translation_data.cart_recovery_email_title || "You've left items in your cart!"}
+                                                
+
+                                        //- p#email-preview-greetings #{translation_data && translation_data ? translation_data.default_greeting:'Hi'} ,
+                                        p#email-preview-greetings
+                                            if cart_recovery && cart_recovery.cart_recovery_email_body != ''
+                                                |#{cart_recovery.cart_recovery_email_body}
+                                            //- else 
+                                            //-     |#{translation_data && translation_data.default_message || "you added items to your shopping cart and haven't completed your purchase. You can complete it now while they're still available. Your cart is currently waiting for you!"}
+                                        a.email-a-link(href='#', style=`background-color:${customize_checkout && customize_checkout ?customize_checkout.button_color:'#1A1A1A'}! important` target='_blank')
+                                            if(cart_recovery && cart_recovery.cart_recovery_action_button_title != '')
+                                                | #{cart_recovery.cart_recovery_action_button_title}
+                                            else 
+                                                | #{translation_data && translation_data.default_call_to_action || 'Return to my order'}
+                                        div.email-preview-or-div
+                                            | #{translation_data && translation_data.or || 'or'}
+                                            a.email-preview-visit-link(href='https://'+auth_store.store_name+'.myshopify.com' target='_blank' ,style=`color:${customize_checkout && customize_checkout ?customize_checkout.accent_color:'#012970'}! important`)  Visit our website
+                                            
+                                        hr.email-preview-hr1
+                                        //- h2.email-preview-h2 #{cart_recovery && cart_recovery.cart_recovery_email_title || translation_data && translation_data.cart_title || "The items you've left in the cart"}
+                                        div.email-preview-table
+                                            .email-preview-tr
+                                                .email-preview-td-img
+                                                    img(src='https://cdn.shopify.com/s/files/1/0526/3278/0977/products/3401331_79406f0aeb_1024x1024_2x_e68cc2d3-a5bb-4880-8d71-9671039fb1e9.jpg?v=1673604558' width='80' height='80')
+                                                .email-preview-td-text
+                                                .pera-degine
+                                                    p  CARLENE - SANDALES COMPENS&Eacute;ES FLORAL x 2 
+                                                    .email-preview-text-size Beige / 40
+                                        hr.email-preview-hr2
+                                        p.email-preview-disclaimer
+                                            if (cart_recovery && cart_recovery.cart_recovery_footer_text)
+                                                | #{cart_recovery.cart_recovery_footer_text || `You are receiving this automatic reminder because you started ordering items on ${+auth_store.store_name}`}
+                                            //- else 
+                                            //-     | #{translation_data && translation_data.cart_recovery_footer_text || 'You are receiving this automatic reminder because you started ordering items on '+auth_store.store_name}
+block scripts                               
+    script(type='text/javascript', src='/assets/js/custom/cart_recovery.js')

@@ -1,0 +1,43 @@
+
+extends ../../layouts/frontend
+
+block content 
+    main.confirm-email-template(marginheight="0", topmargin="0", marginwidth="0", leftmargin="0")
+        div(cellspacing="0", cellpadding="0", width="100%")
+            row
+                div
+                    div.confirm-email-tbl(width="100%", cellpadding="0", cellspacing="0")
+                        row
+                            div.confirm-email-td1
+                        row
+                            div.confimr-email-td2
+                        row
+                            div
+                                div.confirm-email-table(width="95%", cellpadding="0", cellspacing="0")
+                                    row
+                                        div.confirm-email-td3
+                                            .d-flex.justify-content-center.pb-4.pt-3
+                                                a.logo.d-flex.align-items-center.w-auto(href="#")
+                                                img(src='/assets/img/site-logo.svg', alt='logo')
+                                            h1.confirm-email-text
+                                                | Success!<br>
+                                            h1.confirm-email-text-2
+                                                | Thanks for verifying your email address<br>
+                                            h3.verifaton-txt.mt-3
+                                                | Verifying your email address is a simple way to prove that you're a real user and makes your account more secure. 
+                                            span.confirm-email-span
+                                            p.confirm-email-msg.mt-5
+                                                | 
+                                                | Log in now to start using Checkout Master features.
+                                            button.confirm-email-login(href="/")
+                                                | 
+                                                | Log in
+                    p.fotter-txtx.text-center.mt-5 © 2023 EB WARDOGS LIMITED
+
+block scripts
+    script.
+        $(document).ready(function($) {
+            setTimeout(()=>{
+                window.location.href = "/";
+            },5000)
+        });

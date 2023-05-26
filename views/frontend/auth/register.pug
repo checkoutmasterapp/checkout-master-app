@@ -1,0 +1,80 @@
+extends ../../layouts/frontend
+
+block content
+  // Google Tag Manager (noscript)
+  noscript
+    iframe(src='https://www.googletagmanager.com/ns.html?id=GTM-W6ZQHFR' height='0' width='0' style='display:none;visibility:hidden')
+  // End Google Tag Manager (noscript)
+
+  div.mann-bac
+    .container
+      section.section.register.min-vh-100.d-flex.flex-column.align-items-center.justify-content-center.py-4
+        .container
+          .row.justify-content-center
+            .col-lg-4.col-md-6.d-flex.flex-column.align-items-center.justify-content-center
+
+
+              // End Logo
+              .card.mb-3.outer-card
+                .card-body
+                  .pt-4.pb-2
+                    .d-flex.justify-content-center.py-2
+                      a.logo.d-flex.align-items-center.w-auto(href="#")
+                        img(src='/assets/img/site-logo.svg' alt='logo')
+                    h5.card-title.text-center.pb-0.fs-4 Create an Account
+                    p.text-center.small Enter your personal details to create account
+                  form#register_form.row.g-3(method="post" autocomplete="off")
+                    .col-12
+                      input.form-control.required(
+                        type="text",
+                        name="first_name",value=""
+                        placeholder='First Name'
+                      )
+
+                    .col-12
+                      input.form-control(
+                        type="text",
+                        name="last_name",value=""
+                        placeholder='Last Name'
+                      )
+
+                    .col-12
+                      input.form-control.required(
+                        type="email",
+                        name="email", value =""
+                        placeholder='Email'
+                      )
+
+                    .col-12
+                      input.form-control.required(
+                        type="password",
+                        name="password", value="", id="password"
+                        placeholder='Password'
+                      )
+                      div#password-strength-status
+                    .col-12
+                      input.form-control.required(
+                        type="password",
+                        name="confirm_password", value=""
+                        placeholder='Confirm Password'
+                      )
+
+                    .col-12
+                      .form-check
+                        input.form-check-input(name="terms" type="checkbox", required)
+                        label.form-check-label(for="acceptTerms") I agree and accept the 
+                          a(href="#") terms and conditions
+
+                    .col-12
+                      button#register_btn.btn.btn-primary.w-100(type="submit" disabled) Create Account 
+
+                    .col-12.text-center
+                      p.small.mb-0 Already have an account? 
+                        a#go_back_login(href="/login" disabled) Log in
+              p.fotter-txtx.text-center © 2023 EB WARDOGS LIMITED
+
+block scripts
+  script(type='text/javascript' src='/assets/js/custom/auth.js')
+  script.
+    window.sessionStorage.removeItem('connect_store_steps')
+    window.sessionStorage.removeItem('STORE_DATA')

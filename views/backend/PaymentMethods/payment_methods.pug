@@ -1,0 +1,46 @@
+extends ../../layouts/backend_layout
+
+block header_breadcrumb
+  nav
+    ol.breadcrumb
+      li.breadcrumb-item Home
+      li.breadcrumb-item.active Payment Methods
+
+block content 
+  main#main.main
+    section.section.profile.displaynone.payment_method_banner
+      div.under-data-payment  
+        img(src='/assets/img/payment-banner.svg')   
+        p No one Payment Method has been added
+        a.btn.btn-primary(href=`/${store_id}/add-payment-method`,type="button")
+          | Add Payment Method
+
+    section.section.main-inner-data-profile.displaynone.payment_method_listing
+      div.row
+        div.col-lg-12
+          div.card
+            div.card-header.text-center.textsm-start.py-4
+              .d-sm-flex.justify-content-between
+                h5 Payment Methods
+                .p-payment
+                  a.btn.btn-primary(href=`/${store_id}/add-payment-method`,type="button")
+                    | Add Payment Method
+
+            div.card-body
+              table#payment_method_table.table.datatable
+                thead
+                  tr
+                    th Payment Method
+                    th Processing Mode
+                    th Created
+                    th
+
+
+
+
+
+block scripts
+  script.
+    var store_id = `!{store_id}`;                         
+
+  script(type='text/javascript' src='/assets/js/custom/payment_methods.js')

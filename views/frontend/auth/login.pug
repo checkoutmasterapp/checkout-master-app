@@ -1,0 +1,49 @@
+extends ../../layouts/frontend
+
+block content 
+  div.mann-bac
+    .container
+      section.section.register.min-vh-100.d-flex.flex-column.align-items-center.justify-content-center.py-4
+        .container
+          .row.justify-content-center
+            .col-lg-4.col-md-6.d-flex.flex-column.align-items-center.justify-content-center
+              .d-flex.justify-content-center.py-4
+                //- a.logo.d-flex.align-items-center.w-auto(href="#")
+                //-     img(src='/assets/img/site-logo.svg', alt='logo')
+
+              // End Logo
+              .card.outer-card.mb-3
+                .card-body
+                  .pt-4.pb-2
+                    .d-flex.justify-content-center.pb-3
+                      a.logo.d-flex.align-items-center.w-auto(href="#")
+                      img(src='/assets/img/site-logo.svg', alt='logo')
+                    h5.card-title.text-center.pb-0.fs-4 Log in to Your Account
+                    p.text-center.small Enter your email &amp; password to log in
+
+                  form#login_form.row.g-3(method="post", autocomplete="off")
+                    .col-12
+                      label.form-label 
+                      input.form-control.required.login_email(type="email", name="email" id="email" placeholder='Email')
+                    .col-12
+                      label.form-label 
+                      input.form-control.required.login_pass(type="password", name="password" id="password" placeholder='password')
+
+                    .col-12
+                      .form-check
+                        input#rememberMe.dhweqi.form-check-input(type="checkbox", name="user_status", value="true")
+                        label.form-check-label(for="user_status") Remember me
+                        p.small.mb-0.text-center.mt-3
+                          a#forgot_pwd_link(href="/forgotPassword" disabled) Forgot Password?
+                    .col-12
+                      button#login_button_id.btn.btn-primary.w-100(type="submit" disabled) Log in 
+                    .col-12.text-center
+                      p.small.mb-0 Don&apos;t have account? 
+                        a#create_account_link(href="/register" disabled) Create an account
+            p.fotter-txtx.text-center © 2023 EB WARDOGS LIMITED
+
+block scripts
+  script.
+    window.sessionStorage.removeItem('connect_store_steps')
+    window.sessionStorage.removeItem('STORE_DATA')
+  script(type='text/javascript', src='/assets/js/custom/auth.js')

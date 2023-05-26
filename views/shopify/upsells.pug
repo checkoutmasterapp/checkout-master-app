@@ -1,0 +1,137 @@
+extends ../layouts/shopify_layout
+
+block content
+  .container.mini
+    .row(style="margin-top:80px;")
+
+      input.form-control.store_id(type="hidden" name="store_id" value=store_id)
+      input.form-control.order_id(type="hidden" name="order_id" value=order_id)
+      input.form-control.checkout_id(type="hidden" name="checkout_id" value=checkout_id)
+
+      // Store logo(image_url) and Security Badge(image_url)
+      .store_logo_header
+        .col-md-12
+          .logos
+            if(customize_checkout && customize_checkout.store_logo)
+              a(href=`https://${store_detail.store_domain}`)
+                img.h-12.store-logo(src=`${customize_checkout?customize_checkout.store_logo:''}` )
+            if(customize_checkout && customize_checkout.security_badge)
+              img.h-12.security-logo(src=`${customize_checkout?customize_checkout.security_badge:''}` )
+            else
+              img.h-12.security-logo(src='/assets/img/security_badge.png')
+
+      .col-12
+        .card.upsell-wrapper
+          .upsell-heading-wrapper
+            h2.text-center.upsell-title
+              | !{upsell_detail.upsell_title}
+
+            each upsell_trigger_offer, upsell_trigger_offer_index in upsell_trigger_offers
+
+              div.upsell_section.displaynone(id=`upsell_section_${upsell_trigger_offer_index}`)
+                input.form-control(
+                  type='hidden'
+                  id=`product_id_${upsell_trigger_offer_index}`
+                  value=`${upsell_trigger_offer.product_id}`
+                )
+                input.form-control(
+                  type='hidden'
+                  id=`compare_at_price_${upsell_trigger_offer_index}`
+                  value=`${upsell_trigger_offer.compare_at_price}`
+                )
+                input.form-control(
+                  type='hidden'
+                  id=`product_price_${upsell_trigger_offer_index}`
+                  value=`${upsell_trigger_offer.product_price}`
+                )
+
+                .d-lg-flex
+                  .upsell-slider-wrapper
+                    .upsell-slider.space-4
+                      .upsell-slide
+                        img(src=`${upsell_trigger_offer.product_image}`)
+
+                  .upsell-content.space-top-4.space-4
+                    h2.text-center.text-lg-left.js-upsell-product-title !{upsell_trigger_offer.product_title}
+
+                    if(upsell_trigger_offer.product_variants.length > 1)
+                      .custom-select-wrapper.space-4
+                        select.custom-select.upsell_product_variant(id=`upsell_product_variant_${upsell_trigger_offer_index}`)
+                          each product_variant, product_variant_index in upsell_trigger_offer.product_variants
+                            option(
+                              value=`${product_variant.id}`
+                              data-sku=`${product_variant.sku}`
+                              data-title=`${product_variant.title}`
+                              data-amount=`${product_variant.price}`
+                              data-compare-at-amount=`${product_variant.compare_at_price}`
+                              product_variant_index= `${product_variant_index}`
+                            ) !{product_variant.title}
+
+                    .d-flex.justify-content-between.align-items-center 
+                      .input-typs
+                        button.btn-minius.purchase_quantity_minius
+                          i.fa-solid.fa-minus
+                        input.quanitity(
+                          readonly 
+                          step='1', min='1',
+                          name='purchase_quantity'
+                          id=`purchase_quantity_${upsell_trigger_offer_index}`
+                          value=`${upsell_trigger_offer.purchase_quantity}`
+                        )
+                        button.btn-plus.purchase_quantity_plus
+                          i.fa-solid.fa-plus
+
+                      .upsell-price-wrapper.d-flex.flex-column.text-center.text-lg-right
+                        if !(parseFloat(upsell_trigger_offer.compare_at_price) <= parseFloat(upsell_trigger_offer.product_price))
+                          span.upsell-compare-price(
+                            id=`upsell_compare_at_price_${upsell_trigger_offer_index}`
+                          ) !{upsell_trigger_offer.compare_at_price_html}
+
+                        span.upsell-price.accent.bold(
+                          id=`upsell_product_price_${upsell_trigger_offer_index}`
+                        ) #{upsell_trigger_offer.product_price_html}
+
+                .upsell-description !{upsell_trigger_offer.product_description}
+
+                .upsell-buttons
+                  button.btn.btn-secondary.no_thank_upsell(
+                    upsell_trigger_offer_index=`${upsell_trigger_offer_index}`
+                  ) No, thanks
+
+                  button.btn.btn-primary.purchase_upsell(
+                    upsell_trigger_offer_id=`${upsell_trigger_offer.id}`
+                    upsell_trigger_offer_index=`${upsell_trigger_offer_index}`
+                  ) Purchase
+
+  div#checkout_payment_model.modal.fade(aria-hidden='true' role='dialog' tabindex='-1')
+    div.modal-dialog.modal-dialog-scrollable.modal-lg
+      div.modal-content
+        div.modal-header
+          button.btn-close#checkout_payment_model_close(type='button')
+        div.modal-body
+          div.checkout-payment-frames.checkout_payment_frame_body
+            p.box-heading Card Details
+            form.payment-form#checkout_payment_form(method='POST' action='https://merchant.com/charge-card')
+              .one-liner
+                .card-frame
+                button.pay-button#checkout_pay_button(disabled='') PAY
+              p.error-message
+              p.success-payment-message
+          div.displaynone.checkout_payment_gateway_security
+
+block scripts
+  script.
+    var store_id = `!{store_id}`;
+    var order_id = `!{order_id}`;
+    var checkout_id = `!{checkout_id}`;
+    var store_domain_url = `!{store_domain_url}`;
+    var PAYMENT_MODE = `!{process.env.PAYMENT_MODE}`;
+
+    var store_detail= !{JSON.stringify(store_detail)};
+    var customize_checkout = !{JSON.stringify(customize_checkout)};
+
+    var upsell_detail = !{JSON.stringify(upsell_detail)};
+    var upsell_trigger_offers = !{JSON.stringify(upsell_trigger_offers)};
+
+  script(type='text/javascript' src='https://cdn.checkout.com/js/framesv2.min.js')
+  script(type='text/javascript' src='/assets/js/shopify/upsell.js')

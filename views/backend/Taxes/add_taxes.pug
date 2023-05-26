@@ -1,0 +1,1343 @@
+extends ../../layouts/backend_layout
+
+block header_breadcrumb
+  nav
+    ol.breadcrumb
+      li.breadcrumb-item Home
+      li.breadcrumb-item.active Taxes
+
+block content 
+  main#main.main
+    section.section.profile
+      .pagetitle
+        h1 Taxes
+      section.section.add-taxes
+        form#add-tax-rate.row.g-3(method="post")
+          input(type='hidden' name="store_id" value=store_id)
+          div.row
+            div.col-lg-6
+              div
+                div.add_tax_rate-card.pt-4.d-flex.flex-column
+                  h2.txt-rate Add a new Tax rate               
+                  p.txt-rate-2 Manage how your store charges taxes. On all products with the option: Charge tax on this product, will be applied tax rates
+
+            div.col-lg-6 
+              div.card
+                div.card-body.pt-3
+                  div.tab-content.pt-2
+                    div.form-row
+                      div.form-group.col
+                        label.form-label Tax Name    
+                        input#tax_rate_name.form-control.required(type='text' name='tax_rate_name')
+                    div.form-row.mt-3
+                      div.form-group.col
+                        label.form-label Tax Rate      
+                        div.input-group
+                          input#tax_rate_percentage.form-control.filled.required(min='0' max='100' step='0.01' type='number' value='0.0' name='tax_rate_percentage')
+                          div.input-group-append
+                            span.input-group-text
+                              | %
+
+          div.row
+            div.col-lg-6
+              div
+                div.add-taxes-card.pt-4.d-flex.flex-column
+                  h2.txt-rate Applicable countries    
+                  p.txt-rate-2  Select the countries for which this Tax Rate will be applicable   
+
+            div.col-lg-6
+              div.card
+                div.card-body.pt-3
+                  div.tab-content.pt-2
+                    div.card-items
+                      div.card-item
+                        div.d-flex.justify-content-start.w-100
+                          div#tax-countries-list.w-100
+                            div.row.w-100
+                              div.d-flex.justify-content-between.w-100
+                                #tax-rate-countries  All
+                                button#edit_counteries.btn.btn-secondary(type="button") EDIT COUNTRIES
+
+
+
+
+          div#contriesPicker.modal.fade(aria-hidden='true' role='dialog' tabindex='-1')
+            div.modal-dialog.modal-dialog-scrollable.modal-lg
+              div.modal-content
+                div.modal-header.row
+                  div.col-6
+                    h5#exampleModalLabel.modal-title Select Countries
+                    p#validate-countries-error Please select the Countries!
+                  div.col-6.d-flex.justify-content-end
+                    div.btn.btn-icon.btn-sm.btn-active-icon-primary.model_close(data-dismiss="modal" aria-label="Close" model_id="add_vendors_model")
+                      span.svg-icon.svg-icon-1
+                        svg(width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg')
+                          rect(opacity='0.5' x='6' y='17.3137' width='16' height='2' rx='1' transform='rotate(-45 6 17.3137)' fill='currentColor')
+                          rect(x='7.41422' y='6' width='16' height='2' rx='1' transform='rotate(45 7.41422 6)' fill='currentColor')
+                div.modal-body
+                  div.modal-section
+                    div.modal-section-header
+                      p  Africa
+                      div.custom-control.custom-checkbox.niner
+                        input#region-checkbox-Africa.custom-control-input(  data-function='region-checkbox' data-region='Africa' type='checkbox')
+                        label.mrk.custom-control-label(for='region-checkbox-Africa') 
+                        p Select all
+                    div.modal-section-body
+                      .custom-control.custom-checkbox.country.niner
+                        input#country-checkbox-926080.custom-control-input.region-Africa(data-region='Africa' type='checkbox' , checked='checked' ,  value='DZ' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926080')
+                        p  Algeria
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926100.custom-control-input.region-Africa(data-region='Africa' type='checkbox' , checked='checked' ,  value='AO' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926100')
+                        p  Angola
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926120.custom-control-input.region-Africa(data-region='Africa' type='checkbox' checked='checked' ,  value='BJ' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926120')
+                        p  Benin
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926140.custom-control-input.region-Africa(data-region='Africa' type='checkbox' checked='checked' ,  value='BW' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926140')
+                        p  Botswana
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926160.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='IO' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926160')
+                        p  British Indian Ocean Territory
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926180.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='BF' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926180')
+                        p  Burkina Faso
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926200.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='BI' checked='checked' , name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926200')
+                        p  Burundi
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926220.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='CV' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926220')
+                        p  Cabo Verde
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926240.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='CM' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926240')
+                        p  Cameroon
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926260.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='CF' checked='checked' ,   name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926260')
+                        p  Central African Republic
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926280.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='TD' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926280')
+                        p  Chad
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926300.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='KM' checked='checked' ,   name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926300')
+                        p  Comoros
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926320.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='CG' checked='checked' ,   name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926320')
+                        p  Congo
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926340.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='CD' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926340')
+                        p  Congo (Democratic Republic of the)
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926360.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='CI' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926360')
+                        p  C&ocirc;te d&apos;Ivoire
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926380.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='DJ' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926380')
+                        p  Djibouti
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926400.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='EG' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926400')
+                        p  Egypt
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-926420.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='GQ' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926420')
+                        p  Equatorial Guinea
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926440.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='ER' checked='checked' , name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926440')
+                        p  Eritrea
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-926460.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='ET' checked='checked' , name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926460')
+                        p  Ethiopia
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926480.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='GA' checked='checked' , name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926480')
+                        p  Gabon
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926500.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='GM' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926500')
+                        p  Gambia
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926520.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='GH' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926520')
+                        p  Ghana
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926540.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='GN' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926540')
+                        p  Guinea
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926560.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='GW' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926560')
+                        p  Guinea-Bissau
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926580.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='KE' checked='checked' , name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926580')
+                        p  Kenya
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926600.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='LS' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926600')
+                        p  Lesotho
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926620.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='LR' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926620')
+                        p  Liberia
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926640.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='LY' checked='checked' , name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926640')
+                        p  Libya
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926660.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='MG' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926660')
+                        p  Madagascar
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926680.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='MW' checked='checked' , name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926680')
+                        p  Malawi
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926700.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='ML' checked='checked' ,   name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926700')
+                        p  Mali
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926720.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='MR' checked='checked' , name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926720')
+                        p  Mauritania
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926740.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='MU' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926740')
+                        p  Mauritius
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926760.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='YT' checked='checked' , name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926760')
+                        p  Mayotte
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926780.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='MA' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926780')
+                        p  Morocco
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926800.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='MZ' checked='checked' , name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926800')
+                        p  Mozambique
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-926820.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='NA' checked='checked' , name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926820')
+                        p  Namibia
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926840.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='NE' checked='checked' ,   name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926840')
+                        p  Niger
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926860.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='NG' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926860')
+                        p  Nigeria
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-926880.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='RW' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926880')
+                        p  Rwanda
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-926900.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='RE' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926900')
+                        p  R&eacute;union
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926920.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='SH' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926920')
+                        p  Saint Helena, Ascension and Tristan d...
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926940.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='ST' checked='checked' ,   name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926940')
+                        p  Sao Tome and Principe
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926960.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='SN' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926960')
+                        p  Senegal
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-926980.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='SC' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-926980')
+                        p  Seychelles
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927000.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='SL' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927000')
+                        p  Sierra Leone
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927020.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='SO' checked='checked' , name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927020')
+                        p  Somalia
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-927040.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='ZA' checked='checked' , name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927040')
+                        p  South Africa
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-927060.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='SS' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927060')
+                        p  South Sudan
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927080.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='SD' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927080')
+                        p  Sudan
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-927100.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='TZ' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927100')
+                        p  Tanzania, United Republic of
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927120.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='TG' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927120')
+                        p  Togo
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927140.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='TN' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927140')
+                        p  Tunisia
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927160.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='UG' checked='checked' , name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927160')
+                        p  Uganda
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-927180.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='EH' checked='checked' ,  name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927180')
+                        p  Western Sahara
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927200.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='ZM' checked='checked' , name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927200')
+                        p  Zambia
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927220.custom-control-input.region-Africa(data-region='Africa' type='checkbox' , checked='checked' , value='ZW' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927220')
+                        p  Zimbabwe
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927240.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='SZ' checked='checked' , name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927240')
+                        p  eSwatini
+                  div.modal-section
+                    div.modal-section-header
+                      p  Americas
+                      div.custom-control.custom-checkbox.niner
+                        input#region-checkbox-Americas.custom-control-input(data-function='region-checkbox' data-region='Americas' type='checkbox')
+                        label.mrk.custom-control-label(for='region-checkbox-Americas')
+                        p  Select all
+                    div.modal-section-body
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927260.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='AI' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927260')
+                        p  Anguilla
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927280.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='AG' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927280')
+                        p  Antigua and Barbuda
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927300.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='AR' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927300')
+                        p  Argentina
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927320.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='AW' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927320')
+                        p  Aruba
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927340.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='BS' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927340')
+                        p  Bahamas
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927360.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='BB' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927360')
+                        p  Barbados
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927380.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='BZ' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927380')
+                        p  Belize
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-927400.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='BM' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-9.region-Oceania27400')
+                        p  Bermuda
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927420.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='BO' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927420')
+                        p  Bolivia (Plurinational State of)
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927440.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='BQ' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927440')
+                        p  Bonaire, Sint Eustatius and Saba
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927460.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='BR' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927460')
+                        p  Brazil
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927480.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='CA' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927480')
+                        p  Canada
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927500.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='KY' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927500')
+                        p  Cayman Islands
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927520.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='CL' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927520')
+                        p  Chile
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927540.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='CO' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927540')
+                        p  Colombia
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927560.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='CR' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927560')
+                        p  Costa Rica
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927580.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='CU' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927580')
+                        p  Cuba
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-927600.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='CW' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927600')
+                        p  Cura&ccedil;ao
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927620.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='DM' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927620')
+                        p  Dominica
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927640.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='DO' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927640')
+                        p  Dominican Republic
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927660.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='EC' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927660')
+                        p  Ecuador
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927680.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='SV' checked='checked' , name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927680')
+                        p  El Salvador
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927700.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='FK' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927700')
+                        p  Falkland Islands (Malvinas)
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927720.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='GF' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927720')
+                        p  French Guiana
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-927740.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='GL' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927740')
+                        p  Greenland
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927760.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='GD' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927760')
+                        p  Grenada
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927780.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='GP' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927780')
+                        p  Guadeloupe
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927800.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='GT' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927800')
+                        p  Guatemala
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927820.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='GY' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927820')
+                        p  Guyana
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927840.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='HT' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927840')
+                        p  Haiti
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927860.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='HN' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927860')
+                        p  Honduras
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927880.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='JM' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927880')
+                        p  Jamaica
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927900.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='MQ' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927900')
+                        p  Martinique
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-927920.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='MX' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927920')
+                        p  Mexico
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927940.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='MS' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927940')
+                        p  Montserrat
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-927960.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='NI' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927960')
+                        p  Nicaragua
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-927980.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='PA' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-927980')
+                        p  Panama
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928000.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='PY' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928000')
+                        p  Paraguay
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928020.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='PE' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928020')
+                        p  Peru
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928040.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='PR' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928040')
+                        p  Puerto Rico
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928060.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='BL' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928060')
+                        p  Saint Barth&eacute;lemy
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928080.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='KN' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928080')
+                        p  Saint Kitts and Nevis
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928100.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='LC' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928100')
+                        p  Saint Lucia
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928120.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='MF' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928120')
+                        p  Saint Martin (French part)
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-928140.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='PM' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928140')
+                        p  Saint Pierre and Miquelon
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928160.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='VC' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928160')
+                        p  Saint Vincent and the Grenadines
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928180.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='SX' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928180')
+                        p  Sint Maarten (Dutch part)
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928200.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='GS' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928200')
+                        p  South Georgia and the South Sandwich ...
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928220.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='SR' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928220')
+                        p  Suriname
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928240.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='TT' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928240')
+                        p  Trinidad and Tobago
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928260.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='TC' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928260')
+                        p  Turks and Caicos Islands
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-928280.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='UM' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928280')
+                        p  United States Minor Outlying Islands
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928300.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='US' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928300')
+                        p  United States of America
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928320.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='UY' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928320')
+                        p  Uruguay
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928340.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='VE' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928340')
+                        p  Venezuela (Bolivarian Republic of)
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928360.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='VG' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928360')
+                        p  Virgin Islands (British)
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-928380.custom-control-input.region-Americas(data-region='Americas' type='checkbox' checked='checked' value='VI' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928380')
+                        p  Virgin Islands (U.S.)
+                  div.modal-section
+                    .modal-section-header
+                      p  Asia
+                      .custom-control.custom-checkbox.niner
+                        input#region-checkbox-Asia.custom-control-input(data-function='region-checkbox' data-region='Asia' type='checkbox')
+                        label.mrk.custom-control-label(for='region-checkbox-Asia')
+                        p  Select all
+                    .modal-section-body
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928400.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='AF' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928400')
+                        p  Afghanistan
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928420.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='AM' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928420')
+                        p  Armenia
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928440.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='AZ' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928440')
+                        p  Azerbaijan
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928460.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='BH' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928460')
+                        p  Bahrain
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928480.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='BD' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928480')
+                        p  Bangladesh
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928500.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='BT' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928500')
+                        p  Bhutan
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928520.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='BN' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928520')
+                        p  Brunei Darussalam
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928540.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='KH' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928540')
+                        p  Cambodia
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928560.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='CN' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928560')
+                        p  China
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928580.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='CY' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928580')
+                        p  Cyprus
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928600.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='GE' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928600')
+                        p  Georgia
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928620.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='HK' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928620')
+                        p  Hong Kong
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928640.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='IN' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928640')
+                        p  India
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928660.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='ID' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928660')
+                        p  Indonesia
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928680.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='IR' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928680')
+                        p  Iran (Islamic Republic of)
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928700.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='IQ' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928700')
+                        p  Iraq
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928720.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='IL' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928720')
+                        p  Israel
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928740.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='JP' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928740')
+                        p  Japan
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928760.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='JO' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928760')
+                        p  Jordan
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928780.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='KZ' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928780')
+                        p  Kazakhstan
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-928800.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='KP' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928800')
+                        p  Korea (Democratic People&apos;s Republic of)
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928820.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='KR' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928820')
+                        p  Korea (Republic of)
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928840.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='KW' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928840')
+                        p  Kuwait
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928860.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='KG' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928860')
+                        p  Kyrgyzstan
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928880.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='LA' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928880')
+                        p  Lao People&apos;s Democratic Republic
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928900.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='LB' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928900')
+                        p  Lebanon
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928920.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='MO' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928920')
+                        p  Macao
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-928940.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='MY' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928940')
+                        p  Malaysia
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928960.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='MV' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928960')
+                        p  Maldives
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-928980.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='MN' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-928980')
+                        p  Mongolia
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929000.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='MM' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929000')
+                        p  Myanmar
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929020.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='NP' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929020')
+                        p  Nepal
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929040.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='OM' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929040')
+                        p  Oman
+
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929080.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='PS' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929080')
+                        p  Palestine, State of
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929100.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='PH' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929100')
+                        p  Philippines
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929120.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='QA' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929120')
+                        p  Qatar
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929140.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='SA' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929140')
+                        p  Saudi Arabia
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929160.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='SG' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929160')
+                        p  Singapore
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929180.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='LK' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929180')
+                        p  Sri Lanka
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929200.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='SY' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929200')
+                        p  Syrian Arab Republic
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-929220.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='TW' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929220')
+                        p  Taiwan, Province of China
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929240.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='TJ' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929240')
+                        p  Tajikistan
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929260.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='TH' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929260')
+                        p  Thailand
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929280.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='TL' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929280')
+                        p  Timor-Leste
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929300.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='TR' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929300')
+                        p  Turkey
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929320.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='TM' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929320')
+                        p  Turkmenistan
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929340.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='AE' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929340')
+                        p  United Arab Emirates
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929380.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='VN' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929380')
+                        p  Viet Nam
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-929400.custom-control-input.region-Asia(data-region='Asia' type='checkbox' checked='checked' value='YE' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929400')
+                        p  Yemen
+                  div.modal-section
+                    .modal-section-header
+                      p  Europe
+                      .custom-control.custom-checkbox.niner
+                        input#region-checkbox-Europe.custom-control-input(data-function='region-checkbox' data-region='Europe' type='checkbox')
+                        label.mrk.custom-control-label(for='region-checkbox-Europe')
+                        p  Select all
+                    .modal-section-body
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929420.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='AL' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929420')
+                        p  Albania
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929440.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='AD' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929440')
+                        p  Andorra
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929460.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='AT' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929460')
+                        p  Austria
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929480.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='BY' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929480')
+                        p  Belarus
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929500.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='BE' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929500')
+                        p  Belgium
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-929520.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='BA' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929520')
+                        p  Bosnia and Herzegovina
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929540.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='BG' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929540')
+                        p  Bulgaria
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929560.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='HR' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929560')
+                        p  Croatia
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929580.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='CZ' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929580')
+                        p  Czech Republic
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929600.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='DK' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929600')
+                        p  Denmark
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929620.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='EE' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929620')
+                        p  Estonia
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929640.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='FO' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929640')
+                        p  Faroe Islands
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929660.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='FI' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929660')
+                        p  Finland
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929680.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='FR' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929680')
+                        p  France
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929700.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='DE' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929700')
+                        p  Germany
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-929720.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='GI' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929720')
+                        p  Gibraltar
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-929740.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='GR' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929740')
+                        p  Greece
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929760.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='GG' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929760')
+                        p  Guernsey
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929780.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='VA' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929780')
+                        p  Holy See
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929800.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='HU' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929800')
+                        p  Hungary
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929820.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='IS' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929820')
+                        p  Iceland
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929840.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='IE' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929840')
+                        p  Ireland
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929860.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='IM' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929860')
+                        p  Isle of Man
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929880.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='IT' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929880')
+                        p  Italy
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929900.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='JE' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929900')
+                        p  Jersey
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929920.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='LV' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929920')
+                        p  Latvia
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929940.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='LI' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929940')
+                        p  Liechtenstein
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929960.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='LT' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929960')
+                        p  Lithuania
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-929980.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='LU' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-929980')
+                        p  Luxembourg
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930000.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='MT' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930000')
+                        p  Malta
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930020.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='MD' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930020')
+                        p  Moldova (Republic of)
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930040.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='MC' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930040')
+                        p  Monaco
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930060.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='ME' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930060')
+                        p  Montenegro
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930080.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='NL' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930080')
+                        p  Netherlands
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930100.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='MK' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930100')
+                        p  North Macedonia
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930120.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='NO' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930120')
+                        p  Norway
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930140.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='PL' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930140')
+                        p  Poland
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930160.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='PT' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930160')
+                        p  Portugal
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-930180.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='RO' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930180')
+                        p  Romania
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930200.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='RU' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930200')
+                        p  Russian Federation
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930220.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='SM' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930220')
+                        p  San Marino
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930240.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='RS' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930240')
+                        p  Serbia
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-930260.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='SK' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930260')
+                        p  Slovakia
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930280.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='SI' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930280')
+                        p  Slovenia
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930300.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='ES' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930300')
+                        p  Spain
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-930320.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='SJ' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930320')
+                        p  Svalbard and Jan Mayen
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930340.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='SE' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930340')
+                        p  Sweden
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930360.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='CH' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930360')
+                        p  Switzerland
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930380.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='UA' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930380')
+                        p  Ukraine
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930400.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='GB' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930400')
+                        p  United Kingdom of Great Britain and N...
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930420.custom-control-input.region-Europe(data-region='Europe' type='checkbox' checked='checked' value='AX' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930420')
+                        p  &angst;land Islands
+                  div.modal-section
+                    .modal-section-header
+                      p  Oceania
+                      .custom-control.custom-checkbox.niner
+                        input#region-checkbox-Oceania.custom-control-input.region-Oceania(data-function='region-checkbox' data-region='Oceania' type='checkbox')
+                        label.mrk.custom-control-label(for='region-checkbox-Oceania')
+                        p  Select all
+                    .modal-section-body
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930440.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='AS' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930440')
+                        p  American Samoa
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-930460.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='AU' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930460')
+                        p  Australia
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930480.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='CX' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930480')
+                        p  Christmas Island
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930500.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='CC' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930500')
+                        p  Cocos (Keeling) Islands
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930520.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='CK' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930520')
+                        p  Cook Islands
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930540.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='FJ' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930540')
+                        p  Fiji
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930560.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='PF' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930560')
+                        p  French Polynesia
+                      .custom-control.custom-checkbox.country.niner
+                        input(, type='hidden' value='0')
+                        input#country-checkbox-930580.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='GU' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930580')
+                        p  Guam
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930600.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='KI' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930600')
+                        p  Kiribati
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-930620.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='MH' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930620')
+                        p  Marshall Islands
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-930640.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='FM' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930640')
+                        p  Micronesia (Federated States of)
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930660.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='NR' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930660')
+                        p  Nauru
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-930680.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='NC' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930680')
+                        p  New Caledonia
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930700.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='NZ' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930700')
+                        p  New Zealand
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-930720.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='NU' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930720')
+                        p  Niue
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930740.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='NF' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930740')
+                        p  Norfolk Island
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930760.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='MP' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930760')
+                        p  Northern Mariana Islands
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930780.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='PW' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930780')
+                        p  Palau
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930800.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='PG' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930800')
+                        p  Papua New Guinea
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930820.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='PN' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930820')
+                        p  Pitcairn
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930840.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='WS' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930840')
+                        p  Samoa
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930860.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='SB' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930860')
+                        p  Solomon Islands
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930880.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='TK' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930880')
+                        p  Tokelau
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930900.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='TO' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930900')
+                        p  Tonga
+                      .custom-control.custom-checkbox.country.niner
+                        input(type='hidden' value='0')
+                        input#country-checkbox-930920.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='TV' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930920')
+                        p  Tuvalu
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930940.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='VU' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930940')
+                        p  Vanuatu
+                      .custom-control.custom-checkbox.country.niner
+                        input( type='hidden' value='0')
+                        input#country-checkbox-930960.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' checked='checked' value='WF' name='country_codes[]')
+                        label.mrk.custom-control-label(for='country-checkbox-930960')
+                        p  Wallis and Futuna
+                div.modal-footer
+                  button#update_tax_countries_btn.btn.btn-primary(type='button' ) Update
+
+
+          div.row 
+            div.col-12.d-flex.justify-content-end
+              button.btn.btn-primary.me-4(type="submit" ) Save Tax Rate
+
+block scripts
+  script(type='text/javascript' src='/assets/js/custom/common.js')
+  script(type='text/javascript' src='/assets/js/custom/taxes.js')

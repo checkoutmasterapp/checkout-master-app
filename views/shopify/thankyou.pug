@@ -1,0 +1,165 @@
+extends ../layouts/shopify_layout
+
+block header_style
+  link(rel="stylesheet", href=`/assets/css/store-css/checkout-thankyou-${store_detail.id}.css`)
+  link(rel="stylesheet" href="/assets/css/shopify/global-checkout-template.css")
+
+
+block content 
+  main.main.checkout
+    section.main-inner-shoping-details-1
+      header.hedder-defgine
+        .container-fluid.custum-inner-container.brtd-defin
+          .row.store_logo_header.ss-kjmar.mx-0
+            if(customize_checkout && customize_checkout.store_logo)
+              .col.main-inner-header
+                a(href=`https://${store_detail.store_domain}`)
+                  img.h-12.logo-set-thank(src=`${customize_checkout?customize_checkout.store_logo:''}`)
+
+            .col.image-logos
+              if(customize_checkout && customize_checkout.security_badge)
+                img.h-12.security-logo(src=`${customize_checkout?customize_checkout.security_badge:''}` )
+              else
+                img.h-12.me-1.master-card(src='/assets/img/Mastecard.png')
+                img.h-12(src="/assets/img/visa-9.png" alt="")
+
+      .container-fluid.custum-inner-container.brtd-defin
+        div.main-inner-back-botom
+          div.row
+            div.col-lg-7
+              div.thank-you-section
+                h4.user-name !{language_translation.thanks || 'Thank you'}, !{order_detail.first_name  || order_detail.billing_first_name }!
+                  div.main-ship-cheak.d-flex.mt-3
+                    div.shipping.d-flex
+                      div.icon-airplane 
+                        img(src="/assets/img/delivery-box.png" alt="qw")
+                      if(shipping_rate_name && customize_checkout.template_code !== "d1")
+                        div.user-datils-addres
+                          h4 !{shipping_rate_name}
+                          p.mb-0 !{order_detail.first_name} !{order_detail.last_name}
+                          p.mb-0 !{order_detail.address ? `${order_detail.address}, ` : ''}!{order_detail.city} 
+                          p.mb-0 !{order_detail.state ? `${order_detail.state}, ` : ''}!{order_detail.country ? `${order_detail.country}, ` : ""}!{order_detail.zipcode}
+                          p.mb-0 !{order_detail.email ? order_detail.email : ''}
+                          p.mb-0 !{order_detail.phone ? order_detail.phone : ''} 
+                      else
+                        div.user-datils-addres
+                          h4 #{language_translation? language_translation.contact_information :'Contact information'}
+                          p.mb-0 !{order_detail.email ? order_detail.email : ''}
+                          p.mb-0 !{order_detail.phone ? order_detail.phone : ''}             
+                    div.check 
+                      img(src="/assets/img/checked .png" alt="")
+
+                if(order_detail.billing_status ==true)
+                  div.main-ship-cheak.d-flex.mt-3
+                    div.shipping.d-flex
+                      div.icon-airplane 
+                        img(src="/assets/img/delivery-box.png" alt="qw")
+                      div.user-datils-addres
+                        h4 #{language_translation?language_translation.billing_address_title:'Billing address'}
+                        p.mb-0 !{order_detail.billing_first_name} !{order_detail.billing_last_name}
+                        p.mb-0 !{order_detail.billing_address ? `${order_detail.billing_address}, ` : ''}!{order_detail.billing_city} 
+                        p.mb-0 !{order_detail.billing_state ? `${order_detail.billing_state}, ` : ''}!{order_detail.billing_country ? `${order_detail.billing_country}, ` : ""}!{order_detail.billing_zipcode}
+                    div.check 
+                      img(src="/assets/img/checked .png" alt="")
+
+                div.main-ship-cheak.d-flex.mt-3
+                  div.shipping.d-flex
+                    div.icon-airplane 
+                      img(src="/assets/img/card.png" alt="qw")
+                    div.user-datils-addres
+                      h4 #{language_translation && language_translation.payment_method || 'Payment method'}
+                      p.mb-0 !{language_translation && language_translation.credit_card || 'Pay with credit card'}
+                  div.check 
+                    img(src="/assets/img/checked .png" alt="")
+                div.btn-contonue-shoping
+                  a(href=`https://${store_detail.store_domain}`)
+                    button  !{language_translation && language_translation.back_to_shop || 'Continue shopping'} 
+
+            div.col-lg-5
+              div.order-smrey
+                h4.order-smry-t.mb-4 !{language_translation && language_translation.order_summary_title || 'Order Summary'}
+
+                each product_detail in product_details
+                  div.order-main.d-flex
+                    div.sumrey-data.d-flex
+                      div.icon-iteam-smry
+                        img(src=product_detail.image)
+                      div.iteam-deatiles.ms-3
+                        h4 !{product_detail.title}
+                          p.mb-0.mt-4 Quantity: !{product_detail.quantity}  
+                            if(product_detail.product_varient.title)
+                              if(product_detail.product_varient.Color)
+                                span.ms-4 Color: !{product_detail.product_varient.Color} 
+                              if(product_detail.product_varient.Size)
+                                span.ms-4 Size: !{product_detail.product_varient.Size}
+                              if(product_detail.product_varient.Style)
+                                span.ms-4 Style: !{product_detail.product_varient.Style}
+                              if(product_detail.product_varient.Material)
+                                span.ms-4 Material: !{product_detail.product_varient.Material}
+                    div.crose 
+                      h3.iteam-price !{product_detail.price_html}
+                  br
+
+                div.mt-3.pb-3.total-ship-price
+
+                  h5.mb-0.mt-3.toatal-thx-data !{language_translation?language_translation.subtotal:'Subtotal'}
+                    span.float-end !{subtotal}
+
+                  if(shipping_rate_name && customize_checkout.template_code !== "d1")
+                    h5.mb-0.mt-1.toatal-thx-data #{shipping_rate_name}
+                      span.float-end !{shipping_rate_amount}
+
+                  if(discount_title)
+                    h5.mb-0.mt-1.toatal-thx-data !{language_translation?language_translation.discount:'Discount'}
+                      <strong class="discount-title">
+                        <i class="bi bi-tag ms-2"></i>!{discount_title}
+                      </strong>
+                      span.float-end - !{discount_amount}
+
+                  if(tax_rate_name)
+                    h5.mb-3.mt-1.toatal-thx-data !{tax_rate_name}
+                      span.float-end !{tax_rate_amount}
+
+                div.last-fotr-total
+                  h5.mt-3 !{language_translation?language_translation.total:'Total'}
+                    span.float-end !{price}
+
+                if(upsell_orders.length > 0)
+                  div.border-top.mt-3
+                    h4.order-smry-t.mt-3.mb-4 !{language_translation?language_translation.additional_items:'Additional Items'}
+
+                  each upsell_order in upsell_orders
+                    div.order-main.d-flex
+                      div.sumrey-data.d-flex
+                        div.icon-iteam-smry
+                          img(src=upsell_order.image)
+                        div.iteam-deatiles.ms-3
+                          h4 !{upsell_order.title}
+                            if(upsell_order.product_varient.title)
+                              p.mb-0.mt-4 Quantity: !{upsell_order.quantity}  
+                                if(upsell_order.product_varient.Color)
+                                  | Color: !{upsell_order.product_varient.Color}
+                                if(upsell_order.product_varient.Size)
+                                  span.ms-4 Size: !{upsell_order.product_varient.Size}
+                                if(upsell_order.product_varient.Style)
+                                  span.ms-4 Style: !{upsell_order.product_varient.Style}
+                                if(upsell_order.product_varient.Material)
+                                  span.ms-4 Material: !{upsell_order.product_varient.Material}
+                      div.crose 
+                        h3.iteam-price !{upsell_order.total_price_html}
+                    br
+
+                  div.last-fotr-total.border-top
+                    h5.mt-3 !{language_translation?language_translation.total:'Grand Total'}
+                      span.float-end !{grand_total}
+
+          if(customize_checkout &&( customize_checkout.privacy_policy || customize_checkout.terms_condition || customize_checkout.return_policy))
+            div.row.mt-3
+              .checkout-thankyou-footer.checkout-thankyou-footer-web
+                .checkout-thankyou-footer-links
+                  if(customize_checkout && customize_checkout.privacy_policy )
+                    a.checkout_footer_link(href="javascript:void(0);" href_link=`${customize_checkout?customize_checkout.privacy_policy:''}`)  Privacy Policy
+                  if(customize_checkout && customize_checkout.terms_condition )
+                    a.checkout_footer_link(href="javascript:void(0);" href_link=`${customize_checkout?customize_checkout.terms_condition:''}`) Terms of Service   
+                  if(customize_checkout && customize_checkout.return_policy )
+                    a.checkout_footer_link(href="javascript:void(0);" href_link=`${customize_checkout?customize_checkout.return_policy:''}`) Return Policy 

@@ -1,0 +1,154 @@
+.shopify_body .main {
+  margin-top: 20px;
+  padding: 0px 30px 20px 30px;
+  transition: all 0.3s;
+}
+
+button:disabled,
+button[disabled] {
+  opacity: 0.4;
+  color: #fdfdfd !important;
+}
+
+.displaynone {
+  display: none;
+}
+
+button.btn.displaynone {
+  display: none;
+}
+
+.displaynone_important {
+  display: none !important;
+}
+
+/*****************************************
+***** Loader CSS Start
+*****************************************/
+.loader-animation {
+  overflow-y: hidden;
+}
+
+.shopify-loader {
+  display: none;
+}
+
+.loader-animation .shopify-loader {
+  position: fixed;
+  left: 0;
+  right: 0;
+  background: #00000030;
+  top: 0;
+  bottom: 0;
+  z-index: 99999999999999;
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shopify-loader-spinner {
+  margin: 0px auto;
+  width: 50px;
+  height: 100px;
+  text-align: center;
+  font-size: 10px;
+  display: flex;
+  column-gap: 5px;
+}
+
+.shopify-loader-spinner>div {
+  background-color: #333;
+  height: 100%;
+  width: 8px;
+  display: inline-block;
+  -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+  animation: sk-stretchdelay 1.2s infinite ease-in-out;
+}
+
+.shopify-loader-spinner .bar2 {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s;
+}
+
+.shopify-loader-spinner .bar3 {
+  -webkit-animation-delay: -1s;
+  animation-delay: -1s;
+}
+
+@-webkit-keyframes sk-stretchdelay {
+
+  0%,
+  40%,
+  100% {
+    -webkit-transform: scaleY(0.4);
+  }
+
+  20% {
+    -webkit-transform: scaleY(1);
+  }
+}
+
+@keyframes sk-stretchdelay {
+
+  0%,
+  40%,
+  100% {
+    transform: scaleY(0.4);
+    -webkit-transform: scaleY(0.4);
+  }
+
+  20% {
+    transform: scaleY(1);
+    -webkit-transform: scaleY(1);
+  }
+}
+
+/*****************************************
+***** Loader CSS End
+*****************************************/
+.checkout-thankyou-footer.checkout-thankyou-footer-web {
+  border-top: 1px solid #D9D9D9;
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+/* a.checkout_footer_link {
+  color: #55aa33;
+  padding-left: 10px;
+} */
+
+.image-smry img{
+  height: auto !important;
+}
+a.checkout_footer_link{
+  font-weight: 700;
+}
+
+ .image-logos img {
+  height: 33px;
+  width: auto;
+}
+.icon-iteam-smry img {
+ height: auto !important;
+}
+
+@media (max-width:767px) {
+  .checkout-thankyou-footer.checkout-thankyou-footer-web {
+    justify-content: center !important;
+}
+a.checkout_footer_link {
+  display: inherit;
+  line-height: 31px;
+}
+.checkout-footer-links {
+  display: block !important;
+}
+ .checkout-footer .checkout-footer-links a {
+
+  text-align: center !important;
+}
+}
+a.checkout_footer_link{
+  text-align: center;
+}

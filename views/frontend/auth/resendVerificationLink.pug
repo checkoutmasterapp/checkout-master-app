@@ -1,0 +1,34 @@
+extends ../../layouts/frontend
+
+block content 
+    .container
+        section.section.register.min-vh-100.d-flex.flex-column.align-items-center.justify-content-center.py-4
+            .container
+                .row.justify-content-center
+                    .col-lg-4.col-md-6.d-flex.flex-column.align-items-center.justify-content-center
+                        .d-flex.justify-content-center.py-4
+                            a.logo.d-flex.align-items-center.w-auto(href="#")
+                                img(src='/assets/img/site-logo.svg', alt='logo')
+                                
+                        // End Logo
+                        .card.mb-3
+                            .card-body
+                                .pt-4.pb-2
+                                    h5.card-title.text-center.pb-0.fs-4 Resend Email Verification
+                                    p.text-center.small Enter your email address
+                                form#resend_email_verification.row.g-3.needs-validation(method="post")
+                                    .col-12
+                                        label.form-label(for="email") Email
+                                        input#email-forgot.form-control.required(type="email", name="email", required)
+                                        .invalid-feedback Please enter your email.
+                                    .col-12
+                                        button#code-send.btn.btn-primary.w-100(type="submit"  disabled="disabled") Send 
+                                        <button id="loading_button" class="btn btn-primary w-100 " style="display:none;" type="button" disabled>
+                                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                            |Loading...
+                                        </button>
+                                    .col-12
+                                        p.small.mb-0
+                                            a#go_back_login(href="/login"  disabled) Go Back
+block scripts
+    script(type='text/javascript', src='/assets/js/custom/auth.js')

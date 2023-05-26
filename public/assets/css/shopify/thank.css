@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*
+{
+	margin:0;
+	padding: 0;
+}
+body
+{
+	font-family: 'Poppins', sans-serif;
+}
+
+.head_title, .brand-accent, .ions-box, .front-base {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.brand-tc {
+    width: 1rem;
+}
+.area-whitespace {
+    margin-left: 10px;
+    font-size: 16px;
+}
+.thanks_msg {
+    margin: 40px 0;
+}
+.thanks_msg h2 {
+    font-size: 30px;
+    font-weight: 700;
+}
+.thanks_msg p {
+    margin-top: 15px;
+    font-size: 15px;
+    color: #888;
+    line-height: 25px;
+}
+.end-accent svg, .front-icons svg, .front-icons img {
+    width: 25px;
+}
+.center-base h3 {
+    font-size: 16px;
+    color: #000;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+.center-base p {
+    font-size: 14px;
+    margin: 4px 0;
+}
+.center-base {
+    margin-left: 30px;
+}
+.ions-box {
+    border: 1px solid #ededed;
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 6px;
+}
+.thanks-page {
+    padding: 30px 4%;
+    height: 100vh;
+	padding-left:0;
+}
+.thanks-page>a {
+    width: 100%;
+    font-size: 16px;
+    display: block;
+    text-align: center;
+    background-color: #00d985;
+    padding: 12px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    margin: 20px 0;
+    transition: all .3s;
+}
+.thanks-page>a:hover {
+    filter: brightness(120%);
+}
+section.main-inner-shoping .col-md-5 {
+    padding: 0;
+    border-left: 1px solid #eee;
+}
+/*----- right side css ----*/
+.main-inner-discount {
+    background: #fbfbfb;
+    padding: 30px 5%;
+    height: 100%;
+    padding-right: 15px;
+    width: 550px;
+}
+.main-inner-logo img {
+    width: 50px;
+}
+.main-inner-logo {
+    width: 85%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.main-inner-cust-logo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0 20px;
+    border-bottom: 1px solid #e5e5e5;
+}
+.main-inr-flex h4, .main-inr-right-cash-cust h4 {
+    font-size: 16px;
+    margin: 0 0 8px 0;
+    color: #000;
+    font-weight: 600;
+}
+.main-inr-flex p {
+    font-size: 16px;
+    margin: 0;
+    color: #949494;
+}
+.main-inner-discount h2 {
+    font-size: 18px;
+    color: #949494;
+    font-weight: 600;
+    margin-bottom: 40px;
+}
+.main-inr-flex {
+    margin-left: 15px;
+}
+span.notification-bar {
+    position: absolute;
+    top: 0px;
+    left: 34px;
+    background: #0e0e0e;
+    font-size: 10px;
+    width: 23px;
+    height: 23px;
+    text-align: center;
+    border-radius: 50%;
+    color: #fff;
+    line-height: 23px;
+}
+
+.main-inner-dis-count-copn-pay {
+    padding: 20px 0 10px;
+}
+.main-inner-dis-count-copn-pay p {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+}
+.main-total-btm {
+    padding: 28px 0;
+    border-top: 1px solid #e5e5e5;
+}
+.main-total-btm h4 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 20px;
+    margin: 0;
+    font-weight: 800;
+}
+
+.main-iner-left-dis-logo {
+    width: 3rem;
+    margin-right: 10px;
+}
+.main-inner-dis-pay-noti {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 10px 0;
+    margin: 50px 0 0;
+}
+.main-right-dis-text {
+    width: calc(100% - 70px);
+}
+.main-right-dis-text h4 {
+    font-size: 18px;
+}
+.main-right-dis-text p {
+    font-size: 14px;
+    color:#a6a6a6;
+}
+.main-inr-btm-powerby img {
+    width: 45%;
+}
+
+ .main-inr-hide-pay.intro {
+    display: block;
+}
+ .main-inr-payment.make-pay {
+    border-radius: 5px 5px 0 0;
+}
+.main-inr-hide-pay {
+    display: none;
+}
+.main-iner-cash-on label {
+    width: 100%;
+}
+label.main-full-width {
+    width: 100%;
+}
+.logo_sub img {
+    width: 135px;
+}
+.thanks_description {
+    font-size: 16px;
+    text-align: center;
+}

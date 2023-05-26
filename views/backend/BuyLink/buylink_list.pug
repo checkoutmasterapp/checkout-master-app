@@ -1,0 +1,42 @@
+extends ../../layouts/backend_layout
+
+block header_breadcrumb
+  nav
+    ol.breadcrumb
+      li.breadcrumb-item Home
+      li.breadcrumb-item.active Buy Link
+
+block content 
+  main#main.main
+    div.displaynone.buylink_banner
+      div.under-data-payment
+        img(src='/assets/img/buy-link-banner.svg')
+        h2.cart-recovery-text  Create buy link from the product variety, quantity and discount code
+        a.btn.btn-primary(href=`/${store_id}/buylink/create`) Create Buy Link
+
+    div.displaynone.buy_listing
+      section.section
+        div.main-container.upsell-card
+          div.row
+            div.col-md-12
+              div.card 
+                div.card-header.text-center.textsm-start.py-4
+                  div.d-sm-flex.justify-content-between
+                    h5 Buy Link
+                    .p-payment
+                      a.btn.btn-primary(href=`/${store_id}/buylink/create`) Add Buy Link
+                div.card-body
+                  div.table-responsive
+                    table#buylink_table.table
+                      thead
+                        tr.main-tr
+                          th Buy link URL
+                          th Discount Code
+                          th Created
+                          th
+
+block scripts
+  script.
+    var store_id = `!{store_id}`;
+
+  script(type='text/javascript' src='/assets/js/custom/buylink_list.js')

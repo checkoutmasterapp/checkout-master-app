@@ -1,0 +1,949 @@
+var head = document.getElementsByTagName("HEAD")[0];
+var sc = document.getElementsByTagName("script");
+for (idx = 0; idx < sc.length; idx++) {
+    var s = sc.item(idx);
+    if (s.src && s.src.match(/cart\.js/i)) var src = s.src.split("/");
+}
+const REQ_URL = `${src[0]}//${src[2]}`;
+
+const SHOP_DOMAIN = window.location.host;
+
+var script = document.createElement("script");
+script.type = "application/javascript";
+script.src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js";
+head.appendChild(script);
+
+if (window.location.href.match(/products/i)) {
+    setTimeout(addCheckout, 1000);
+}
+
+function getUrlParams(currency) {
+    var params = window.location.search.slice(1);
+    const urlParams = new URLSearchParams(atob(params));
+    const product_name = urlParams.get("product_name");
+    const quantity = urlParams.get("quantity");
+    const priceParam = urlParams.get("price");
+    const image = urlParams.get("image");
+    const logo = urlParams.get("logo");
+    const span = urlParams.get("span");
+    const price = (Math.round(quantity * priceParam * 100) / 100).toFixed(2);
+    const discount = 20;
+    const total = price;
+
+    let priceButton = `
+            <button type="submit" class="make_payment" disabled>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-front-icons h-front-icons" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd">
+                    </path>
+                </svg>
+                ${currency}${total}
+            </button>
+        `;
+    let product_category_select_html = `
+            <div class="main-inner-cust-logo">
+                <div class="main-inner-logo-cust">
+                    <span class="notification-bar">${quantity}</span>
+                    <img src="${image}">
+                    <div class="main-inr-flex">
+                        <h4>${product_name}</h4>
+                        <p>${product_name}</p>
+                    </div>
+                </div>
+                <div class="main-inr-right-cash-cust">
+                    <h4>${currency}${price}</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="main-inner-dis-count-copn">
+                        <input type="text" name="discount_code" placeholder="Discount code">
+                        <button class="apply_button">Apply</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="main-inner-dis-count-copn-pay">
+                        <p>Subtotal<span>${currency}${price}</span></p>
+                        <p>Free Shipping<span>$0.00</span></p>
+                    </div>
+                    <div class="main-total-btm">
+                        <h4>Total<span>${currency}${total}</span></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                </div>
+            </div>
+        `;
+
+    var span_html = `<h2 style=" font-size: 40px!important; font-weight: 500!important;">${span}</h2>`;
+    let logo_html = `<img src="${logo}">`;
+    $(".main-inner-right-discount").prepend(product_category_select_html);
+    $(".pay-on-button").html(priceButton);
+
+    if (!$(".inner-logo img").attr("src")) {
+        if (logo == "false") {
+            $(".inner-logo").html(span_html);
+        } else {
+            $(".inner-logo").html(logo_html);
+        }
+    }
+}
+
+function getLocalParams(currency) {
+    var local = JSON.parse(window.localStorage.getItem("cart_items"));
+    console.log(local);
+    var logo = window.localStorage.getItem("logo");
+    var span = window.localStorage.getItem("span");
+    var discount = 10;
+    let localDataHtml = "";
+    let localData = local.items.forEach((element) => {
+        localDataHtml += `<div class="main-inner-cust-logo">
+                    <div class="main-inner-logo-cust">
+                        <span class="notification-bar">${element.quantity}</span>
+                        <img src="${element.image}">
+                        <div class="main-inr-flex">
+                            <h4>${element.title}</h4>
+                            <p>${element.title}</p>
+                        </div>
+                    </div>
+                    <div class="main-inr-right-cash-cust">
+                        <h4>${currency}${((element.quantity * element.price) / 100).toFixed(2)}</h4>
+                    </div>
+                </div>`;
+        return localDataHtml;
+    });
+
+    var totalPrice = (local.original_total_price / 100).toFixed(2);
+
+    localDataHtml += `<div class="row">
+            <div class="col-md-12">
+                <div class="main-inner-dis-count-copn">
+                    <input type="text" name="text" placeholder="Discount code">
+                    <button class="apply_button">Apply</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-inner-dis-count-copn-pay">
+                    <p>Subtotal<span>${currency}${totalPrice}</span></p>
+                    <p>Free Shipping<span>$0.00</span></p>
+                </div>
+                <div class="main-total-btm">
+                    <h4>Total<span>${currency}${totalPrice}</span></h4>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+            </div>
+        </div>`;
+
+    let priceButton = `
+            <button type="submit" class="make_payment" disabled>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-front-icons h-front-icons" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd">
+                    </path>
+                </svg>
+                ${currency}${totalPrice}
+            </button>
+        `;
+
+    $(".main-inner-right-discount").prepend(localDataHtml);
+    $(".pay-on-button").html(priceButton);
+
+    var span_html = `<h2 style=" font-size: 40px!important; font-weight: 500!important;">${span}</h2>`;
+    let logo_html = `<img src="${logo}">`;
+    if (!$(".inner-logo img").attr("src")) {
+        if (logo == "false") {
+            $(".inner-logo").html(span_html);
+        } else {
+            $(".inner-logo").html(logo_html);
+        }
+    }
+}
+
+function addCheckout() {
+    var name = document.querySelector("[name='add']");
+    var button = name.nextSibling;
+
+    if (button.querySelector('[class^="shopify-payment-button"]') && button.innerHTML.match(/Buy it now/i)) {
+        button.remove();
+        let html = (document.createElement("div").innerHTML +=
+            "<div class='envelope'><button class='btn' onclick='loadBuyNowData()' id='buy_now_button' type='button' style='background-color: black !important; color: white !important;'>Buy it now</button></div>");
+
+        name.insertAdjacentHTML("afterend", html);
+
+        var classes = name.classList;
+        var list = document.getElementById("buy_now_button");
+        for (const iterator of classes) {
+            list.classList.add(iterator);
+        }
+    }
+
+    var checkoutname = document.querySelector("[name='checkout']");
+    var checkoutbutton = checkoutname.parentElement;
+    if (checkoutname.innerHTML.match(/Check out/i)) {
+        checkoutname.remove();
+        let html = (document.createElement("div").innerHTML += "<button class='button' onclick='loadCartData()' style='width: 296px !important;' name='checkout'>Check out</button>");
+
+        checkoutbutton.insertAdjacentHTML("afterend", html);
+    }
+}
+
+var qty = document.getElementsByName("quantity")[0];
+var quantity = 1;
+
+document.body.addEventListener("change", change);
+function change() {
+    if (qty?.id) quantity = document.getElementById(qty.id).value;
+}
+
+function loadBuyNowData() {
+    var logo;
+    var span;
+    if ($(".header").find("img").length > 0) {
+        logo = $(".header").find("img")[0].src;
+    } else {
+        span = $(".header").find("span")[1].innerHTML;
+        logo = false;
+    }
+
+    var product_url = window.location.href;
+    if (window.location.href.match(/variant=/i && /products/i)) {
+        product_url = window.location.href.split("?")[0];
+    }
+    fetch(product_url + ".js")
+        .then(function (response) {
+            return response.json();
+        })
+        .then(async function (data) {
+            var url = `https://${SHOP_DOMAIN}/pages/checkout-page?`;
+            const params = new URLSearchParams({
+                product_name: data.title,
+                product_id: data.id,
+                quantity: quantity,
+                image: data.images[0],
+                price: $('meta[property="og:price:amount"]').attr("content"),
+                currency: $('meta[property="og:price:currency"]').attr("content"),
+                logo: logo,
+                span: span,
+            });
+
+            window.location.href = url + btoa(params.toString());
+        })
+        .catch(function (err) {
+            console.log("Fetch Error :-S", err);
+        });
+}
+
+var GetPaymentButton = document.querySelector('[type="submit"][form="cart"]');
+    if(GetPaymentButton){
+        GetPaymentButton.removeAttribute("form");
+        GetPaymentButton.removeAttribute("id");
+        GetPaymentButton.removeAttribute("name");
+        GetPaymentButton.setAttribute("onclick", "loadCartData()")
+    }
+console.log("name:::::::::::::name", GetPaymentButton)
+function loadCartData() {
+    var url = `https://${window.location.host}/pages/checkout-page`;
+    window.location.href = url;
+}
+
+if (window.location.href.match(/checkout/i)) {
+    $(document).ready(function () {
+        console.log("$('meta[type='image/x-icon']').attr('href')", $("meta[type='image/x-icon']").attr("href"));
+        if ($("meta[type='image/x-icon']").attr("href") && $("meta[type='image/x-icon']").attr("href") !== "_Favicon_url") {
+            $("head").append("<link rel='icon' type='image/x-icon' href=" + $("meta[type='image/x-icon']").attr("href") + ">");
+        }
+        $.ajax({
+            url: "",
+            context: document.body,
+            success: function (s, x) {
+                console.log("cache clear");
+                $("html[manifest=saveappoffline.appcache]").attr("content", "");
+                $(this).html(s);
+            },
+        });
+        var paymentChecked = $(".payment_gateway").is(":checked");
+        var paymentCheckedVal = $(".payment_gateway").val();
+        if ((paymentChecked && paymentCheckedVal == "stripe") || paymentCheckedVal == "Paypal" || paymentCheckedVal == "cash_on_delivery") $(".make_payment").prop("disabled", false);
+
+        var url = window.location.href;
+        var params = window.location.search;
+
+        var currency_symbols = {
+            USD: "$", // US Dollar
+            EUR: "€", // Euro
+            CRC: "₡", // Costa Rican Colón
+            GBP: "£", // British Pound Sterling
+            ILS: "₪", // Israeli New Sheqel
+            INR: "₹", // Indian Rupee
+            JPY: "¥", // Japanese Yen
+            KRW: "₩", // South Korean Won
+            NGN: "₦", // Nigerian Naira
+            PHP: "₱", // Philippine Peso
+            PLN: "zł", // Polish Zloty
+            PYG: "₲", // Paraguayan Guarani
+            THB: "฿", // Thai Baht
+            UAH: "₴", // Ukrainian Hryvnia
+            VND: "₫", // Vietnamese Dong
+        };
+        var currency_name = Shopify.currency.active;
+
+        if (currency_symbols[currency_name] !== undefined) {
+            var currency = currency_symbols[currency_name];
+        }
+
+        if (params.length > 0) {
+            getUrlParams(currency);
+        } else {
+            getLocalParams(currency);
+        }
+
+        $(document).on("click", ".payment_gateway", function () {
+            if ($(this).val() == "Paypal") {
+                $(".credit_card").css("display", "none");
+                $(".make_payment").prop("disabled", false);
+            }
+            if ($(this).val() == "stripe") {
+                $("#credit_card").prop("checked", true);
+                $(".credit_card").css("display", "block");
+                var cardValidation = cardFormValidate();
+
+                if (cardValidation) {
+                    $(".make_payment").prop("disabled", false);
+                } else {
+                    $(".make_payment").prop("disabled", true);
+                }
+            }
+            console.log($(this).val());
+            if ($(this).val() == "cash_on_delivery") $(".make_payment").prop("disabled", false);
+        });
+
+        $(document).on("click", ".make_payment", async function () {
+            var shippingValidation = await shippingDetailValidation();
+
+            console.log(shippingValidation, "jdhfjkdsjksdhfsl=======");
+            if (shippingValidation) {
+                $(".make_payment").addClass("lds-dual-ring");
+                var select_option = document.querySelector('input[name="payment_gateway"]:checked').value;
+                if (select_option) {
+                    if (select_option == "stripe") {
+                        paymentgateway(select_option, currency_name, currency);
+                    }
+                    if (select_option == "Paypal") {
+                        paymentgateway(select_option, currency_name, currency);
+                    }
+                }
+            }
+        });
+
+        //card validation on input fields
+        $(".main-inr-hide-pay input[type=text]").on("keyup", function () {
+            cardFormValidate();
+        });
+
+        $(".shoping-detail input[type=text]").on("submit", function () {
+            cardFormValidate();
+        });
+
+        //privacy url, return url and term condition
+        if (!$(".privacy-Policy").attr("href") && $(".privacy-Policy").attr("href") !== "_Privacy_url") {
+            $(".privacy-Policy").css("display", "none");
+        }
+
+        if (!$(".term-conditions").attr("href") && $(".term-conditions").attr("href") !== "_Term_url") {
+            $(".term-conditions").css("display", "none");
+        }
+
+        if (!$(".return_policy").attr("href") && $(".return_policy").attr("href") !== "_Return_policy_url") {
+            $(".return_policy").css("display", "none");
+        }
+    });
+
+    async function paymentgateway(select_option, currency_name, currency) {
+        console.log(card_number, cvv);
+
+        switch (select_option) {
+            case "stripe":
+                StripePayment(currency_name);
+                break;
+            case "Paypal":
+                PayPalPayment();
+                break;
+            case "cash_on_delivery":
+                CashOnDelivery();
+                break;
+            default:
+            // code block
+        }
+    }
+}
+if (window.location.href.match(/thank-you/i)) {
+    var logo;
+    var span;
+    if ($(".header").find("img").length > 0) {
+        logo = $(".header").find("img")[0].src;
+    } else {
+        span = $(".header").find("span")[1].innerHTML;
+        logo = false;
+    }
+    if (!$(".inner-logo img").attr("src") && $(".inner-logo img").attr("src") !== "_Store_logo") {
+        if (logo == "false") {
+            $(".inner-logo").html(span_html);
+        } else {
+            $(".inner-logo").html(logo_html);
+        }
+    }
+    $(document).ready(function () {
+        console.log("$('meta[type='image/x-icon']').attr('href')", $("meta[type='image/x-icon']").attr("href"));
+        if ($("meta[type='image/x-icon']").attr("href")) {
+            $("head").append("<link rel='icon' type='image/x-icon' href=" + $("meta[type='image/x-icon']").attr("href") + ">");
+        }
+        $("meta[type='image/x-icon']").attr("href");
+        $.ajax({
+            url: "",
+            context: document.body,
+            success: function (s, x) {
+                console.log("cache clear");
+                $("html[manifest=saveappoffline.appcache]").attr("content", "");
+                $(this).html(s);
+            },
+        });
+    });
+}
+function cardFormValidate() {
+    var cardValid = 0;
+
+    /*
+     * Credit Card Validator jQuery
+     * Author: CodexWorld
+     * URL: https://www.codexworld.com
+     * License: https://www.codexworld.com/license/
+     */
+
+    (function () {
+        var $,
+            __indexOf =
+                [].indexOf ||
+                function (item) {
+                    for (var i = 0, l = this.length; i < l; i++) {
+                        if (i in this && this[i] === item) return i;
+                    }
+                    return -1;
+                };
+
+        $ = jQuery;
+
+        $.fn.validateCreditCard = function (callback, options) {
+            var bind, card, card_type, card_types, get_card_type, is_valid_length, is_valid_luhn, normalize, validate, validate_number, _i, _len, _ref;
+            card_types = [
+                {
+                    name: "Amex",
+                    pattern: /^3[47]/,
+                    valid_length: [15],
+                },
+                {
+                    name: "diners_club_carte_blanche",
+                    pattern: /^30[0-5]/,
+                    valid_length: [14],
+                },
+                {
+                    name: "diners_club_international",
+                    pattern: /^36/,
+                    valid_length: [14],
+                },
+                {
+                    name: "jcb",
+                    pattern: /^35(2[89]|[3-8][0-9])/,
+                    valid_length: [16],
+                },
+                {
+                    name: "laser",
+                    pattern: /^(6304|670[69]|6771)/,
+                    valid_length: [16, 17, 18, 19],
+                },
+                {
+                    name: "visa_electron",
+                    pattern: /^(4026|417500|4508|4844|491(3|7))/,
+                    valid_length: [16],
+                },
+                {
+                    name: "Visa",
+                    pattern: /^4/,
+                    valid_length: [16],
+                },
+                {
+                    name: "MasterCard",
+                    pattern: /^5[1-5]/,
+                    valid_length: [16],
+                },
+                {
+                    name: "Maestro",
+                    pattern: /^(5018|5020|5038|6304|6759|676[1-3])/,
+                    valid_length: [12, 13, 14, 15, 16, 17, 18, 19],
+                },
+                {
+                    name: "Discover",
+                    pattern: /^(6011|622(12[6-9]|1[3-9][0-9]|[2-8][0-9]{2}|9[0-1][0-9]|92[0-5]|64[4-9])|65)/,
+                    valid_length: [16],
+                },
+            ];
+            bind = false;
+            if (callback) {
+                if (typeof callback === "object") {
+                    options = callback;
+                    bind = false;
+                    callback = null;
+                } else if (typeof callback === "function") {
+                    bind = true;
+                }
+            }
+            if (options == null) {
+                options = {};
+            }
+            if (options.accept == null) {
+                options.accept = (function () {
+                    var _i, _len, _results;
+                    _results = [];
+                    for (_i = 0, _len = card_types.length; _i < _len; _i++) {
+                        card = card_types[_i];
+                        _results.push(card.name);
+                    }
+                    return _results;
+                })();
+            }
+            _ref = options.accept;
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                card_type = _ref[_i];
+                if (
+                    __indexOf.call(
+                        (function () {
+                            var _j, _len1, _results;
+                            _results = [];
+                            for (_j = 0, _len1 = card_types.length; _j < _len1; _j++) {
+                                card = card_types[_j];
+                                _results.push(card.name);
+                            }
+                            return _results;
+                        })(),
+                        card_type
+                    ) < 0
+                ) {
+                    throw "Credit card type '" + card_type + "' is not supported";
+                }
+            }
+            get_card_type = function (number) {
+                var _j, _len1, _ref1;
+                _ref1 = (function () {
+                    var _k, _len1, _ref1, _results;
+                    _results = [];
+                    for (_k = 0, _len1 = card_types.length; _k < _len1; _k++) {
+                        card = card_types[_k];
+                        if (((_ref1 = card.name), __indexOf.call(options.accept, _ref1) >= 0)) {
+                            _results.push(card);
+                        }
+                    }
+                    return _results;
+                })();
+                for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+                    card_type = _ref1[_j];
+                    if (number.match(card_type.pattern)) {
+                        return card_type;
+                    }
+                }
+                return null;
+            };
+            is_valid_luhn = function (number) {
+                var digit, n, sum, _j, _len1, _ref1;
+                sum = 0;
+                _ref1 = number.split("").reverse();
+                for (n = _j = 0, _len1 = _ref1.length; _j < _len1; n = ++_j) {
+                    digit = _ref1[n];
+                    digit = +digit;
+                    if (n % 2) {
+                        digit *= 2;
+                        if (digit < 10) {
+                            sum += digit;
+                        } else {
+                            sum += digit - 9;
+                        }
+                    } else {
+                        sum += digit;
+                    }
+                }
+                return sum % 10 === 0;
+            };
+            is_valid_length = function (number, card_type) {
+                var _ref1;
+                return (_ref1 = number.length), __indexOf.call(card_type.valid_length, _ref1) >= 0;
+            };
+            validate_number = (function (_this) {
+                return function (number) {
+                    var length_valid, luhn_valid;
+                    card_type = get_card_type(number);
+                    luhn_valid = false;
+                    length_valid = false;
+                    if (card_type != null) {
+                        luhn_valid = is_valid_luhn(number);
+                        length_valid = is_valid_length(number, card_type);
+                    }
+                    return {
+                        card_type: card_type,
+                        valid: luhn_valid && length_valid,
+                        luhn_valid: luhn_valid,
+                        length_valid: length_valid,
+                    };
+                };
+            })(this);
+            validate = (function (_this) {
+                return function () {
+                    var number;
+                    number = normalize($(_this).val());
+                    return validate_number(number);
+                };
+            })(this);
+            normalize = function (number) {
+                return number.replace(/[ -]/g, "");
+            };
+            if (!bind) {
+                return validate();
+            }
+            this.on(
+                "input.jccv",
+                (function (_this) {
+                    return function () {
+                        $(_this).off("keyup.jccv");
+                        return callback.call(_this, validate());
+                    };
+                })(this)
+            );
+            this.on(
+                "keyup.jccv",
+                (function (_this) {
+                    return function () {
+                        return callback.call(_this, validate());
+                    };
+                })(this)
+            );
+            callback.call(this, validate());
+            return this;
+        };
+    }.call(this));
+
+    //card number validation
+    $("#card_number").validateCreditCard(function (result) {
+        if (result.valid) {
+            $("#card_number").removeClass("required");
+            cardValid = 1;
+        } else {
+            $("#card_number").addClass("required");
+            cardValid = 0;
+        }
+    });
+
+    //card details validation
+    var expMonth = $("#expiry_month").val();
+    var expYear = $("#expiry_year").val();
+    var cvv = $("#cvv").val();
+    var regMonth = /^01|02|03|04|05|06|07|08|09|10|11|12$/;
+    var regYear = /^2017|2018|2019|2020|2021|2022|2023|2024|2025|2026|2027|2028|2029|2030|2031$/;
+    var regCVV = /^[0-9]{3,3}$/;
+
+    if (cardValid == 0) {
+        $("#card_number").addClass("required");
+        $("#card_number").focus();
+        $(".make_payment").prop("disabled", true);
+        return false;
+    } else if (!regMonth.test(expMonth)) {
+        $("#card_number").removeClass("required");
+        $("#expiry_month").addClass("required");
+        $("#expiry_month").focus();
+        $(".make_payment").prop("disabled", true);
+        return false;
+    } else if (!regYear.test(expYear)) {
+        $("#card_number").removeClass("required");
+        $("#expiry_month").removeClass("required");
+        $("#expiry_year").addClass("required");
+        $("#expiry_year").focus();
+        $(".make_payment").prop("disabled", true);
+        return false;
+    } else if (!regCVV.test(cvv)) {
+        $("#card_number").removeClass("required");
+        $("#expiry_month").removeClass("required");
+        $("#expiry_year").removeClass("required");
+        $("#cvv").addClass("required");
+        $("#cvv").focus();
+        $(".make_payment").prop("disabled", true);
+        return false;
+    } else {
+        $("#card_number").removeClass("required");
+        $("#expiry_month").removeClass("required");
+        $("#expiry_year").removeClass("required");
+        $("#cvv").removeClass("required");
+        if ($(".payment_gateway").is(":checked") && $(".payment_gateway").val() == "stripe") $(".make_payment").prop("disabled", false);
+        return true;
+    }
+}
+
+async function shippingDetailValidation() {
+    var email = $("#email").val();
+    var first_name = $("#first_name").val();
+    var last_name = $("#last_name").val();
+    var address = true;
+    if ($(".address").css("display") == "block") {
+        address = $("#address").val();
+    }
+    var phone = true;
+    if ($(".phone").css("display") == "block") {
+        phone = $("#phone").val();
+    }
+    var city = $("#city").val();
+    var zip = $("#zip").val();
+    var country = $("#country").val();
+    var state = $("#state").val();
+
+    let emailRegex = /^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){2,7}$/;
+    let zipCode = /^\d{5}(?:-?\d{4})?$/;
+
+    if (!email) {
+        $("#email").addClass("required");
+        $(".error_email").text("This field is required");
+    } else {
+        if (!emailRegex.test(email)) {
+            $("#email").addClass("required");
+            $(".error_email").text("Please enter valid email");
+        } else {
+            $("#email").removeClass("required");
+            $(".error_email").text("");
+        }
+    }
+
+    if (!first_name) {
+        $("#first_name").addClass("required");
+        $(".error_first_name").text("This field is required");
+    } else {
+        $("#first_name").removeClass("required");
+        $(".error_first_name").text("");
+    }
+    if (!last_name) {
+        $("#last_name").addClass("required");
+        $(".error_last_name").text("This field is required");
+    } else {
+        $("#last_name").removeClass("required");
+        $(".error_last_name").text("");
+    }
+    if (!address) {
+        $("#address").addClass("required");
+        $(".error_address").text("This field is required");
+    } else {
+        $("#address").removeClass("required");
+        $(".error_address").text("");
+    }
+    if (!phone) {
+        $("#phone").addClass("required");
+        $(".error_phone").text("This field is required");
+    } else {
+        $("#phone").removeClass("required");
+        $(".error_phone").text("");
+    }
+    if (!city) {
+        $("#city").addClass("required");
+        $(".error_city").text("This field is required");
+    } else {
+        $("#city").removeClass("required");
+        $(".error_city").text("");
+    }
+    if (!zip) {
+        $("#zip").addClass("required");
+        $(".error_zip").text("This field is required");
+    } else {
+        if (!zipCode.test(zip)) {
+            $("#zip").addClass("required");
+            $(".error_zip").text("Please enter valid code");
+        } else {
+            $("#zip").removeClass("required");
+            $(".error_zip").text("");
+        }
+    }
+    if (!country) {
+        $("#country").addClass("required");
+        $(".error_country").text("This field is required");
+    } else {
+        $("#country").removeClass("required");
+        $(".error_country").text("");
+    }
+    if (!state) {
+        $("#state").addClass("required");
+        $(".error_state").text("This field is required");
+    } else {
+        $("#state").removeClass("required");
+        $(".error_state").text("");
+    }
+
+    if (emailRegex.test(email) && first_name && last_name && address && city && zipCode.test(zip) && country && state && phone) {
+        var order_detail = {
+            store_name: SHOP_DOMAIN,
+            email: email,
+            first_name: first_name,
+            last_name: last_name,
+            address: address,
+            city: city,
+            zipCode: zip,
+            country: country,
+            state: state,
+        };
+        await $.ajax({
+            type: "POST",
+            url: `${REQ_URL}/order-create`,
+            data: { data: JSON.stringify(order_detail) },
+            success: function (response) {
+                if (response.success) {
+                    return true;
+                }
+            },
+            error: function (response) {
+                console.log(response.responseText, "response error");
+            },
+        });
+        return true;
+    } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return false;
+    }
+}
+
+function StripePayment(currency_name) {
+    // Stripe payment
+    var card_number = document.getElementById("card_number").value;
+    var expiry_month = document.getElementById("expiry_month").value;
+    var expiry_year = document.getElementById("expiry_year").value;
+
+    var cvv = document.getElementById("cvv").value;
+    console.log("stripe");
+    const price = parseFloat($(".make_payment").text().trim().slice(1));
+    var email = $("#email").val();
+    var first_name = $("#first_name").val();
+    var last_name = $("#last_name").val();
+    $.ajax({
+        type: "post",
+        dataType: "json",
+        url: `${REQ_URL}/pay`,
+        data: {
+            price: price,
+            currency_name: currency_name,
+            card_number: card_number,
+            expiry_month: expiry_month,
+            expiry_year: expiry_year,
+            cvv: cvv,
+            email: email,
+            first_name: first_name,
+            last_name: last_name,
+            method: "stripe",
+        },
+        success: function (response) {
+            if (response.response.status) {
+                window.location.href = "http://" + window.location.host + "/pages/thanku-page";
+            }
+            console.log(response, "response");
+        },
+        error: function (response) {
+            console.log(response.responseText, "response error");
+        },
+    });
+}
+
+async function PayPalPayment() {
+    // Paypal payment
+    var params = window.location.search;
+
+    if (params.length > 0) {
+        var params = window.location.search.slice(1);
+        const urlParams = new URLSearchParams(atob(params));
+        const quantity = urlParams.get("quantity");
+        const price = $(".make_payment").text().trim().slice(1);
+        const product_name = urlParams.get("product_name");
+
+        var productData = [];
+
+        productData = {
+            name: product_name,
+            sku: "112",
+            price: parseFloat(price),
+            currency: "USD",
+            quantity: quantity,
+        };
+
+        await $.ajax({
+            type: "POST",
+            url: `${REQ_URL}/pay`,
+            data: {
+                data: JSON.stringify(productData),
+                method: "paypal",
+                single: true,
+            },
+            success: function (response) {
+                console.log(response.payment_url);
+                if (response.payment_url) {
+                    return (payment_url = response.payment_url);
+                }
+            },
+            error: function (response) {
+                alert(response.responseText);
+            },
+        });
+        window.location.href = payment_url;
+    } else {
+        var local = JSON.parse(window.localStorage.getItem("cart_data"));
+
+        await $.ajax({
+            type: "POST",
+            url: `${REQ_URL}/pay`,
+            data: { data: JSON.stringify(local), method: "paypal" },
+            success: function (response) {
+                if (response.success) {
+                    console.log(response.payment_url, "response.payment_url");
+                    return (payment_url = response.payment_url);
+                } else {
+                    alert(response.error);
+                }
+            },
+            error: function (response) {
+                console.log(response.responseText, "response error");
+            },
+        });
+
+        window.location.href = payment_url;
+    }
+}
+
+async function CashOnDelivery() {
+    await $.ajax({
+        type: "POST",
+        url: `${REQ_URL}/pay`,
+        data: {
+            method: "cash_on_delivery",
+        },
+        success: function (response) {
+            console.log(response.success, "success");
+            $(".make_payment").removeClass("lds-dual-ring");
+        },
+        error: function (response) {
+            alert(response.responseText);
+        },
+    });
+}

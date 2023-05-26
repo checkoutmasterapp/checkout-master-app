@@ -1,0 +1,82 @@
+extends ../../layouts/backend_layout
+
+block header_breadcrumb
+  nav
+    ol.breadcrumb
+      li.breadcrumb-item Home
+      li.breadcrumb-item.active Custom Domain
+
+block content 
+  main#main.main
+    section.section.profile
+      .row
+        .col-sm-4
+          div.profile-card.pt-4.d-flex.flex-column.card_lef
+            div.font-bold 1. Open your Domain provider and go to your DNS settings
+            div.mt-4.text-sm Your domain provider is the place you bought & manage your domain (e.g. GoDaddy, Namecheap, Shopify)
+
+        .col-sm-8
+          div.card
+            div.card-body
+              div Follow the step by step instructions below based on your provider
+              .d-flex
+                .p-3.text-sm.text-green-400
+                  a(target='_blank', href="#") GoDaddy
+                .p-3.text-sm.text-green-400
+                  a(target='_blank', href="#") Namecheap
+                .p-3.text-sm.text-green-400
+                  a(target='_blank', href="#") Shopify
+                .p-3.text-sm.text-green-400
+                  a(target='_blank', href="#") Other providers
+
+      .row
+        input(type="hidden" name="store_id" value=`${auth_store ? auth_store.id : ""}`)
+        input(type="hidden" name="custom_domain_id" value=`${custom_domain ? custom_domain.id : ""}`)
+
+        .col-sm-4
+          div.profile-card.pt-4.d-flex.flex-column.card_lef
+            div.font-bold 2. Create a DNS CNAME Record
+            div.mt-4.text-sm Create a new CNAME record in your domain provider using the values on the right. When done click Verify.
+
+        .col-sm-8
+          div.card
+            div.card-body
+              div.row
+                .col
+                  label.form-label Host / Name
+                  div.input-group.col
+                    input.form-control.domain_name(
+                      readOnly
+                      type="text",
+                      name="subdomain_name"
+                      value=`${custom_domain?custom_domain.subdomain_name:''}`
+                    )
+                    span.input-group-text.cursor-pointer.clipboard_content
+                      i.bi.bi-clipboard.store_script_clipboard(aria-hidden='true')
+
+                .col
+                  label.form-label Points to
+                  div.input-group.col
+                    input.form-control(
+                      readOnly
+                      type="text",
+                      name="checkout_master_domain_name"
+                      value=`${dns_point_to}`
+                    )
+                    span.input-group-text.cursor-pointer.clipboard_content
+                      i.bi.bi-clipboard.store_script_clipboard(aria-hidden='true')
+
+          .text-center.text-sm-start.d-flex.justify-content-between
+            button.btn.btn-danger.delete_domain(type="button") Delete domain
+            if(custom_domain.verification_status === "awaiting")
+              button.btn.btn-primary.pending_verification(type="submit") Verify domain
+            if(custom_domain.verification_status === "pending")
+              button.btn.btn-primary(type="submit" disabled="true") Pending verification
+
+block scripts
+  script.
+    var store_id = `!{store_id}`;
+    var domain_name = `!{domain_name}`;
+    var custom_domain = !{JSON.stringify(custom_domain)};
+
+  script(type='text/javascript', src='/assets/js/custom/custom_domain.js')

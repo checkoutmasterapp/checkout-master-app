@@ -1,0 +1,341 @@
+extends ../../layouts/backend_layout
+
+block header_breadcrumb
+  nav
+    ol.breadcrumb
+      li.breadcrumb-item Home
+      li.breadcrumb-item.active Customize Checkout
+
+block content 
+  main#main.main
+    section
+      form#customize_checkout_form(method="post")
+        input.form-control( type= 'hidden', name= "store_id", value= store_id)
+        input.form-control(
+          type= 'hidden',
+          name= "customize_checkout_id",
+          value= (customize_checkout ? customize_checkout.id : "")
+        )
+
+        // General Sections
+        section.main-inner-data-profile
+          .row
+            .col-xl-6
+              div
+                .profile-card.d-flex.flex-column.card_lef
+                  h2 General settings         
+                  h6 Customize the look and feel of your checkout       
+                  div.text-center.text-sm-start
+                    a.btn.btn-primary.mb-4.mb-xl-0(href=`/${store_id}/preview-checkout` type="button") Preview Checkout
+            .col-xl-6
+              .card
+                .card-body.p-0.form_input
+                  .tab-content
+                    .col-12
+                      label.form-label Money Format
+                      p.pera-label-d {{amount}} will be replaced with the actual amount. Ex. €{{amount}} will become €19.90
+                      input.form-control(
+                        type= 'text',
+                        name= "money_format",
+                        placeholder ="Enter Money Format "
+                        value= (customize_checkout && customize_checkout.money_format ? customize_checkout.money_format : '${{amount}}')
+                      )
+                    .col-12
+                      label.form-label Store logo(image_url)
+                      p.pera-label-d Store logo URL must be in http://.jpg format
+                      input.form-control(
+                        type= 'url',
+                        placeholder='Enter Store logo link',
+                        name= "store_logo",
+                        value= (customize_checkout ? customize_checkout.store_logo : '')
+                        required
+                      )
+                    .col-12
+                      label.form-label Favicon(image_url)
+                      p.pera-label-d Favicon URL must be in http://.png format
+                      input.form-control(
+                        type= 'url',
+                        placeholder='Enter Favicon link',
+                        name= "favicon",
+                        value= (customize_checkout ? customize_checkout.favicon : '')
+                          required
+                      )
+                    .col-12
+                      label.form-label Security Badge(image_url)
+                      p.pera-label-d Security Badge URL must be in http://.png format
+                      input.form-control(
+                        type= 'url',
+                        placeholder='Enter Favicon link',
+                        name= "security_badge",
+                        value= (customize_checkout ? customize_checkout.security_badge : '')
+                      )
+                    .col-12
+                    label.form-label Font Size
+                    input.form-control(
+                      type= 'number',
+                      name= "font_size",
+                      placeholder='Font Size'
+                      min=11 max=30
+                      onkeypress="if(isNaN( String.fromCharCode(event.keyCode) )) return false;" 
+                      message="You can give font-size 11 to 30 only"
+                      value= (customize_checkout ? customize_checkout.font_size : 18)
+                    )
+                    span(id="errorMsg" style="display:none;") you can give score -10 to +10 only
+
+                    .col-12.d-flex.mt-4
+                      div
+                        input.form-check-input.me-2.check-box-1(
+                          type='checkbox',
+                          name="require_phone_number"
+                          checked= (customize_checkout && customize_checkout.require_phone_number===true ? true : false)
+                        )
+                      div
+                        span.check-pre Require a phone number at checkout
+                    .col-12.d-flex
+                      div
+                        input.form-check-input.me-2.check-box-1(
+                          type='checkbox',
+                          name="require_address_number"
+                          checked= (customize_checkout && customize_checkout.require_address_number===true ? true : false)
+                        )
+                      div
+                        span.check-pre Require an address number in the address field
+
+                    .col-12.d-flex
+                      div
+                        input.form-check-input.me-2.check-box-1(
+                          type='checkbox',
+                          name="check_accepts_marketing"
+                          checked= (customize_checkout && customize_checkout.check_accepts_marketing===true ? true : false)
+                        )
+                      div
+                       span.check-pre Pre-check email marketing checkbox
+                    .col-12.d-flex
+                      div
+                        input.form-check-input.me-2.check-box-1(
+                          type='checkbox',
+                          name="display_timer"
+                          checked= (customize_checkout && customize_checkout.display_timer===true ? true : false)
+                        )
+                      div
+                       span.check-pre Display a scarcity timer on the Checkout
+                    .col-12.d-flex
+                      div
+                        input.form-check-input.me-2.check-box-1(
+                          type='checkbox',
+                          name="display_branding"
+                          checked= (customize_checkout && customize_checkout.display_branding===true ? true : false)
+                        )
+                      div
+                        span.check-pre Display &quot;Powered by Checkout Master&quot; on the checkout page
+                    .col-12.d-flex
+                      div
+                        input.form-check-input.me-2.check-box-1(
+                          type='checkbox',
+                          name="display_discount"
+                          checked= (customize_checkout && customize_checkout.display_discount===true ? true : false)
+                        )
+                      div
+                        span.check-pre Display discount code field outside the shopping card on mobile
+
+            .row.color_options
+              .col-xl-6
+                .profile-card.d-flex.flex-column.card_lef
+                  h2 Custom colors
+              .col-xl-6
+                .card
+                  .card-body.p-0.form_input
+                    .tab-content.ps-3.colors-codes
+                      .col-md-12
+                        label.form-label Custom Accent Color
+                        div.color-section
+                          input.form-control(
+                            type= 'color',
+                            name= "accent_color",
+                            value= (customize_checkout ? customize_checkout.accent_color : '#012970')
+                          )
+                          h6.m-0.ms-2.color #{customize_checkout ? customize_checkout.accent_color : '#012970'}
+                      .col-md-12
+                        label.form-label Custom Buttons Color
+                        div.color-section
+                          input.form-control(
+                            type= 'color',
+                            name= "button_color",
+                            value= (customize_checkout ? customize_checkout.button_color : '#1A1A1A')
+                          )
+                          h6.m-0.ms-2.color #{customize_checkout ? customize_checkout.button_color : '#012970'}
+                      .col-md-12
+                        label.form-label Custom Error Color
+                        div.color-section
+                          input.form-control(
+                            type= 'color',
+                            name= "error_color",
+                            value= (customize_checkout ? customize_checkout.error_color : '#B00020')
+                          )
+                          h6.m-0.ms-2.color #{customize_checkout ? customize_checkout.error_color : '#012970'}
+
+          .row
+            .col-xl-6
+              .profile-card.d-flex.flex-column.card_lef
+                h2 Custom footer
+            .col-xl-6
+              .card
+                .card-body.p-0.form_input
+                .tab-content      
+                  .col-12.privet-notes
+                    label.form-label Returns privacy URL
+                    input.form-control(
+                      type= 'url',
+                      placeholder='Returns privacy page'
+                      name= "return_policy",
+                      value= (customize_checkout ? customize_checkout.return_policy : '')
+                    )
+                  .col-12.privet-notes
+                    label.form-label Privacy policy URL
+                    input.form-control(
+                      type= 'url',
+                      placeholder='Privacy Policy page'
+                      name= "privacy_policy",
+                      value= (customize_checkout ? customize_checkout.privacy_policy : '')
+                    )
+                  .col-12.privet-notes
+                    label.form-label Terms and condition URL
+                    input.form-control(
+                      type= 'url',
+                      placeholder='Terms and condition page'
+                      name= "terms_condition",
+                      value= (customize_checkout ? customize_checkout.terms_condition : '')
+                    )
+
+          // About Sections
+          .row
+            .col-xl-6
+              div
+                .profile-card.d-flex.flex-column.card_lef
+                  h2 About Sections       
+                  h6 Add small sections under your checkout to further convice your customers why they should trust you.     
+            .col-xl-6
+              .card
+                .card-body.p-0
+                  .tab-content
+                    div.pb-3.border-bottom.d-flex
+                      div.text-center.text-sm-start
+                        h3.section-txt-degine.m-0 Sections                
+                      div.d-flex.justify-content-end.add-section-a
+                        button#add_section(
+                          type='button',
+                          section_count= `${customize_checkout?customize_checkout.customize_about_sections.length:0}`
+                        ) 
+                          svg.plusImg(xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='#4547EB')
+                            path(fill-rule='evenodd' d='M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z' clip-rule='evenodd')
+                          span Add Section
+                    div.row
+
+                      div.checkout_sections.accordion#section_accordion.p-0
+
+                        if(customize_checkout && customize_checkout.customize_about_sections )
+                          each customize_about_section, about_section_index in customize_checkout.customize_about_sections
+                            div.accordion-item(id =`about_section_${customize_about_section.id}`)
+
+                              h2(id=`heading_${about_section_index}` class=`accordion-header`)
+                                button.accordion-button( type='button' myattr=`${about_section_index}`)
+                                  img.img.img-thumbnail(
+                                    src=`${customize_about_section.section_icon}`,
+                                    alt=`${customize_about_section.section_title}`,
+                                    style="max-width: 50px;margin-right: 5px;"
+                                  )
+                                  | #{customize_about_section.section_title}
+
+                              div.accordion-collapse.collapse(
+                                id=`collapse_${about_section_index}`
+                                aria-labelledby=`heading_${about_section_index}`,
+                                data-bs-parent='#section_accordion'
+                              )
+                                .accordion-body.row.sections-row
+                                  input.form-control.required(
+                                    type="hidden"
+                                    name=`section_id[${about_section_index}]`,
+                                    value=`${customize_about_section.id}`
+                                  )
+                                  br
+                                  .col-md-12
+                                    input.form-control.required(
+                                      type="text"
+                                      name=`section_title[${about_section_index}]`,
+                                      value=`${customize_about_section.section_title}`
+                                      placeholder='Section Title'
+                                    )
+                                    br
+                                  .col-md-12
+                                    input.form-control.required(
+                                      type="url"
+                                      name=`section_icon[${about_section_index}]`,
+                                      value=`${customize_about_section.section_icon}`
+                                      placeholder='Section Icon(image url)' 
+                                    )
+                                    br
+                                  .col-md-12
+                                    textarea.form-control.required(
+                                      name=`section_description[${about_section_index}]`,
+                                      rows='5', placeholder='Section Text'
+                                    ) #{customize_about_section.section_description}
+                                  div.deldt-btn.delete_section(selection_type="existing" about_section_id=`${customize_about_section.id}`)
+                                    i.bi.bi-trash.accordion-trash
+                                    span Delete Section
+
+          // Custom Scripts
+          .row.mt-5
+            .col-xl-6
+              div
+                .profile-card.d-flex.flex-column.card_lef
+                  h2 Custom Scripts
+                  h6 Add custom scripts to your checkout page (your Meta Pixels, your snap pixels...). Don't forget to wrap them in HTML tags          
+            .col-xl-6
+              .card
+                .card-body.p-0
+                  .tab-content
+                    .col-12.scrpit
+                      label.form-label Script
+                    .col-12
+                      textarea(
+                        rows='7', cols='80',
+                        name="custom_script"
+                        placeholder='Custom Scripts'
+                      ) #{customize_checkout ? customize_checkout.custom_script : ''}
+
+          // Thank you page
+          .row
+            .col-xl-6
+              div
+                .profile-card.d-flex.flex-column.card_lef
+                  h2 Thank you page
+                  h6 The html you add here will appear directly on the thank you page (your Meta Purchase Event...).
+                  div.text-center.text-sm-start
+                    a.btn.btn-primary.mb-4.mb-sm-0(href=`/${store_id}/preview-thankyou` type="button") Preview Thank you
+
+            .col-xl-6
+              .card
+                .card-body.p-0
+                  .tab-content.thankyou-section
+                    .col-12.scrpit
+                      label.form-label Thank you page content
+                    .col-12
+                      textarea(
+                        rows='7', cols='80',
+                        name="thankyou_description"
+                        placeholder='Enter content'
+                      ) #{customize_checkout ? customize_checkout.thankyou_description : ''}
+
+            .row 
+              .col-xl-6
+              .col-xl-6.text-center.text-sm-start.d-flex.justify-content-between
+                button#save-checkout.ms-auto.save-btn.btn.btn-primary.save-checkout.me-sm-3.mb-2.mb-sm-0(
+                  type='submit'
+                ) Save Checkout
+
+      //- button#preview-checkout.btn.btn-secondary.mb-2.mb-sm-0(
+      //-   type='submit'
+      //- ) Preview Checkout &amp; Publish
+
+block scripts
+  script(type='text/javascript' src='/assets/js/custom/customize_checkout.js')

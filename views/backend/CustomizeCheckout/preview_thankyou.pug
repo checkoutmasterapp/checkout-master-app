@@ -1,0 +1,93 @@
+extends ../../layouts/backend_layout
+
+block header_style
+  link(rel="stylesheet", href=`/assets/css/store-css/checkout-thankyou-${store_id}.css`)
+
+block content 
+  main#main.main.checkout
+    .container
+      .row 
+        .publish_checkout.mb-2
+          input(type="hidden" id="storeId" value=store_id)
+          a.btn.btn-primary.save-checkout.me-sm-3.mb-2.mb-sm-0(href=`/${store_id}/customize-checkout`) Customise Checkout
+        div.page-preview-section
+          section.main-inner-shoping-details-1
+            header.hedder-defgine
+              .container-fluid.custum-inner-container.brtd-defin
+                .row.store_logo_header.ss-kjmar.mx-0
+                  .col.main-inner-header
+                    img.logo-set.h-12(src=`${customize_checkout?customize_checkout.store_logo:""}`)
+
+                  .col.image-logos
+                    if(customize_checkout && customize_checkout.security_badge)
+                      img.h-12.security-logo(src=`${customize_checkout?customize_checkout.security_badge:''}` )
+                    else
+                      img.h-12.me-1.master-card(src='/assets/img/Mastecard.png')
+                      img.h-12(src="/assets/img/visa-9.png" alt="")
+
+            .container-fluid.custum-inner-container.brtd-defin
+              div.main-inner-back-botom
+                div.row
+                  div.col-lg-7
+                    div.thank-you-section
+                      h4.user-name !{language_translation.thanks || 'Thank you'}, Samanta!
+                      div.main-ship-cheak.d-flex.mt-3
+                        div.shipping.d-flex
+                          div.icon-airplane 
+                            img(src="/assets/img/delivery-box.png" alt="qw")
+                          div.user-datils-addres
+                            h4 Free Shipping
+                            p.mb-0 Samanta Mane
+                            p.mb-0 2936 Kerry Way, Artesia
+                            p.mb-0 California, USA
+                            p.mb-0 test@email.com
+                            p.mb-0 +1 1234567890  
+                        div.check 
+                          img(src="/assets/img/checked .png" alt="")
+                      div.main-ship-cheak.d-flex.mt-3
+                        div.shipping.d-flex
+                          div.icon-airplane 
+                            img(src="/assets/img/card.png" alt="qw")
+                          div.user-datils-addres
+                            h4 #{language_translation && language_translation.payment_method || 'Payment method'}
+                            p.mb-0  !{language_translation && language_translation.credit_card || 'Pay with credit card'}
+                        div.check 
+                          img(src="/assets/img/checked .png" alt="")
+                      div.btn-contonue-shoping 
+                        button !{language_translation && language_translation.back_to_shop || 'Continue shopping'}
+
+                  div.col-lg-5
+                    div.order-smrey
+                      h4.order-smry-t.mb-4 !{language_translation && language_translation.order_summary_title || 'Order Summary'}
+                      div.order-main.d-flex
+                        div.sumrey-data.d-flex
+                          div.icon-iteam-smry
+                            img(src="/assets/img/speaker.png" alt="qw")
+                          div.iteam-deatiles.ms-3
+                            h4 Sturm Face Cream Men
+                            p.mb-0.mt-4 Color: Pink
+                              span.ms-3 Size: S
+                        div.crose 
+                          img(src="/assets/img/kanto.png" alt="")
+                          h3.iteam-price $24,95
+                      div.order-main.d-flex.mt-3
+                        div.sumrey-data.d-flex
+                          div.icon-iteam-smry
+                            img(src="/assets/img/airpod.png" alt="qw")
+                          div.iteam-deatiles.ms-3
+                            h4 Sturm Face Cream Men
+                            p.mb-0.mt-4 Color: Pink
+                              span.ms-3 Size: S
+                        div.crose 
+                          img(src="/assets/img/kanto.png" alt="")
+                          h3.iteam-price $24,95
+                      div.total-ship-price
+                        h5.mb-0.mt-3.toatal-thx-data !{language_translation && language_translation.subtotal || 'Subtotal'}
+                          span.float-end $ 49,90
+                        h5.mb-0.mt-1.toatal-thx-data Free shipping
+                          span.float-end $ 00,00
+                        h5.mb-3.mt-1.toatal-thx-data Estimated taxes
+                          span.float-end $ 3.74
+                      div.last-fotr-total
+                        h5.mt-3 !{language_translation && language_translation.total || 'Total'}
+                          span.float-end $53.64

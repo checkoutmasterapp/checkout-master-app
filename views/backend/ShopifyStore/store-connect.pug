@@ -1,0 +1,752 @@
+extends ../../layouts/backend_layout
+
+block content
+	main.main.main_top0
+		section
+			//- div.toggle-div
+			//- 		#toggle
+			//- 			div.one
+			//- 			div.two
+			//- 			div.three
+			div.row.m-0.store-row
+				div.col-lg-3.col-md-4.left_bar#menu
+					div.displaynone.store_setup_stepper.add_your_store
+						h2 Add your store
+						div.content 
+							| To Connect your Shopify store, please provide your 
+							span.highlight-b myshopify domain. 
+							br 
+							br
+							| Checkout Master does not support other eCom platforms yet.
+
+						div.under_white_wrap
+							p To get started you need:
+							<ol>
+								<li>Shopify account</li>
+								<li>Correct myshopify domain</li>
+							</ol>
+
+					div.displaynone.store_setup_stepper.store_scopes
+						h2 Create a custom app
+						.content
+							p
+							| Checkout Master is a custom Shopify app that needs a number of permissions to
+							| interact with your store
+							p
+							| Please go to 
+							span.highlight Apps and sales channels &gt; Develop apps
+							| &gt;  (in Settings menu) &gt; 
+							span.highlight Create an app
+							|  and configure this feature. Next, configure according to the instructions below.
+
+						div.under_white_wrap
+							p How to setup custom apps correctly:
+							<ol>
+								<li>Create a Custom app.</li>
+								<li>Copy Custom app name to corresponding field in Application details section.</li>
+								<li>Scroll to Admin API permissions section.</li>
+								<li>In Shopify choose Configure Admin API scopes section.</li>
+								<li>Set custom app permissions as listed here.</li>
+								<li>Save your changes in custom app on Shopify.</li>
+								<li>Click Install your custom app on Shopify, after this you get credential for the next step.</li>
+							<ol>
+
+					div.displaynone.store_setup_stepper.store_details
+						h2 Add your API keys
+						.content
+							p Now that you've saved the app, Shopify has generated API credentials. If all app permissions have been set correctly, Checkout Masterwill be installed on your store.
+
+						div.under_white_wrap
+							p How can you do this?
+							<ol>
+								<li>
+								| Select the  API credentials tab 
+								| in your custom Shopify app.</li>
+								<li>Copy the required data from Shopify to Checkout master.</li>
+								<li>Click button "Connect store" so that we can check permissions.</li>
+							</ol>
+
+					div.displaynone.store_setup_stepper.store_verify_details
+						h2 Edit app details
+						.content
+							p
+							| In your store go to 
+							span.highlight Apps and sales channels > Develop apps 
+							| (in Settings menu) next, choose 
+							span.highlight > Checkout Masterapp.
+
+						div.under_white_wrap
+							p How can you do this?
+							<ol>
+								<li>
+								| Scroll to 
+								span.highlight Admin API permissions 
+								| section.<a class="btn btn-primary" href="https://www.shopify.com/admin/settings/apps" target="_blank">Go to Apps on Shopify</a></li>
+								<li>In Shopify section Configuration choose edit Admin API integration.</li>
+								<li>Set custom app permissions as listed here.</li>
+								<li>Save changes in custom app on Shopify and try connect your store again.</li>
+							</ol>
+
+				div.col-lg-8.mx-auto.right_sec
+					label.col-form-label.text-center.w-100.store-heading Store 
+						span.ww Domain
+					.success_bar.store_setup_stepper_bar
+						.bar_a
+							span.ac 1
+							span Add your store
+							i.bi.bi-arrow-right.arrow
+						.bar_a
+							span.ac 2
+							span Create a custom app
+							i.bi.bi-arrow-right.arrow
+						.bar_a
+							span.ac 3
+							span Add app details
+
+
+					div.other_height
+						div.card.displaynone.store_setup_stepper.add_your_store
+							div.card-body.px-0
+								form.g-3(id="store_name" method='post' autocomplete="off")
+									input(type="hidden" name="store_id" value=`${auth_store ? auth_store.id : ""}`,)
+									div.mb-3
+										div
+											.input-group.mb-2
+												input.form-control.required.secrch-shopify(
+													type='text',
+													name='store_name',
+													value=`${auth_store ? auth_store.store_name : ""}`,
+													placeholder='Write a name'
+												)
+												span.input-group-text.border-0 .myshopify.com
+										p.d-flex.align-items-center.mt-4 <svg xmlns="http://www.w3.org/2000/svg" focusable="false" class="jss133" width="18" height="18" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" style="transform: rotate(360deg);"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10s10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8s8 3.589 8 8s-3.589 8-8 8z" fill="currentColor"></path><path d="M11 11h2v6h-2zm0-4h2v2h-2z" fill="currentColor"></path></svg>
+											<small class="pris ms-1"> Make sure your domain is correct </small>
+									div.form-action.mt-4
+										button.btn.btn-primary(type='submit') Go to next step
+
+						div.card.displaynone.store_setup_stepper.store_scopes
+							form.card-body.g-3(id="store_scopes" method='post' autocomplete="off")
+								div.scrollalbe
+									div
+										label
+											//- h3 Set App details
+											div.input-group.col
+												input.form-control.secrch-shopify(
+													readonly
+													type='text',
+													name='scope_page',
+													value="checkout-master",
+													placeholder='Checkout-master'
+												)
+												span.input-group-text.clipboard_app_name.border-0
+													svg(width='20' height='21' viewBox='0 0 20 21' fill='none' xmlns='http://www.w3.org/2000/svg')
+														path(d='M18.5511 6.229H7.13415C6.75571 6.229 6.3927 6.37936 6.12497 6.64694C5.85739 6.91469 5.70703 7.27769 5.70703 7.65612V19.073C5.70703 19.4515 5.85739 19.8145 6.12497 20.0822C6.39272 20.3498 6.75572 20.5002 7.13415 20.5002H18.5511C18.9295 20.5002 19.2925 20.3498 19.5602 20.0822C19.8278 19.8145 19.9782 19.4515 19.9782 19.073V7.65612C19.9782 7.27768 19.8278 6.91467 19.5602 6.64694C19.2925 6.37936 18.9295 6.229 18.5511 6.229ZM7.13415 19.073V7.65612H18.5511V19.073H7.13415Z' fill='#1A1A1A' fill-opacity='0.72')
+														path(d='M3.56779 13.3645H1.42712V1.94762H12.844V4.0883C12.844 4.3433 12.9801 4.57886 13.2008 4.70628C13.4216 4.8337 13.6936 4.8337 13.9144 4.70628C14.1351 4.57886 14.2712 4.34329 14.2712 4.0883V1.94762C14.2712 1.56918 14.1208 1.20618 13.8532 0.938449C13.5855 0.670865 13.2225 0.520508 12.844 0.520508H1.42712C1.04868 0.520508 0.685668 0.670865 0.417941 0.938449C0.150357 1.20619 0 1.56919 0 1.94762V13.3645C0 13.743 0.150357 14.106 0.417941 14.3737C0.685684 14.6413 1.04869 14.7917 1.42712 14.7917H3.56779C3.82279 14.7917 4.05835 14.6556 4.18577 14.4349C4.31319 14.2141 4.31319 13.9421 4.18577 13.7213C4.05835 13.5006 3.82278 13.3645 3.56779 13.3645Z' fill='#1A1A1A' fill-opacity='0.72')
+
+											p.d-flex.align-items-center.mt-2 <svg xmlns="http://www.w3.org/2000/svg" focusable="false" class="jss133" width="16" height="16" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" style="transform: rotate(360deg);"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10s10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8s8 3.589 8 8s-3.589 8-8 8z" fill="currentColor"></path><path d="M11 11h2v6h-2zm0-4h2v2h-2z" fill="currentColor"></path></svg>
+												<small class="pris ms-1"> Make sure your domain is correct </small>
+
+										p.scroling-pera In admin App scopes set the following permission
+										.card
+											.card-body
+												table.table.store-table
+													tbody
+														tr
+															th Products
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_products(
+																		type="checkbox"
+																		name="read_products",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_products read_products
+
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#write_products(
+																		type="checkbox"
+																		name="write_products",
+																		value="true",
+																		checked 
+																		onclick="return false"
+																	)
+																	label.custom-control-label#write_products write_products
+														tr
+															th Customers
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_customers(
+																		type="checkbox"
+																		name="read_customers",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_customers read_customers
+
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_products(
+																		type="checkbox"
+																		name="read_products",
+																		value="true",
+																		checked 
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_products read_customers
+														tr
+															th Discounts
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_discounts(
+																		type="checkbox"
+																		name="read_discounts",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_discounts read_discounts
+
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#write_discounts(
+																		type="checkbox"
+																		name="write_discounts",
+																		value="true",
+																		checked 
+																		onclick="return false"
+																	)
+																	label.custom-control-label#write_discounts write_discounts
+														tr
+															th Fullfilled services
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_fulfillments(
+																		type="checkbox"
+																		name="read_fulfillments",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_fulfillments read_fulfillments
+														tr
+															th GDPR data requests
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_gdpr_data_request(
+																		type="checkbox"
+																		name="read_gdpr_data_request",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_gdpr_data_request read_gdpr_data_request
+														tr
+															th Gift cards
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_gift_cards(
+																		type="checkbox"
+																		name="read_gift_cards",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_gift_cards read_gift_cards
+														tr
+															th Inventory
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_inventory(
+																		type="checkbox"
+																		name="read_inventory",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_inventory read_inventory
+
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#write_inventory(
+																		type="checkbox"
+																		name="write_inventory",
+																		value="true",
+																		checked 
+																		onclick="return false"
+																	)
+																	label.custom-control-label#write_inventory write_inventory
+														tr
+															th Order editing
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_order_edits(
+																		type="checkbox"
+																		name="read_order_edits",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_order_edits read_order_edits
+
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#write_order_edits(
+																		type="checkbox"
+																		name="write_order_edits",
+																		value="true",
+																		checked 
+																		onclick="return false"
+																	)
+																	label.custom-control-label#write_order_edits write_order_edits
+														tr
+															th Orders
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_orders(
+																		type="checkbox"
+																		name="read_orders",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_orders read_orders
+
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#write_orders(
+																		type="checkbox"
+																		name="write_orders",
+																		value="true",
+																		checked 
+																		onclick="return false"
+																	)
+																	label.custom-control-label#write_orders write_orders
+														tr
+															th Price rules
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_price_rules(
+																		type="checkbox"
+																		name="read_price_rules",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_price_rules read_price_rules
+
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#write_price_rules(
+																		type="checkbox"
+																		name="write_price_rules",
+																		value="true",
+																		checked 
+																		onclick="return false"
+																	)
+																	label.custom-control-label#write_price_rules write_price_rules
+														tr
+															th Products listings
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_product_listings(
+																		type="checkbox"
+																		name="read_product_listings",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_product_listings read_product_listings
+														tr
+															th Script tags
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_script_tags(
+																		type="checkbox"
+																		name="read_script_tags",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_script_tags read_script_tags
+
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#write_script_tags(
+																		type="checkbox"
+																		name="write_script_tags",
+																		value="true",
+																		checked 
+																		onclick="return false"
+																	)
+																	label.custom-control-label#write_script_tags write_script_tags
+														tr
+															th Shipping
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_shipping(
+																		type="checkbox"
+																		name="read_shipping",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_shipping read_shipping
+														tr
+															th Themes
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_themes(
+																		type="checkbox"
+																		name="read_themes",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_themes read_themes
+
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#write_themes(
+																		type="checkbox"
+																		name="write_themes",
+																		value="true",
+																		checked 
+																		onclick="return false"
+																	)
+																	label.custom-control-label#write_themes write_themes
+
+								div.form-action.mt-2
+									button.btn.btn-primary(type='submit') Go to next step
+
+						div.card.displaynone.store_setup_stepper.store_details
+							div.card-body.px-0
+								form(
+									id="store_details"
+									method='post'
+									autocomplete="off"
+								)
+									input.form-control.store_domain(type='hidden' name='store_domain' value="")
+									div.row
+										div.form-group.row.mb-4
+											div.col-md-12
+												<small class="form-text text-muted pris mb-2">
+												| Paste value from the 
+												span.highlight  API access token
+												|  field on Shopify here.</small>
+												input.form-control.required.tokens-input.mt-2(
+													type='text',
+													name='access_token', value="",
+													placeholder='Enter Access Token'
+												)
+										div.form-group.row.mb-4
+											div.col-md-12
+												<small class="form-text text-muted pris">
+												| Paste value from the 
+												span.highlight  API key 
+												|  field on Shopify here.</small>
+												input.form-control.required.tokens-input.mt-2(
+													type='text',
+													name='shopify_api_key', value="",
+													placeholder='Enter Api Key'
+												)
+
+
+										div.form-group.row.mb-4
+											div.col-md-12
+												<small class="form-text text-muted pris">
+												| Paste value from the 
+												span.highlight  API secret key
+												|  field on Shopify here.</small>
+												input.form-control.required.tokens-input.mt-2(
+													type='text',
+													name='shopify_secret_key', value="",
+													placeholder='Enter Secret Key'
+												)
+
+
+									div.form-action.mt-2
+										button.btn.btn-primary(type='submit') Connect store
+
+						div.card.displaynone.store_setup_stepper.store_verify_details
+							form.card-body.g-3(id="store_verify_details" method='post' autocomplete="off")
+								input(type='hidden' name='store_domain' value="" id="store_domain_verify")
+								input(type='hidden' name='access_token' id="access_token_verify")
+								input(type='hidden' name='shopify_api_key' id="shopify_api_key_verify")
+								input(type='hidden' name='shopify_secret_key' id="shopify_secret_key_verify")
+								div.scrollalbe
+									div
+										label
+											p.d-flex.align-items-center.mt-2 Some permissions are set incorrectly!
+										p
+											| We found that some permissions have wrong access level. Please check them again in the Admin 
+											span.highlight API integration
+											|  section and connect your store.
+
+										.card
+											.card-body
+												table.table.store-table
+													tbody
+														tr.products.displaynone
+															th#errorcolor Products
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_products(
+																		type="checkbox"
+																		name="read_products",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_products read_products
+
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#write_products(
+																		type="checkbox"
+																		name="write_products",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#write_products write_products
+														tr.customers.displaynone
+															th#errorcolor Customers
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_customers(
+																		type="checkbox"
+																		name="read_customers",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_customers read_customers
+
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_products(
+																		type="checkbox"
+																		name="read_products",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_products read_customers
+														tr.discounts.displaynone
+															th#errorcolor Discounts
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_discounts(
+																		type="checkbox"
+																		name="read_discounts",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_discounts read_discounts
+
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#write_discounts(
+																		type="checkbox"
+																		name="write_discounts",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#write_discounts write_discounts
+														tr.fulfillments.displaynone
+															th#errorcolor Fullfilled services
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_fulfillments(
+																		type="checkbox"
+																		name="read_fulfillments",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_fulfillments read_fulfillments
+														tr.gdpr.displaynone
+															th#errorcolor GDPR data requests
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_gdpr_data_request(
+																		type="checkbox"
+																		name="read_gdpr_data_request",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_gdpr_data_request read_gdpr_data_request
+														tr.gift_cards.displaynone
+															th#errorcolor Gift cards
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_gift_cards(
+																		type="checkbox"
+																		name="read_gift_cards",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_gift_cards read_gift_cards
+														tr.inventory.displaynone
+															th#errorcolor Inventory
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_inventory(
+																		type="checkbox"
+																		name="read_inventory",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_inventory read_inventory
+
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#write_inventory(
+																		type="checkbox"
+																		name="write_inventory",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#write_inventory write_inventory
+														tr.order_edits.displaynone
+															th#errorcolor Order editing
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_order_edits(
+																		type="checkbox"
+																		name="read_order_edits",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_order_edits read_order_edits
+
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#write_order_edits(
+																		type="checkbox"
+																		name="write_order_edits",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#write_order_edits write_order_edits
+														tr.orders.displaynone
+															th#errorcolor Orders
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_orders(
+																		type="checkbox"
+																		name="read_orders",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_orders read_orders
+
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#write_orders(
+																		type="checkbox"
+																		name="write_orders",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#write_orders write_orders
+														tr.price_rules.displaynone
+															th#errorcolor Price rules
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_price_rules(
+																		type="checkbox"
+																		name="read_price_rules",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_price_rules read_price_rules
+
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#write_price_rules(
+																		type="checkbox"
+																		name="write_price_rules",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#write_price_rules write_price_rules
+														tr.product_listings.displaynone
+															th#errorcolor Products listings
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_product_listings(
+																		type="checkbox"
+																		name="read_product_listings",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_product_listings read_product_listings
+														tr.script_tags.displaynone
+															th#errorcolor Script tags
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_script_tags(
+																		type="checkbox"
+																		name="read_script_tags",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_script_tags read_script_tags
+
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#write_script_tags(
+																		type="checkbox"
+																		name="write_script_tags",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#write_script_tags write_script_tags
+														tr.shipping.displaynone
+															th#errorcolor Shipping
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_shipping(
+																		type="checkbox"
+																		name="read_shipping",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_shipping read_shipping
+														tr.themes.displaynone
+															th#errorcolor Themes
+															td
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#read_themes(
+																		type="checkbox"
+																		name="read_themes",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#read_themes read_themes
+
+																div.custom-control.custom-checkbox.d-flex
+																	input.custom-control-input.new-inn#write_themes(
+																		type="checkbox"
+																		name="write_themes",
+																		value="true",
+																		checked
+																		onclick="return false"
+																	)
+																	label.custom-control-label#write_themes write_themes
+
+								div.form-action.mt-2
+									button.btn.btn-primary(type='submit') Try Again
+
+block scripts
+	script(type='text/javascript' src='/assets/js/custom/shopify_connect.js')
+	script. 
+		$("#toggle").click(function() {
+			$(this).toggleClass("on");
+			$("#menu").slideToggle();
+		});

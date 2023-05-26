@@ -1,0 +1,310 @@
+extends ../../layouts/shopify_layout
+
+block header_style
+	link(rel="stylesheet", href=`/assets/css/checkout-template/checkout-digital.css`)
+
+block content 
+	main.main.checkout
+		section.main-inner-shoping-details
+			.container-fluid.cstm-cont.brtd-defin
+				.row.store_logo_header.ss-kjmar.mx-0
+					.col.main-inner-header
+						img.logo-set.h-12(src=`/assets/img/giftory.png`)
+
+					.col.image-logos
+						img.h-12.me-1.master-card(src='/assets/img/Mastecard.png')
+						img.h-12(src="/assets/img/visa-9.png" alt="") 
+
+		section.seond
+		section.main-iner-upr-details-cards
+			.container-fluid.cstm-cont
+				div.row.mx-0.set-row-v2
+					div.col-md-7.resposive-set-ped.px-0
+						.sec-logo.my-3.ss-kjej
+							a.anker-st-clor(href="#") 
+								svg.arow(xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512')
+									path(d='M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z')
+									span.bac-ward.ms-2 back to card
+
+						div.fire-outer
+							div.main-fire.d-flex
+								div.fire-img
+									img.ms-3.img-fire(src='/assets/img/fire1.png')
+								div.fire-txt
+									p.mb-0.ms-3.pera-degine An item in your cart is in high demand! Finalise your order before it gets too late.
+									p.mb-0.ms-3.pera-degine-1 Your cart is reserved for 10:00 minutes.
+						div.resposive-smry-cart
+							div.resposive-dhdh 
+								div.cart-smry-header
+									.card-icon-txt
+										svg.cart-icon(xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512')
+											path.path-color-cart-buket(d='M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z')
+										span.ms-2.iteam-in-car Cart Summary (2)
+								div.price-arrow
+									div.pric-sectin
+										span.ofeer-price $30.00
+									svg.cart-iocn(xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512')
+										path.path-color-arrow(d='M169.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 274.7 54.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z')
+							div.smry-data-show
+								h2.smrry-txt.pt-4.ss-kjej Order Summary
+								div.smry-dta.first-smry 
+									div.image-tital
+										div.image-smry
+											img(src='/assets/img/cream.png')
+										div.tital-smry.ms-3
+											h6.item-tital Face cream
+											p.per_col-size Color: Pink
+												span.ms-4 Size: S
+
+									div.crose-price 
+										div.crose
+											a(href="#") 
+												svg.x-mark(xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512')
+													path.path-color-cros(d='M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z')
+										h5.price-iteam $27.00
+								h4.dis-code Discount code			
+								input-group.mb-3
+									div.offer.d-flex
+										input.form-control.ofrr-cupn(type='text' placeholder="WIN2023", aria-label.w-100="Recipient's username" aria-describedby='button-addon2')
+										button#button-addon2.btn.btn-ofrrt-in(type='button') Apply
+								h5.text__order-ship.mt-3 Subtotal 
+									span.float-end.price.iteam__sh $ 27.00
+								h5.text__order-ship.extra-pad Taxes
+									span.float-end.price.iteam__sh $ 3.00
+								div.total-all-iteam-2
+									h5.tatl-txt Total
+										span.float-end $30.00
+
+						div.left-side
+							div.cont-infooo.d-flex.justify-content-between.mt-4
+								p.mb-0.info-txt_i.mt-2 1. Your information
+
+							div.row.set-row-v2
+								div.col-lg-6.ss-kjej
+									input.w-100.names-in(type="email" placeholder='Enter your email address') 
+							div.cheak-condition-v2
+								input.names-in.accnt.mb-0.cheak-style(type="checkbox" checked)
+								label.cheak-bx Sign up for exclusive offers and news via text messages & email.
+
+							h2.shipin-add.ss-kjej.meth-ship Phone number
+							div.row.ss-kjej.set-row-v2
+								div.col-lg-6
+									input.w-100.names-in(type="email" placeholder='Enter your phone number')
+
+							// Who are you buying for
+							div.who-buying-section
+								h2.shipin-add.ss-kjej.meth-ship Who are you buying for?
+								div.row.ss-kjej.set-row-v2
+									div.col-lg-6.d-flex
+										label.main-buying I’m buying for myself
+											input.shipping-free.radio-style.me-2(
+												type="radio"
+												name="who_buying"
+												value="myself"
+												checked
+											)
+								div.row.ss-kjej.set-row-v2.mt-3
+									div.col-lg-6.d-flex
+										label.main-buying This is a gift for someone else
+											input.shipping-free.radio-style.me-2(
+												type="radio"
+												name="who_buying"
+												value="someone_else"
+											)
+
+								div.displaynone.gift_someone_section
+									h2.shipin-add.ss-kjej.meth-ship.mb-1 Email address
+									p.messeage-txt Enter the email you want your gift to be sent to.
+									div.row.ss-kjej.set-row-v2
+										div.col-lg-6
+											input.w-100.names-in(type="text" placeholder='Enter an email address')
+
+							// Select a delivery date
+							div.delivery-date-section
+								h2.shipin-add.ss-kjej.meth-ship Select a delivery date
+								div.row.ss-kjej.set-row-v2
+									div.col-lg-6.d-flex
+										label.main-buying Send immediately
+											input.shipping-free.radio-style.me-2(
+												type="radio"
+												name="delivery_date"
+												value="immediately"
+												checked
+											)
+								div.row.ss-kjej.set-row-v2.mt-3
+									div.col-lg-6.d-flex
+										label.main-buying Send at a future date
+											input.shipping-free.radio-style.me-2(
+												type="radio"
+												name="delivery_date"
+												value="future_date"
+											)
+
+								div.select-time-Zone.displaynone.delivery_date_future
+									div.month.mt-3
+										h2.select-dat-txt Select a date
+										div.mon-1
+											select#month(name='cars')
+												option(value='volvo') month
+												option(value='saab') Saab
+												option(value='mercedes') Mercedes
+												option(value='audi') Audi
+											select#Day.ms-2(name='cars')
+												option(value='volvo') Day
+												option(value='saab') Saab
+												option(value='mercedes') Mercedes
+												option(value='audi') Audi
+											select#Year.ms-2(name='cars')
+												option(value='volvo') Year
+												option(value='saab') Saab
+												option(value='mercedes') Mercedes
+												option(value='audi') Audi
+									div.Time.mt-4
+										h2.select-dat-txt Select a time
+										div.mon-1
+											select#month(name='cars')
+												option(value='volvo') 09:00
+												option(value='saab') Saab
+												option(value='mercedes') Mercedes
+												option(value='audi') Audi
+											select#Day.ms-2(name='cars')
+												option(value='volvo') AM
+												option(value='saab') Saab
+												option(value='mercedes') Mercedes
+
+											select#Year.ms-2(name='cars')
+												option(value='volvo') EST
+												option(value='saab') Saab
+												option(value='mercedes') Mercedes
+												option(value='audi') Audi
+
+							h2.shipin-add.ss-kjej.meth-ship.mb-1 Message (optional)
+							p.messeage-txt Your message will be right there next to their gift when it lands in their inbox, letting them know it's from you!
+							div.row.ss-kjej.set-row-v2
+								div.col-lg-8
+									textarea.w-100.names-in(type="email" placeholder='E.g. Hey Mom, hope you enjoy this gift for you birthday! Love from Scott')
+
+							div.row.paymnt-method-lock.ss-kjmar.set-row-v2
+								div.paymnt-method-section.add-spa-n
+									div.col.p-0
+										h2.shipin-add 2. Payment method  
+									div.col.top-gap-ttt
+										svg.lockk(xmlns='http://www.w3.org/2000/svg' fill="#808080" viewBox='0 0 448 512')
+											path(d='M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z')
+										span.ms-1.lockk Transaction secured over SSL
+							.main-inr-payment.mt-4.ss-kjmar
+								.main-inner-payment
+									img(src='/assets/img/card.png')
+									p.card-txt-degine Pay with Google Pay
+								.main-iner-right-pay
+									input.shipping-free.radio-style(type='radio' name='payment' value='Stripe' checked)
+							.div.row.gap-card-in.ss-kjej.set-row-v2.mt-3
+								div.col-lg-4.col-sm-12
+									label.w-100.card-txt-degine Card number <br>
+										input.w-100.names-in(type='text' maxlength="16" name='' placeholder='0000 0000 0000 0000',)
+								div.col
+									label.w-100.card-txt-degine Expiry code <br>
+										input.w-100.names-in(type='month', )
+								div.col
+									label.w-100.card-txt-degine CVC/CW <br>
+										div.tolmain-e
+											input.w-100.names-in(type='text' maxlength="3" name='' placeholder='000',)
+											img.reoer(src="/assets/img/ree.png" alt="")
+								div.btn-confrm-d.big-btn-show
+									button.btn-Confirm
+										svg.lockk(xmlns='http://www.w3.org/2000/svg' fill="#fff" viewBox='0 0 448 512')
+											path.lock-icon-fill( d='M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z')
+										span.ms-2 Confirm	
+
+					div.col-md-5.paddd-5.main-inner-back-after
+						div.smry-data-mainn
+							h2.smrry-txt Order Summary
+							div.smry-dta 
+								div.image-tital
+									div.image-smry
+										img(src='/assets/img/image18.png')
+									div.tital-smry.ms-4
+										h6.item-tital Cosmetic facial massage
+										p.per_col-size Color: Pink
+											span.ms-4 Size: S
+
+								div.crose-price 
+									div.crose
+										a(href="#") 
+											svg.x-mark(xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512')
+												path.path-color-cros(d='M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z')
+									h5.price-iteam $27.00
+
+							h4.dis-code Discount code			
+							input-group.mb-3
+								div.offer.d-flex
+									input.form-control.ofrr-cupn(type='text' placeholder="WIN2023", aria-label.w-100="Recipient's username" aria-describedby='button-addon2')
+									button#button-addon2.btn.btn-ofrrt-in(type='button') Apply
+							h5.text__order-ship.mt-3 Subtotal 
+								span.float-end.price.iteam__sh $ 27.00						
+							h5.text__order-ship Taxes
+								span.float-end.price.iteam__sh $ 3.00
+							div.total-all-iteam
+								h5.tatl-txt Total
+									span.float-end $30.00
+						div.main-squre_payment.d-flex.mainh__Wdwd
+							div.squre_payment-img
+								img(src="/assets/img/_x35_9.png" alt="")
+							div.squre_payment-txtt.ms-4
+								h4 100% Secure Payments
+								p Our page size pages are secured and encrypted. <br> We don't have access to your bank data. We do <br> not pay any re-ut ser your card.
+						div.main-squre_payment.d-flex.mainh__Wdwd
+							div.squre_payment-img
+								img(src="/assets/img/discount-tagee.png" alt="")
+							div.squre_payment-txtt.ms-4
+								h4 The Best Prices
+								p We constantly offer seasonal discounts and a <br> bonus system.			
+						div.main-squre_payment.d-flex.mainh__Wdwd
+							div.squre_payment-img
+								img(src="/assets/img/parcelqwwwq.png" alt="")
+							div.squre_payment-txtt.ms-4
+								h4 Worldwide shipping
+								p we deliver goods quickly and safely to any corner <br> of the world.		
+						div.main-squre_payment.d-flex.mainh__Wdwd.last-divider
+							div.squre_payment-img
+								img(src="/assets/img/love-messagel.png" alt="")
+							div.squre_payment-txtt.ms-4
+								h4 Your satisfaction is our priority
+								p We are at your disposal 6 days a week and bring <br> you an answer in less than 24h					
+						div.ftr.d-flex 
+							p Powered by:
+							img(src="/assets/img/logo-bottom.svg" alt="")
+						div.btn-confrm-d.short-screen-show
+							button.btn-Confirm
+								svg.lockk(xmlns='http://www.w3.org/2000/svg' fill="#fff" viewBox='0 0 448 512')
+									path.lock-icon-fill(d='M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z')
+								span.ms-2 Confirm
+
+
+block scripts
+	script.
+		jQuery(document).ready(function () {
+
+			jQuery(".resposive-dhdh").click(function(){
+				jQuery(".smry-data-show").toggle("slow");
+			});
+
+			jQuery(document).on("change", 'input[name="who_buying"]', function (event) {
+				let who_buying = jQuery(this).val();
+				if(who_buying === "someone_else"){
+					jQuery(".gift_someone_section").show("slow");
+				}else{
+					jQuery(".gift_someone_section").hide("slow");
+				}
+			});
+
+			jQuery(document).on("change", 'input[name="delivery_date"]', function (event) {
+				let who_buying = jQuery(this).val();
+				if(who_buying === "future_date"){
+					jQuery(".delivery_date_future").show("slow");
+				}else{
+					jQuery(".delivery_date_future").hide("slow");
+				}
+			});
+
+		})

@@ -1,0 +1,263 @@
+@import url("https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&family=Golos+Text:wght@400;500;600;700;800&family=Jost:ital,wght@0,400;0,700;1,300&family=Lato:ital,wght@0,300;1,300;1,400;1,700&family=Libre+Franklin:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,900&family=Golos Text:wght@300;400;700&family=PT+Sans:wght@400;700&family=Quicksand:wght@300;400;500;600;700&family=Source+Sans+Pro:wght@400;600;700&family=Urbanist:wght@400;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.checkout-template-v10 {
+    font-family: "Golos Text" !important;
+}
+
+.checkout-thankyou-v10 .custum-inner-container {
+    padding: 20px 120px;
+}
+
+.checkout-thankyou-v10 .icon-iteam-smry img {
+    max-width: 72px;
+}
+
+.checkout-thankyou-v10 .hedder-defgine {
+    box-shadow: 0px 1px 4px rgba(112, 110, 121, 0.1);
+    background-color: #fff;
+}
+
+.checkout-thankyou-v10 .image-logos img {
+    width: 90px;
+    height: 33px;
+}
+
+.checkout-thankyou-v10 .image-logos {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.checkout-thankyou-v10 .thank-you-section {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.19);
+    padding: 25px 25px 35px 25px;
+    background-color: #fff;
+}
+
+.checkout-thankyou-v10 .order-smrey {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.19);
+    padding: 25px 25px 35px 25px;
+    background-color: #fff;
+}
+
+.checkout-thankyou-v10 .user-name {
+    font-family: "Golos Text" !important;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0em;
+    color: #1c1c1c;
+    text-align: left;
+}
+
+.checkout-thankyou-v10 .icon-airplane img {
+    height: 30px;
+    width: 30px;
+}
+
+.checkout-thankyou-v10 .main-ship-cheak {
+    border: 1px solid #dfdfdf;
+    padding: 12px 15px 12px 15px;
+}
+
+.checkout-thankyou-v10 .check img {
+    height: 20px;
+    width: 20px;
+}
+
+.checkout-thankyou-v10 .main-ship-cheak {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.checkout-thankyou-v10 .shipping {
+    align-items: center;
+}
+
+.checkout-thankyou-v10 .user-datils-addres {
+    margin-left: 15px;
+}
+
+.checkout-thankyou-v10 .user-datils-addres h4 {
+    font-family: "Golos Text" !important;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19px;
+    color: #000000;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.checkout-thankyou-v10 .user-datils-addres p {
+    font-family: "Golos Text" !important;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    margin-bottom: 5px !important;
+    color: #000000;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.checkout-thankyou-v10 .btn-contonue-shoping button {
+    width: 100%;
+    background: button_color;
+    height: 54px;
+    color: #ffffff;
+    font-family: "Golos Text" !important;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 22px;
+    margin-top: 25px;
+    border-radius: 5px;
+    letter-spacing: 0em;
+    border: 0;
+    text-align: center;
+}
+.checkout-thankyou-v10 .checkout-thankyou-footer-links a {
+    color: #648813;
+    padding-left: 10px;
+}
+.checkout-thankyou-v10 .order-smry-t {
+    font-family: "Golos Text" !important;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #1c1c1c;
+}
+
+.checkout-thankyou-v10 .order-main {
+    justify-content: space-between;
+}
+
+.checkout-thankyou-v10 .iteam-deatiles h4 {
+    font-family: "Golos Text" !important;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19px;
+    color: #1c1c1c;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.checkout-thankyou-v10 .iteam-deatiles p {
+    font-family: "Golos Text" !important;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+    color: #1c1c1c;
+    text-align: left;
+}
+
+.checkout-thankyou-v10 .crose {
+    text-align: right;
+}
+
+.checkout-thankyou-v10 .crose img {
+    height: 13px;
+    width: 13px;
+}
+
+.checkout-thankyou-v10 .iteam-price {
+    font-family: "Golos Text" !important;
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 35px;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #1c1c1c;
+}
+
+.checkout-thankyou-v10 .order-main.d-flex.mt-3 {
+    border-bottom: 1px solid #dfdfdf;
+    padding-bottom: 16px;
+}
+
+.checkout-thankyou-v10 .toatal-thx-data {
+    font-family: "Golos Text" !important;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0px;
+    color: #1c1c1c;
+    text-align: left;
+}
+
+.checkout-thankyou-v10 .toatal-thx-data span {
+    font-family: "Golos Text" !important;
+    color: #1c1c1c;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19px;
+    letter-spacing: 0px;
+    text-align: left;
+}
+
+.checkout-thankyou-v10 .last-fotr-total h5 {
+    font-family: "Golos Text" !important;
+    font-size: 20px;
+    color: #1c1c1c;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0px;
+    text-align: left;
+}
+
+.checkout-thankyou-v10 .last-fotr-total h5 span {
+    font-family: "Golos Text" !important;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #1c1c1c;
+}
+
+.checkout-thankyou-v10 .total-ship-price {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.checkout-thankyou-v10 .main.checkout {
+    background-image: url(/assets/img/v-10.png);
+    background-position: bottom left;
+    background-size: 24%;
+    background-color: #fff3eb;
+    background-repeat: no-repeat;
+}
+
+.checkout-thankyou-v10 .main-inner-back-botom {
+    height: calc(100vh - 130px);
+}
+
+@media (max-width: 992px) {
+    .checkout-thankyou-v10 .custum-inner-container {
+        padding: 8px 0px;
+    }
+
+    .checkout-thankyou-v10 .master-card {
+        margin-right: 13px !important;
+    }
+
+    .checkout-thankyou-v10 .main-inner-back-botom {
+        height: 100%;
+    }
+
+    .checkout-thankyou-v10 .main.checkout {
+        background-position: 74% bottom;
+        background-size: 0%;
+    }
+
+    .checkout-thankyou-v10 .order-smrey {
+        margin-top: 25px;
+    }
+}

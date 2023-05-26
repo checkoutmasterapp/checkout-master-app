@@ -1,0 +1,749 @@
+extends ../../layouts/backend_layout
+
+block header_style
+  link(rel="stylesheet", href=`/assets/css/store-css/checkout-template-${store_id}.css`)
+
+block content 
+
+  section.top-header-btn.cstm-cont.py-0
+    .row
+      .col-lg-12
+        .publish_checkout.mb-3
+          input(type="hidden" id="storeId" value=store_id)
+          a.btn.btn-primary.save-checkout.me-sm-3.mb-2.mb-sm-0(
+            href=`/${store_id}/customize-checkout`
+          ) Customise Checkout
+          button.btn.btn-primary.mb-4.mb-xl-0.publish_button(
+            type="button"
+            disabled= (customize_checkout_publish ? true : false)
+          ) Publish Checkout
+
+  main#main.main.checkout
+    section.main-inner-shoping-details
+      .container-fluid.cstm-cont.brtd-defin
+        .row.store_logo_header.ss-kjmar.mx-0
+          .col.main-inner-header
+            if(customize_checkout && customize_checkout.store_logo)
+              a(href=`https://${store_detail.store_domain}`)
+                img.logo-set.h-12(src=`${customize_checkout?customize_checkout.store_logo:""}`)
+          .col.image-logos
+            if(customize_checkout && customize_checkout.security_badge)
+              img.h-12.security-logo(src=`${customize_checkout?customize_checkout.security_badge:''}` )
+            else
+              img.h-12.me-1.master-card(src='/assets/img/Mastecard.png')
+              img.h-12(src="/assets/img/visa-9.png" alt="")
+
+    section.main-iner-upr-details-cards
+      .container-fluid.cstm-cont
+        div.row.mx-0.set-row-v2
+          div.col-md-7.resposive-set-ped.px-0
+            .sec-logo.my-3.ss-kjej
+              a.anker-st-clor(href=`https://${store_detail.store_domain}`) 
+                svg.arow(xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512')
+                  path(d='M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z')
+                  span.bac-ward.ms-2 !{language_translation && language_translation.back_to_shop || 'back to card'} 
+
+            // Display a scarcity timer on the Checkout
+            if(customize_checkout && customize_checkout.display_timer)
+              div.firee-outer
+                div.main-fire.d-flex
+                  div.fire-img
+                    img.ms-3.img-fire(src='/assets/img/fire1.svg')
+                  div.fire-txt
+                    p.mb-0.ms-3.pera-degine
+                      | #{language_translation.scarcity_title} 
+                      b.scarcity_clock_section.displaynone
+                        | #{language_translation.scarcity_clock_prefix} clock_timer #{language_translation.scarcity_clock_suffix}
+
+            div.resposive-smry-cart
+              div.resposive-dhdh 
+                div.cart-smry-header
+                  .card-icon-txt
+                    svg.cart-icon(xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512')
+                      path.path-color-cart-buket(d='M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z')
+                    span.ms-2.iteam-in-car !{language_translation && language_translation.cart_summary || 'Cart Summary'} (2) 
+                div.price-arrow
+                  div.pric-sectin
+                    span.line-crose-itm $93.64 <br>
+                    span.ofeer-price $53.64
+                  svg.cart-iocn(xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512')
+                    path.path-color-arrow(d='M169.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 274.7 54.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z')
+              div.smry-data-show
+                h2.smrry-txt.pt-4.ss-kjej !{language_translation && language_translation.order_summary_title || 'Order Summary'}
+                div.smry-dta.first-smry 
+                  div.image-tital
+                    div.image-smry
+                      img(src='/assets/img/image18.png')
+                    div.tital-smry.ms-3
+                      h6.item-tital Cosmetic facial massage
+                      p.per_col-size Quantity: 1
+                        span.ms-4 Color: Pink
+                        span.ms-4 Size: S
+                  div.crose-price 
+                    div.crose
+                      a(href="#") 
+                        svg.x-mark(xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512')
+                          path.path-color-cros(d='M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z')
+                    h5.price-iteam $24,95
+                div.smry-dta 
+                  div.image-tital
+                    div.image-smry
+                      img(src='/assets/img/cream.png')
+                    div.tital-smry.ms-3
+                      h6.item-tital Face cream
+                      p.per_col-size Quantity: 1
+                        span.ms-4 Size: S
+
+                  div.crose-price 
+                    div.crose
+                      a(href="#") 
+                        svg.x-mark(xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512')
+                          path.path-color-cros(d='M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z')
+                    h5.price-iteam $24,95
+
+                if(customize_checkout.display_discount === false)
+                  h4.dis-code !{language_translation && language_translation.discount_code || 'Discount code'}	
+                  input-group.mb-3
+                    div.offer.d-flex
+                      input.mobile_discount_code_input.form-control.ofrr-cupn(
+                        type="text"
+                        name='discount_code'
+                        placeholder="WIN2023"
+                      )
+                      button.displaynone.btn.btn-ofrrt-in.ecommerce_discount_apply(type='button') !{language_translation && language_translation.apply_button || 'Apply'}
+
+                h5.text__order-ship.mt-3 !{language_translation && language_translation.subtotal || 'Subtotal'} 
+                  span.float-end.price.iteam__sh $ 49,90
+                h5.text__order-ship Free shipping
+                  span.float-end.price.iteam__sh $ 00,00
+                h5.text__order-ship.extra-pad Estimated taxes
+                  span.float-end.price.iteam__sh $ 3.74
+                div.total-all-iteam-2
+                  h5.tatl-txt !{language_translation && language_translation.total || 'Total'}
+                    span.float-end $53.64
+
+            div.left-side
+
+              if(customize_checkout.display_discount === true)
+                .discount-apply-outside-cart-summary
+                  h4 !{language_translation && language_translation.discount_code || 'Discount code'}
+                  input-group.mb-3
+                    div.d-flex.discount-input-section
+                      input.mobile_discount_outside_code_input.form-control.ofrr-cupn(
+                        type="text"
+                        name='discount_code'
+                        placeholder="WIN2023"
+                      )
+                      button.displaynone.btn.btn-ofrrt-in.ecommerce_discount_apply(type='button') !{language_translation && language_translation.apply_button || 'Apply'}
+
+              // Contact information Section
+              div.cont-infooo.d-flex.justify-content-between.mt-4
+                p.mb-0.info-txt_i.mt-2 !{language_translation && language_translation.contact_information || 'Contact information'}
+
+              div.row.mt-4.set-row-v2.d1_hide
+                div.col-lg-6.ss-kjej.position-relative
+                  label.version-label.label-hide !{language_translation?language_translation.first_name:'First Name'}
+                  input.w-100.names-in(
+                    type="text"
+                    name="first_name"
+                    placeholder=`${language_translation?language_translation.first_name:'First Name'}`,
+                  )
+                div.col-lg-6.ss-kjej.position-relative
+                  label.version-label.label-hide !{language_translation?language_translation.last_name:'Last Name'}
+                  input.w-100.names-in(
+                    type="text"
+                    name="last_name"
+                    placeholder=`${language_translation?language_translation.last_name:'Last Name'}`,
+                  )
+
+              div.row.set-row-v2
+                div.col-lg-6.ss-kjej.position-relative
+                  label.version-label.label-hide !{language_translation?language_translation.email:'Email Address'}
+                  input.w-100.names-in(
+                    type="email"
+                    name="email"
+                    placeholder=`${language_translation?language_translation.email:'Email Address'}`,
+                  )
+
+                if(customize_checkout && customize_checkout.require_phone_number)
+                  div.col-lg-6.ss-kjej.position-relative
+                    label.version-label.label-hide !{language_translation?language_translation.phone:'Phone number'}
+                    .input-group.phone-number-filed.mb-3.select-wreper
+                      select.ctnry-selet
+                        option us 
+                        option pak
+                        option ind
+                        option can
+                      input.form-t.op-no(
+                        type="text"
+                        name="phone"
+                        placeholder="+1 "
+                        aria-label="Text input with dropdown button"
+                      )
+
+              div.cheak-condition-v2
+                input.names-in.accnt.mb-0.cheak-style(
+                  type="checkbox"
+                  name="check_accepts_marketing"
+                  checked= customize_checkout && customize_checkout.check_accepts_marketing == true ? true : false
+                )
+                label.cheak-bx #{language_translation?language_translation.accept_marketing_checkbox:'Sign up for exclusive offers and news'}
+
+                // Who are you buying for
+              div.who-buying-section.displaynone
+                h2.shipin-add.ss-kjej.meth-ship Who are you buying for?
+                div.row.ss-kjej.set-row-v2
+                  div.col-lg-6.d-flex
+                    label.main-buying I’m buying for myself
+                      input.shipping-free.radio-style.me-2(
+                        type="radio"
+                        name="who_buying"
+                        value="myself"
+                        checked
+                      )
+                div.row.ss-kjej.set-row-v2.mt-3
+                  div.col-lg-6.d-flex
+                    label.main-buying This is a gift for someone else
+                      input.shipping-free.radio-style.me-2(
+                        type="radio"
+                        name="who_buying"
+                        value="someone_else"
+                      )
+
+                div.displaynone.gift_someone_section
+                  h2.shipin-add.ss-kjej.meth-ship.mb-1 Email address
+                  p.messeage-txt Enter the email you want your gift to be sent to.
+                  div.row.ss-kjej.set-row-v2
+                    div.col-lg-6
+                      input.w-100.names-in(type="text" placeholder='Enter an email address')
+
+              // Select a delivery date
+              div.delivery-date-section.displaynone
+                h2.shipin-add.ss-kjej.meth-ship Select a delivery date
+                div.row.ss-kjej.set-row-v2
+                  div.col-lg-6.d-flex
+                    label.main-buying Send immediately
+                      input.shipping-free.radio-style.me-2(
+                        type="radio"
+                        name="delivery_date"
+                        value="immediately"
+                        checked
+                      )
+                div.row.ss-kjej.set-row-v2.mt-3
+                  div.col-lg-6.d-flex
+                    label.main-buying Send at a future date
+                      input.shipping-free.radio-style.me-2(
+                        type="radio"
+                        name="delivery_date"
+                        value="future_date"
+                      )
+
+                div.select-time-Zone.displaynone.delivery_date_future
+                  div.month.mt-3
+                    h2.select-dat-txt Select a date
+                    div.mon-1
+                      select#Year(name='date_year')
+                        option(value='') Year
+                        option(value='2023') 2023
+                        option(value='2024') 2024
+                        option(value='2025') 2025
+                        option(value='2026') 2026
+                        option(value='2027') 2027
+                        option(value='2028') 2028
+                        option(value='2029') 2029
+                        option(value='2030') 2030
+                        option(value='2031') 2031
+                        option(value='2032') 2032
+                        option(value='2033') 2033
+                        option(value='2034') 2034
+                      select#month.ms-2(name='date_month')
+                        option(value='') Month
+                        option(value='01') January
+                        option(value='02') February
+                        option(value='03') March
+                        option(value='04') April
+                        option(value='05') May
+                        option(value='06') June
+                        option(value='07') July
+                        option(value='08') August
+                        option(value='09') September
+                        option(value='10') October
+                        option(value='11') November
+                        option(value='12') December
+                      select#Day.ms-2(name='date_day')
+                        option(value='') Day
+                        option(value='01') 1st
+                        option(value='02') 2nd
+                        option(value='03') 3rd
+                        option(value='04') 4th
+                        option(value='05') 5th
+                        option(value='06') 6th
+                        option(value='07') 7th
+                        option(value='08') 8th
+                        option(value='09') 9th
+                        option(value='10') 10th
+                        option(value='11') 11th
+                        option(value='12') 12th
+                        option(value='13') 13th
+                        option(value='14') 14th
+                        option(value='15') 15th
+                        option(value='16') 16th
+                        option(value='17') 17th
+                        option(value='18') 18th
+                        option(value='19') 19th
+                        option(value='20') 20th
+                        option(value='21') 21st
+                        option(value='22') 22nd
+                        option(value='23') 23rd
+                        option(value='24') 24th
+                        option(value='25') 25th
+                        option(value='26') 26th
+                        option(value='27') 27th
+                        option(value='28') 28th
+                        option(value='29') 29th
+                        option(value='30') 30th
+                        option(value='31') 31st
+                  div.Time.mt-4
+                    h2.select-dat-txt Select a time
+                    div.mon-1
+                      select#month(name='cars')
+                        option(value='01:00') 01:00
+                        option(value='01:30') 01:30
+                        option(value='02:00') 02:00
+                        option(value='02:30') 02:30
+                        option(value='03:00') 03:00
+                        option(value='03:30') 03:30
+                        option(value='04:00') 04:00
+                        option(value='04:30') 04:30
+                        option(value='05:00') 05:00
+                        option(value='05:30') 05:30
+                        option(value='06:00') 06:00
+                        option(value='06:30') 06:30
+                        option(value='07:00') 07:00
+                        option(value='07:30') 07:30
+                        option(value='08:00') 08:00
+                        option(value='08:30') 08:30
+                        option(value='09:00' selected='') 09:00
+                        option(value='09:30') 09:30
+                        option(value='10:00') 10:00
+                        option(value='10:30') 10:30
+                        option(value='11:00') 11:00
+                        option(value='11:30') 11:30
+                        option(value='12:00') 12:00
+                        option(value='12:30') 12:30
+                      select#Day.ms-2(name='cars')
+                        option(value='AM' selected='') AM
+                        option(value='PM') PM
+                      select#Year.ms-2(name='cars')
+                        option(value='EST') EST
+                        option(value='UTC' selected='') UTC
+                        option(value='WET') WET
+                        option(value='GMT') GMT
+                        option(value='CET') CET
+                        option(value='IST') IST
+                        option(value='EDT') EDT
+
+              div.displaynone.gift_message
+                h2.shipin-add.ss-kjej.meth-ship.mb-1 Message (optional)
+                p.messeage-txt Your message will be right there next to their gift when it lands in their inbox, letting them know it's from you!
+                div.row.ss-kjej.set-row-v2
+                  div.col-lg-8
+                    textarea.w-100.names-in(type="email" placeholder='E.g. Hey Mom, hope you enjoy this gift for you birthday! Love from Scott')
+
+              // Shipping address Section
+              div.d1_hide
+                h2.shipin-add.ss-kjej.meth-ship !{language_translation && language_translation.shipping_address_title || 'Shipping address'}
+                if(customize_checkout && customize_checkout.require_address_number)
+                  div.row.ss-kjej.set-row-v2
+                    div.col.position-relative
+                      label.version-label.label-hide !{language_translation?language_translation.street_address:'Street adress'}
+                      input.w-100.names-in(
+                        type="text"
+                        name="address"
+                        placeholder= `${language_translation?language_translation.address_number:'Address'}`
+                      )
+                div.row.ss-kjej.set-row-v2
+                  div.col-lg-4.define-order-1.position-relative
+                    label.version-label.label-hide !{language_translation?language_translation.zip_code:'Zip Code'}
+                    input.w-100.names-in(
+                      type="text"
+                      name="zip_code"
+                      placeholder=`${language_translation?language_translation.zip_code:'Zip Code'}`
+                    )
+                  div.col-lg-4.define-order-2.position-relative
+                    label.version-label.label-hide !{language_translation?language_translation.city:'City'}
+                    input.w-100.names-in(
+                      type="text"
+                      name="city"
+                      placeholder=`${language_translation?language_translation.city:'City'}`
+                    )
+                  div.col-lg-4.select-wreper-2.define-order-3.position-relative
+                    label.version-label.label-hide !{language_translation?language_translation.country:'Country'}
+                    select#shipping_country.names-in-cuntry(name='shipping_country')
+                      if(countries && countries.length !== 0)
+                        option(value="") #{language_translation && language_translation.select_country ? language_translation.select_country:'Select a Country'}
+                        each country in countries
+                          option(
+                            value=(country.country_name)
+                            country_code=(country.country_code)
+                          ) #{country.country_name}
+                  div.col-lg-4.select-wreper-2.define-order-3.position-relative.displaynone.shipping_state_section
+                    label.version-label.label-hide !{language_translation && language_translation.state || 'State'} 
+                    select#shipping_state.names-in-cuntry(name='shipping_state')
+                      option(value="") #{language_translation && language_translation.select_state ? language_translation.select_state:'Select a State'}
+
+              // Shipping method Section
+              div.d1_hide
+                h2.shipin-add.ss-kjej !{language_translation && language_translation.shipping_option_title || 'Shipping method'} 
+                div.shipping_method_html
+
+              // Billing Address Section
+              div
+                if(customize_checkout && customize_checkout.template_code === "d1")
+                  div
+                    h2.shipin-add.ss-kjej.meth-ship !{language_translation && language_translation.billing_details || 'Billing address'}
+                else
+                  div.cheak-condition-v2.mt-5
+                    input.shipping-free.names-in.ttt.accnt.mb-0.cheak-style(
+                      type="checkbox"
+                      name='billing_checkbox'
+                      checked
+                    )
+                    label.cheak-bx.ms-2
+                      | #{language_translation?language_translation.billing_same_as_shipping:'Billing address is same as Shipping address'}
+                div.billing-form.billing_address_.mt-2
+                  div.row.set-row-v2
+                    div.col-lg-6.col-sm-12.position-relative
+                      label.version-label.label-hide !{language_translation?language_translation.first_name:"First name"}
+                      input.w-100.names-in(
+                        type="text"
+                        name="billing_first_name",
+                        placeholder=`${language_translation?language_translation.first_name:"First Name"}`
+                      ) 
+                    div.col-lg-6.col-sm-12.position-relative
+                      label.version-label.label-hide !{language_translation?language_translation.last_name:"Last name"}
+                      input.w-100.names-in(
+                        type="text"
+                        name="billing_last_name",
+                        placeholder=`${language_translation?language_translation.last_name:"Last Name"}`
+                      )
+                  div.row.set-row-v2
+                    div.col.position-relative
+                      label.version-label.label-hide  !{language_translation?language_translation.street_address:'Street adress'}
+                      input.w-100.names-in(
+                        type="text"
+                        name="billing_address"
+                        placeholder= `${language_translation?language_translation.address_number:'Address'}`
+                      )
+                  div.row.set-row-v2
+                    div.col-lg-6.col-sm-12.position-relative
+                      label.version-label.label-hide !{language_translation?language_translation.zip_code:'Zip Code'}
+                      input.w-100.names-in(
+                        type="text"
+                        name="billing_zip_code"
+                        placeholder=`${language_translation?language_translation.zip_code:'Zip Code'}`
+                      ) 
+                    div.col-lg-6.col-sm-12.position-relative
+                      label.version-label.label-hide !{language_translation?language_translation.city:'City'}
+                      input.w-100.names-in(
+                        type="text"
+                        name="billing_city",
+                        placeholder=`${language_translation?language_translation.city:'City'}`
+                      )
+                  div.row.set-row-v2
+                    div.col-lg-6.col-sm-12.col-md-6.select-wreper-3.position-relative
+                      label.version-label.label-hide !{language_translation?language_translation.country:'Country'}
+                      select#billing_country.names-in-cuntry(name="billing_country") 
+                        if(countries && countries.length !== 0)
+                          option(value="") #{language_translation && language_translation.select_country ? language_translation.select_country:'Select a Country'}
+                          each country in countries
+                            option(
+                              value=(country.country_name)
+                              country_code=(country.country_code)
+                            ) #{country.country_name}
+
+                    div.col-lg-6.col-sm-12.col-md-6.select-wreper-4.position-relative.displaynone.billing_state_section
+                      label.version-label.label-hide !{language_translation && language_translation.state || 'State'}
+                      select#billing_state.names-in-cuntry(name="billing_state")
+                        option(value="") #{language_translation && language_translation.select_state ? language_translation.select_state:'Select a State'}
+                  div.row.set-row-v2
+                    div.col.position-relative
+                      label.version-label.label-hide !{language_translation?language_translation.company:'Company Name'}`
+                      input.w-100.names-in(
+                        type="text"
+                        name="billing_company_name"
+                        placeholder=`${language_translation?language_translation.company:'Company Name(optional)'}`
+                      )
+
+              // Payment method Section
+              if(payment_methods && payment_methods.length > 0)
+                div.row.paymnt-method-lock.ss-kjmar.set-row-v2
+                  div.paymnt-method-section.add-spa-n
+                    div.col.p-0
+                      h2.shipin-add !{language_translation && language_translation.payment_method || 'Payment method'}
+                    div.col.top-gap-ttt
+                      svg.lockk(xmlns='http://www.w3.org/2000/svg' fill="#808080" viewBox='0 0 448 512')
+                        path(d='M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z')
+                      span.ms-1.lockk !{language_translation && language_translation.secured_transaction || 'Transaction secured over SSL'}
+
+                  each payment_method in payment_methods
+
+                    if(payment_method && payment_method.method_name =='PayPal' && payment_method.access_token)
+                      label.main-full-width.mb-2.payment_method_paypal
+                        .main-inr-payment
+                          .main-inner-payment
+                            p #{payment_method?payment_method.method_name:''}
+                          .main-inner-payment
+                            input.radio-style.shipping-free.payment_shipping(
+                              type='radio'
+                              name='payment_method',
+                              value=payment_method && payment_method.method_name
+                            )
+
+                    if(payment_method && payment_method.method_name =='Stripe')
+                      label.main-full-width.mb-2.payment_method_stripe
+                        .main-inr-payment
+                          .main-inner-payment
+                            p.card-txt-degine !{language_translation? `${language_translation.credit_card}`:'Pay with credit card'}
+                            .main-iner-right-pay !{payment_method.card_html}
+                          .main-inner-payment
+                            input.radio-style.shipping-free.payment_shipping(
+                              type='radio',
+                              name='payment_method',
+                              value=payment_method && payment_method.method_name
+                            )
+
+                        div.credit_card_section.credit_card_stripe.displaynone
+                          div.row.gap-card-in.ss-kjej.set-row-v2.mt-4
+                            div.col-lg-4.col-sm-12.position-relative
+                              label.card-txt-degine.version-label !{language_translation? `${language_translation.credit_card_number_label}`:'Card number'} <br>
+                              input.w-100.names-in(type='text' maxlength="16" name='' placeholder='0000 0000 0000 0000',)
+                            div.col.position-relative
+                              label.card-txt-degine.version-label !{language_translation? `${language_translation.credit_card_expiry_date}`:'Expiry code'}  <br>
+                              input.w-100.names-in(type='tel' placeholder="MM/YY" )
+                            div.col.position-relative
+                              label.card-txt-degine.version-label !{language_translation? `${language_translation.cvv_placeholder}`:'CVC/CW'}  <br>
+                              div.tolmain-e
+                                input.w-100.names-in(type='text' maxlength="3" name='' placeholder='000',)
+                                img.reoer(src="/assets/img/ree.png" alt="")
+
+                    if(payment_method && payment_method.method_name =='Payout Master')
+                      label.main-full-width.mb-2.payment_method_payoutmaster
+                        .main-inr-payment
+                          .main-inner-payment
+                            p !{language_translation? `${language_translation.credit_card}`:'Pay with credit card'}
+                            .main-iner-right-pay !{payment_method.card_html}
+                          .main-inner-payment
+                            input.radio-style.shipping-free.payment_shipping(
+                              type='radio',
+                              name='payment_method',
+                              value=payment_method && payment_method.method_name
+                            )
+
+                    if(payment_method && payment_method.method_name =='Checkout.com')
+                      label.main-full-width.mb-2.payment_method_checkout
+                        .main-inr-payment
+                          .main-inner-payment
+                            p !{language_translation? `${language_translation.credit_card}`:'Pay with credit card'}
+                            .main-iner-right-pay !{payment_method.card_html}
+                          .main-inner-payment
+                            input.radio-style.shipping-free.payment_shipping(
+                              type='radio',
+                              name='payment_method',
+                              value=payment_method && payment_method.method_name
+                            )
+
+                        div.credit_card_section.credit_card_checkout.displaynone
+                          div.row.gap-card-in.ss-kjej.set-row-v2.mt-3
+                            div.col-lg-4.col-sm-12
+                              label.w-100.card-txt-degine Card number <br>
+                              input.w-100.names-in(type='text' maxlength="16" name='' placeholder='0000 0000 0000 0000',)
+                            div.col
+                              label.w-100.card-txt-degine Expiry code <br>
+                              input.w-100.names-in(type='tel' placeholder="MM/YY" )
+                            div.col
+                              label.w-100.card-txt-degine CVC/CW <br>
+                              div.tolmain-e
+                                input.w-100.names-in(type='text' maxlength="3" name='' placeholder='000',)
+                                img.reoer(src="/assets/img/ree.png" alt="")
+
+                    if(payment_method && payment_method.method_name =='Revolut')
+                      label.main-full-width.mb-2.payment_method_revolt
+                        .main-inr-payment
+                          .main-inner-payment
+                            p !{language_translation? `${language_translation.credit_card}`:'Pay with credit card'}
+                            .main-iner-right-pay !{payment_method.card_html}
+                          .main-inner-payment
+                            input.radio-style.shipping-free.payment_shipping(
+                              type='radio',
+                              name='payment_method',
+                              value=payment_method && payment_method.method_name
+                            )
+
+                    if(payment_method && payment_method.method_name =='Apple pay' && user_agent_type === 'ios_phone')
+                      .apple_pay_gateway_content
+                      .apple_pay_gateway.displaynone
+                        label.main-full-width.mb-2.payment_method_apple_pay
+                          .main-inner-payment
+                            <apple-pay-button class="apple-pay-button apple-pay-button-black" id="apple_pay_button" buttonstyle="black" type="buy" locale="en"></apple-pay-button>
+                          .main-inner-payment.displaynone_important
+                            input.radio-style.shipping-free.payment_method_apple_pay_input(
+                              type='radio'
+                              name='payment_method'
+                              value=payment_method && payment_method.method_name
+                              style=`accent-color:${customize_checkout?customize_checkout.accent_color:'#C23B19'} !important`
+                            )
+
+                  label.main-full-width.mb-2.displaynone.payment_method_free_purchase
+                    .main-inr-payment
+                      .main-inner-payment !{language_translation && language_translation.free_purchase || 'Free purchase'} 
+                      .main-inner-payment
+                        input.radio-style.shipping-free.payment_shipping(
+                          type="radio"
+                          name='payment_method'
+                          value="free_payment"
+                        )
+
+                // Payment 3DS Secuity Verification
+                .col-md-12
+                  div#payment_gateway_security
+
+                // Payment Section End
+                div.btn-confrm-d.big-btn-show
+                  button.btn-Confirm.pay-on-button.mx-0
+                    svg.lockk(xmlns='http://www.w3.org/2000/svg' fill="#fff" viewBox='0 0 448 512')
+                      path.lock-icon-fill( d='M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z')
+                    span.ms-2 !{language_translation && language_translation.confirm || 'Confirm'} 
+
+            if(customize_checkout &&( customize_checkout.privacy_policy || customize_checkout.terms_condition || customize_checkout.return_policy))
+              .checkout-footer.checkout-footer-web
+                .checkout-footer-links
+                  if(customize_checkout && customize_checkout.privacy_policy )
+                    a.checkout_footer_link(href="javascript:void(0);" href_link=`${customize_checkout?customize_checkout.privacy_policy:''}`) !{language_translation && language_translation.privacy_policy_link || 'Privacy Policy'}
+                  if(customize_checkout && customize_checkout.terms_condition )
+                    a.checkout_footer_link(href="javascript:void(0);" href_link=`${customize_checkout?customize_checkout.terms_condition:''}`) !{language_translation && language_translation.terms_and_cond || 'Terms of Service'}
+                  if(customize_checkout && customize_checkout.return_policy )
+                    a.checkout_footer_link(href="javascript:void(0);" href_link=`${customize_checkout?customize_checkout.return_policy:''}`) !{language_translation && language_translation.return_policy_link || 'Return Policy'}
+
+          div.col-md-5.paddd-5.main-inner-back-after
+            div.smry-data-mainn
+              h2.smrry-txt !{language_translation && language_translation.order_summary_title || 'Order Summary'} 
+              div.smry-dta 
+                div.image-tital
+                  div.image-smry
+                    img(src='/assets/img/image18.png')
+                  div.tital-smry.ms-4
+                    h6.item-tital Cosmetic facial massage
+                    p.per_col-size Quantity: 1
+                      span.ms-4 Color: Pink
+                      span.ms-4 Size: S
+                div.crose-price 
+                  div.crose
+                    h5.price-iteam !{money_format}24,95
+                    
+              div.smry-dta 
+                div.image-tital
+                  div.image-smry
+                    img(src='/assets/img/cream.png')
+                  div.tital-smry.ms-4
+                    h6.item-tital Face cream
+                    p.per_col-size Quantity: 1
+                      span.ms-4 Size: S
+                div.crose-price 
+                  div.crose
+                    h5.price-iteam !{money_format}24,95
+
+              h4.dis-code !{language_translation && language_translation.discount_code || 'Discount code'}				
+              input-group.mb-3
+                div.offer.d-flex
+                  input.form-control.ofrr-cupn(type='text' placeholder="WIN2023", aria-label.w-100="Recipient's username" aria-describedby='button-addon2')
+                  button#button-addon2.btn.btn-ofrrt-in(type='button') !{language_translation && language_translation.subtotal || 'Subtotal'}
+              h5.text__order-ship.mt-3 !{language_translation && language_translation.discount_code || 'Discount code'}	 
+                span.float-end.price.iteam__sh !{money_format}49,90
+              h5.text__order-ship Free shipping
+                span.float-end.price.iteam__sh !{money_format}00,00
+              h5.text__order-ship Estimated taxes
+                span.float-end.price.iteam__sh !{money_format}3.74
+              div.total-all-iteam
+                h5.tatl-txt !{language_translation && language_translation.total || 'Total'}
+                  span.float-end !{money_format}53.64
+
+            div.customize_about_sections
+              if(customize_checkout && customize_checkout.customize_about_sections )
+                each customize_about_section, about_section_index in customize_checkout.customize_about_sections 
+                  div.main-squre_payment.d-flex.mainh__Wdwd
+                    div.squre_payment-img
+                      img(src=`${customize_about_section.section_icon}`)
+                    div.squre_payment-txtt.ms-4
+                      h4 #{customize_about_section?customize_about_section.section_title:''}
+                      p #{customize_about_section?customize_about_section.section_description:''}
+
+            if(customize_checkout && customize_checkout.display_branding)
+              div.ftr.d-flex 
+                p Powered by:
+                img(src="/assets/img/logo-bottom.svg" alt="")
+
+            div.btn-confrm-d.short-screen-show
+              button.btn-Confirm.pay-on-button.mx-0
+                svg.lockk(xmlns='http://www.w3.org/2000/svg' fill="#fff" viewBox='0 0 448 512')
+                  path.lock-icon-fill(d='M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z')
+                span.ms-2 !{language_translation && language_translation.confirm || 'Confirm'} 
+
+          if(customize_checkout &&( customize_checkout.privacy_policy || customize_checkout.terms_condition || customize_checkout.return_policy))
+            .checkout-footer.checkout-footer-mobile.p-0
+              .checkout-footer-links
+                if(customize_checkout && customize_checkout.privacy_policy )
+                  a.checkout_footer_link(href="javascript:void(0);" href_link=`${customize_checkout?customize_checkout.privacy_policy:''}`)  !{language_translation && language_translation.privacy_policy_link || 'Privacy Policy'}
+                if(customize_checkout && customize_checkout.terms_condition )
+                  a.checkout_footer_link(href="javascript:void(0);" href_link=`${customize_checkout?customize_checkout.terms_condition:''}`) !{language_translation && language_translation.terms_and_cond || 'Terms of Service'} 
+                if(customize_checkout && customize_checkout.return_policy )
+                  a.checkout_footer_link(href="javascript:void(0);" href_link=`${customize_checkout?customize_checkout.return_policy:''}`) !{language_translation && language_translation.return_policy_link || 'Return Policy'} 
+
+  div#checkout_footer_link_model.modal.fade(aria-hidden='true' role='dialog' tabindex='-1')
+    div.modal-dialog.modal-dialog-scrollable.modal-lg
+      div.modal-content
+        div.modal-body.checkout_footer_link_model_body
+        div.modal-footer
+          button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Close
+
+block scripts
+  script.
+    var store_id = `!{store_id}`;
+    var PAYMENT_MODE = `!{process.env.PAYMENT_MODE}`;
+
+    var money_format = `!{money_format}`;
+    var customize_checkout = !{JSON.stringify(customize_checkout)};
+    var shipping_options = !{JSON.stringify(shipping_options)};
+
+  script.
+    jQuery(document).ready(function () {
+
+          // Checkout Digital
+      if (customize_checkout.template_code === "d1") {
+          jQuery(".billing-form").toggle("slow");
+      }
+
+      jQuery(".resposive-dhdh").click(function(){
+        jQuery(".smry-data-show").toggle("slow");
+      });
+
+      jQuery(document).on("change", 'input[name="who_buying"]', function (event) {
+        let who_buying = jQuery(this).val();
+        if(who_buying === "someone_else"){
+          jQuery(".gift_someone_section").show("slow");
+        }else{
+          jQuery(".gift_someone_section").hide("slow");
+        }
+      });
+
+      jQuery(document).on("change", 'input[name="delivery_date"]', function (event) {
+        let who_buying = jQuery(this).val();
+        if(who_buying === "future_date"){
+          jQuery(".delivery_date_future").show("slow");
+        }else{
+          jQuery(".delivery_date_future").hide("slow");
+        }
+      });
+    })
+
+  script(type='text/javascript' src='/assets/js/custom/preview_checkout.js')

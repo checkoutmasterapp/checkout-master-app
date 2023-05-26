@@ -1,0 +1,86 @@
+extends ../../layouts/shopify_layout
+
+block header_style
+	link(rel="stylesheet", href=`/assets/css/checkout-template/checkout-thankyou-${version}.css`)
+
+block content 
+	main.main.checkout
+		section.main-inner-shoping-details-1
+			header.hedder-defgine
+				.container-fluid.custum-inner-container.brtd-defin
+					.row.store_logo_header.ss-kjmar.mx-0
+						.col.main-inner-header
+							img.h-12.logo-set-thank(src=`/assets/img/template-logos/template-logo-${version}.png`)
+
+						.col.image-logos
+							img.h-12.me-1.master-card(src='/assets/img/Mastecard.png')
+							img.h-12(src="/assets/img/visa-9.png", alt="")
+
+			.container-fluid.custum-inner-container.brtd-defin
+				div.main-inner-back-botom
+					div.row
+						div.col-lg-7
+							div.thank-you-section
+								h4.user-name Thank you, Samanta!
+								div.main-ship-cheak.d-flex.mt-3
+									div.shipping.d-flex
+										div.icon-airplane 
+											img(src="/assets/img/delivery-box.png", alt="qw")
+										div.user-datils-addres
+											h4 Free Shipping
+											p.mb-0 Samanta Mane
+											p.mb-0 2936 Kerry Way, Artesia
+											p.mb-0 California, USA
+									div.check 
+										img(src="/assets/img/checked .png", alt="")
+								div.main-ship-cheak.d-flex.mt-3
+									div.shipping.d-flex
+										div.icon-airplane 
+											img(src="/assets/img/card.png", alt="qw")
+										div.user-datils-addres
+											h4 Payment Method
+											p.mb-0 Paid with Credit Card
+									div.check 
+										img(src="/assets/img/checked .png", alt="")
+								div.btn-contonue-shoping 
+									button Continue shopping
+
+						div.col-lg-5
+							div.order-smrey
+								h4.order-smry-t.mb-4 Order Summary
+								div.order-main.d-flex
+									div.sumrey-data.d-flex
+										div.icon-iteam-smry
+											img(src="/assets/img/speaker.png", alt="qw")
+										div.iteam-deatiles.ms-3
+											h4 Sturm Face Cream Men
+											p.mb-0.mt-4 Color: Pink
+												span.ms-3 Size: S
+									div.crose 
+										img(src="/assets/img/kanto.png", alt="")
+										h3.iteam-price $24,95
+								div.order-main.d-flex.mt-3
+									div.sumrey-data.d-flex
+										div.icon-iteam-smry
+											img(src="/assets/img/airpod.png", alt="qw")
+										div.iteam-deatiles.ms-3
+											h4 Sturm Face Cream Men
+											p.mb-0.mt-4 Color: Pink
+												span.ms-3 Size: S
+									div.crose 
+										img(src="/assets/img/kanto.png", alt="")
+										h3.iteam-price $24,95
+								div.total-ship-price
+									h5.mb-0.mt-3.toatal-thx-data Subtotal
+										span.float-end $ 49,90
+									h5.mb-0.mt-1.toatal-thx-data Free shipping
+										span.float-end $ 00,00
+									h5.mb-3.mt-1.toatal-thx-data Estimated taxes
+										span.float-end $ 3.74
+								div.last-fotr-total
+									h5.mt-3 Total
+										span.float-end $53.64
+
+
+
+block scripts

@@ -1,0 +1,512 @@
+extends ../../layouts/backend_layout
+
+block header_breadcrumb
+  nav
+    ol.breadcrumb
+      li.breadcrumb-item Home
+      li.breadcrumb-item.active Automatic Discounts
+
+block content 
+  main#main.main
+    section.section.add-shipping-rate
+      form#automatic_discount_update.row(method="post")
+        input.form-control(type="hidden" name="store_id" value= store_id)
+        input.form-control(type="hidden" name="automatic_discount_id" value= automatic_discount.id)
+        input.form-control(type="hidden" name="automatic_discount_uuid" value= automatic_discount.automatic_discount_uuid)
+
+        div.row
+          div.col-xl-6
+            div.main-right-upper
+              h4 Automatic Discounts
+              div.card
+                div.card-body
+                  div.tab-content
+                    div.form-group
+                      label Discount title
+                      input.form-control.required(
+                        type="text"
+                        id="discount_title"
+                        pattern=".*\S+.*"
+                        name="discount_title"
+                        value= (automatic_discount && automatic_discount.discount_title? automatic_discount.discount_title : '')
+                      )
+                      small *Customers will see this at your checkout
+
+                  div.form-check
+                    input#discountUsage.form-check-input(
+                      type='checkbox',
+                      name="discount_usage_bool"
+                      checked= automatic_discount && automatic_discount.discount_usage_bool == true? true : false
+                    )
+                    label.form-check-label(for='discountUsage') Set a maximum discount usage  
+
+                  div.form-group#discountUsageChecked.displaynone  
+                    input.form-control(
+                      type='number'
+                      name="discount_usage"
+                      id="discount_usage"
+                      value= automatic_discount && automatic_discount.discount_usage? automatic_discount.discount_usage : 0
+                      onkeydown="if(event.key==='.'){event.preventDefault();}" oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');" 
+                    )
+
+                  div.active-dates-section
+                    label Active Dates
+                    div.tab-content
+                      div.row.mb-3
+                        div.col-md-6
+                          div.input-group.col
+                            span.input-group-text From
+                            input.form-control.required.flatpickr_datepicker_mimdate(
+                              type='date'
+                              id="active_from_date"
+                              name="active_from_date"
+                              value= automatic_discount && automatic_discount.active_from_date? moment(automatic_discount.active_from_date).format('YYYY-MM-DD') : ''
+                          )
+                        div.col-md-6
+                          div.input-group.col
+                            span.input-group-text Starts at
+                            input#active_start_time.form-control.flatpickr_timepicker(
+                              type='time'
+                              name="active_start_time"
+                              value= automatic_discount && automatic_discount.active_from_date? moment(automatic_discount.active_from_date).format('HH:mm') : ''
+                            )
+
+                      .form-check
+                        input#activeEndDate.form-check-input(
+                          type='checkbox'
+                          name="is_end_date"
+                          checked=automatic_discount && automatic_discount.is_end_date
+                        )
+                        label.form-check-label(for='activeEndDate') Set end date and time
+                      div.displaynone#end-datetime
+                        div.row.mb-3 
+                          div.col-md-6
+                            div.input-group.col
+                              span.input-group-text To
+                              input.form-control.flatpickr_datepicker_mimdate(
+                                type='date'
+                                id="active_to_date"
+                                name="active_to_date"
+                                value= automatic_discount && automatic_discount.active_to_date? moment(automatic_discount.active_to_date).format('YYYY-MM-DD') : ''
+                              )
+                          div.col-md-6
+                            div.input-group.col
+                              span.input-group-text Ends at
+                              input#active_end_time.form-control.flatpickr_timepicker(
+                                type='time'
+                                name="active_end_time"
+                                value= automatic_discount && automatic_discount.active_to_date? moment(automatic_discount.active_to_date).format('HH:mm') : ''
+                              )        
+
+            // Discount Type
+            div#content_discount
+              div.main-right-upper.mt-5
+                h4 Discount Type
+                // Choice Discount Type
+                div.card
+                  div.card-body.pt-3
+                    div.tab-content.pt-2
+                      div.card-items-wrapper
+                        div.card-item
+                          .form-check
+                            input#discount_type_buy.form-check-input(
+                              type="radio"
+                              value = "buy_x_get_y"
+                              name ="discount_type"
+                              checked=automatic_discount && automatic_discount.discount_type =="buy_x_get_y"? true : false
+                            )
+                            label.form-check-label(for='discount_type_buy') Buy X Get Y
+
+                          .form-check
+                            input#discount_type_percentage.form-check-input(
+                              type="radio"
+                              name ="discount_type"
+                              value = "percentage"
+                              checked=automatic_discount && automatic_discount.discount_type =="percentage"? true : false
+                            )
+                            label.form-check-label(for='discount_type_percentage') Percentage
+
+                          .form-check
+                            input#discount_type_fixed.form-check-input(
+                              type="radio"
+                              name ="discount_type"
+                              value="fixed_amount"
+                              checked=automatic_discount && automatic_discount.discount_type =="fixed_amount"? true : false
+                            )
+                            label.form-check-label(for='discount_type_fixed') Fixed Amount
+
+                          .form-check
+                            input#discount_type_free_shipping.form-check-input(
+                            type="radio"
+                            name ="discount_type"
+                            value="free_shipping"
+                            checked=automatic_discount && automatic_discount.discount_type =="free_shipping"? true : false
+                            )
+                            label.form-check-label(for='discount_type_free_shipping') Free Shipping
+
+              // Buy X Get Y Section
+              .displaynone.discount_type_section.discount_type-buy_x_get_y
+                h4 Discount applies when
+                p Customer buys any of the following products. You can add both collection and products
+                .card
+                  .card-body.pt-3
+                    .card-item
+                      p When customer buys
+                      .form-check
+                        input#minimum_quantity_cart.form-check-input(
+                          type='radio'
+                          name="cart_minimum_quantity_bool"
+                          checked=automatic_discount && automatic_discount.cart_minimum_quantity_bool == true ? true : false
+                        )
+                        label.form-check-label(for='minimum_quantity_cart') Minimum quantity reached in cart 
+                      #minimum_quantity_cart_check.form-group
+                        input#cart_minimum_quantity.form-control.required.pt-3(
+                          type='number'
+                          name='cart_minimum_quantity'
+                          placeholder='Set minimum quantity' min='1' required=''
+                          value=automatic_discount && automatic_discount.cart_minimum_quantity? automatic_discount.cart_minimum_quantity : "1"
+                          onkeydown="if(event.key==='.'){event.preventDefault();}"
+                          oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');" 
+                        )
+
+                      .form-check
+                        input#cart_minimum_amt.form-check-input(
+                          type='radio'
+                          name='cart_amount_quantity_bool'
+                          checked=automatic_discount && automatic_discount.cart_amount_quantity_bool ==true? true : false
+                        )
+                        label.form-check-label(for='cart_minimum_amt') Minimum amount reached in cart 
+                      .displaynone.discount_type_section#minimum_amount_cart_check
+                        .input-group
+                          input#cart_minimum_amount.form-control.required.pt-3(
+                            type='number'
+                            name='cart_minimum_amount'
+                            placeholder='Set minimum amount' min='1' required=''
+                            onchange='(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)'
+                            value=automatic_discount && automatic_discount.cart_minimum_amount ? automatic_discount.cart_minimum_amount : 0
+                          )
+                          span.input-group-text $
+
+                      hr
+                      div.col-12.d-flex.justify-content-between.align-items-center
+                        div.name_view Any of the selected items
+                        div.class_but.d-flex.justify-content-end
+                          button.add_product_button.btn.btn-primary(type="button" action_type="customer_buy_product_items") Add Products
+                          button.add_collection_button.btn.btn-primary(type="button" action_type="customer_buy_collection_items") Add Collections
+                    #customer_buy_product_item_html.mt-3
+                    #customer_buy_collection_item_html.mt-3
+
+              .displaynone.discount_type_section.discount_type-buy_x_get_y
+                h4 Customer will get
+                p Customer needs to add any of the following items in their shopping cart to take advantage of the discount.
+                .card.buy-discount-type
+                  .card-body.pt-3
+                    .card-item
+                      .form-check
+                        input#discount_free.form-check-input(
+                          type='radio'
+                          name='customer_free_discount_bool'
+                          checked=automatic_discount && automatic_discount.customer_free_discount_bool ==true ? true : false
+                        )
+                        label.form-check-label(for='discount_free') Free
+                      .form-check
+                        input#discount_percentage.form-check-input(
+                          type='radio'
+                          name='customer_percentage_discount_bool'
+                          checked=automatic_discount && automatic_discount.customer_percentage_discount_bool ==true ? true : false
+                        )
+                        label.form-check-label(for='discount_percentage') Percentage discount 
+                      .pt-3
+                        #cus_p_discount.form-group(style='display: none;')
+                          .input-group.col
+                            input#customer_percentage_discount.form-control(
+                              type='number'
+                              name='customer_percentage_discount'
+                              placeholder='Add discount' min='1' max='100' required=''
+                              value=automatic_discount && automatic_discount.customer_percentage_discount ? automatic_discount.customer_percentage_discount  : 0
+                            )
+                            span.input-group-text % 
+                          hr
+                        div
+                          p For how many items the discount applies
+                          input#maximum_discount_usage.form-control(
+                            type='number'
+                            name='maximum_discount_usage'
+                            placeholder='Add amount of items your customer will get' min='1' required=''
+                            value=automatic_discount && automatic_discount.maximum_discount_usage ? automatic_discount.maximum_discount_usage  : 0
+                          )
+                        hr
+                        div.col-12.d-flex.justify-content-between.align-items-center
+                          div.name_view Customer gets any of the selected items with a discount
+                          div.class_but.d-flex.justify-content-end
+                            button.add_product_button.btn.btn-primary(type="button" action_type="customer_get_product_items") Add Products
+                            button.add_collection_button.btn.btn-primary(type="button" action_type="customer_get_collection_items") Add Collections
+                    #customer_get_product_item_html.mt-3
+                    #customer_get_collection_item_html.mt-3
+
+                div.additional-option
+                  h4 Additional options
+                  div.card
+                    div.card-body.pt-3
+                      div.card-item   
+                        .form-check
+                          input#additionalOptions.form-check-input(
+                            type='checkbox'
+                            name="discount_additional_options_bool"
+                            checked=automatic_discount && automatic_discount.discount_additional_options_bool?true:false
+                          )
+                          label.form-check-label(for='additionalOptions') Set a maximum discount usage per order  
+                        div.form-group.pt-3#additional_options.displaynone
+                          input.form-control(
+                            type='number'
+                            name="maximum_discount_usage_per_order"
+                            id="maximum_discount_usage_per_order" min="1" required
+                            onkeydown="if(event.key==='.'){event.preventDefault();}"
+                            oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');" 
+                            value=automatic_discount && automatic_discount.maximum_discount_usage_per_order ? automatic_discount.maximum_discount_usage_per_order  : 0
+                          )
+                          p.text-xs.mt-2.fw-bolder.mb-0 *You can restrict the applicable discount by set a maximum number. For example if your customer adds 10 T-Shirts which will trigger a discount, 1 discount per 1 T-Shirt, in total your customer can get up to 10 discounted items.
+
+              // Percentage, Fixed Amount, Free Shipping Section
+              div.main-right-upper.mt-5
+                .displaynone.discount_type_section.discount_type-percentage.discount_type-fixed_amount.discount_type-free_shipping
+                  h4 Discount Setup
+
+                .displaynone.discount_type_section.discount_type-percentage.discount_type-fixed_amount.discount_type-free_shipping
+                  .card
+                    .card-body.pt-3
+                      .card-item
+                        .discount-value.displaynone.discount_type_section.discount_type-percentage.discount_type-fixed_amount
+                          p.discount_value Discount value
+                          .input-group.col.discount_value
+                            input#percentage_discount_value.form-control.required(
+                              type='number'
+                              name='percentage_discount_value'
+                              placeholder='Add discount' min='1' max='100'
+                              value=automatic_discount && automatic_discount.percentage_discount_value ? automatic_discount.percentage_discount_value  : 0
+                              onchange='(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)'
+                            )
+                            span.displaynone.discount_type_section.discount_type-percentage.input-group-text %
+                            span.displaynone.discount_type_section.discount_type-fixed_amount.input-group-text $
+
+                      .discount-criteria.displaynone.discount_type_section.discount_type-percentage.discount_type-fixed_amount.discount_type-free_shipping
+                        p.percentage-discount-criteria Discount application criteria
+                        .percentage-discount-criteria
+                          .form-check
+                            input#discount_cart.form-check-input(
+                              type='radio'
+                              name='cart_mini_quantity_bool'
+                              checked=automatic_discount && automatic_discount.cart_minimum_quantity_bool ? true :false
+                              )
+                            label.form-check-label(for='discount_cart') Minimum quantity reached in cart 
+                          #mini_quantity_cart_check_reached.form-group
+                            input#cart_mini_quantity.form-control(
+                              type='number'
+                              name='cart_mini_quantity' min='1' required=''
+                              value=automatic_discount && automatic_discount.cart_minimum_quantity ? automatic_discount.cart_minimum_quantity  : '1'
+                              onkeydown="if(event.key==='.'){event.preventDefault();}"
+                              oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');" 
+                            )
+
+                          .form-check
+                            input#amount_bool.form-check-input(
+                              type='radio'
+                              name='cart_mini_amount_bool'
+                              checked=automatic_discount && automatic_discount.cart_mini_amount_bool ? true :false
+                          )
+                            label.form-check-label(for='amount_bool') Minimum amount reached in cart 
+                          .displaynone#mini_amount_cart_check
+                            div.input-group
+                              input#cart_amt_quantity.form-control(
+                                type='number'
+                                name='cart_amt_quantity' min='1' required=""
+                                value=automatic_discount && automatic_discount.cart_minimum_amount ? automatic_discount.cart_minimum_amount :0
+                                onchange='(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)'
+                              )
+                              span.input-group-text $
+
+                      #discount_exclude.displaynone.discount_type_section.discount_type-free_shipping
+                        .form-check
+                          input#exclude_shipping.form-check-input(
+                            type='checkbox'
+                            name='exclude_shipping_bool'
+                            checked=automatic_discount && automatic_discount.exclude_shipping_bool==true ? true :false
+                          )
+                          label.form-check-label(for='exclude_shipping') Exclude shipping rates over a certain amount
+                        #exclude_shipping_amt.displaynone
+                          .input-group.col.pt-3
+                            input#exclude_shipping_amount.form-control(
+                              type='number'
+                              name='exclude_shipping_amount' min='1'
+                              value=automatic_discount && automatic_discount.exclude_shipping_amount ? automatic_discount.exclude_shipping_amount :0
+                              )
+                            span.input-group-text $
+
+              .displaynone.discount_type_section.discount_type-percentage.discount_type-fixed_amount
+                div.main-right-upper.mt-5
+                  h4.discount_applies Discount applies on
+                  .card.discount_applies
+                    .card-body.pt-3
+                      .card-item
+                        .form-check
+                          input#entire_order.form-check-input(
+                            type='radio'
+                            name="discount_on"
+                            value="entire_order_bool"
+                            checked=automatic_discount && automatic_discount.entire_order_bool?true:false
+                          )
+                          label.form-check-label(for='entire_order') Entire Order 
+
+                        .form-check
+                          input#specific_order.form-check-input(
+                            type='radio'
+                            name="discount_on"
+                            value="specific_order_bool"
+                            checked=automatic_discount && automatic_discount.specific_order_bool?true:false
+                          )
+                          label.form-check-label(for='specific_order') Specific products and collections 
+                        #specific_order_display.py-3.displaynone
+                          div.col-12.d-flex.justify-content-between.align-items-center
+                            div.name_view Customer gets any of the selected items with a discount 
+                            div.class_but.d-flex.justify-content-end
+                              button.add_product_button.btn.btn-primary(type="button" action_type="customer_discount_product_items") Add Products
+                              button.add_collection_button.btn.btn-primary(type="button" action_type="customer_discount_collection_items") Add Collections
+                      #customer_discount_product_item_html
+                      #customer_discount_collection_item_html
+
+                        hr
+                        .displaynone.discount_type_section#specific_order_display_fixed
+                          h5 How to apply the discount
+                          .pt-3
+                            .card-item
+                              .form-check
+                                input#all_items.form-check-input(
+                                  type='radio'
+                                  name="discount_all_items"
+                                  checked=automatic_discount && automatic_discount.discount_all_items==true ? true :false
+                                )
+                                label.form-check-label(for='all_items') Apply discount once for all items
+                              .form-check
+                                input#discount_each_item.form-check-input(
+                                  type='radio'
+                                  name="discount_each_item"
+                                  checked=automatic_discount && automatic_discount.discount_each_item==true ? true :false
+                                )
+                                label.form-check-label(for='discount_each_item') Apply discount on each item
+
+
+          // Discount Summary
+          div.col-xl-6
+            div.main-inner-stickey-data 
+              div.main-right-upper
+                h4  Summary
+                div.card.px-3
+                  div.card-body
+                    div.tab-content.pt-0
+                      div.card-item
+                        ul.ul-list
+                          li.discount_summary#discount_type Percentage 
+                          li.discount_summary#discount_rate.mt-3 Discounted %  
+                          li.discount_summary#order_item.mt-3 Entire order
+                          li.discount_summary#cart_limit.mt-3 Minimum quantity reached in cart of 1 item
+                          li.discount_summary#active_date.mt-3 Active from #{moment(new Date()).format("DD MMM YYYY")}
+              div.main-right-upper.mt-5
+                div.card.p-3
+                  div.card-body.pt-3
+                    div.tab-content.pt-2
+                      div.card-item
+                        h6(style="font-weight:700;font-size:.875rem;line-height: 1.25rem;") CAN’T COMBINE WITH OTHER DISCOUNTS
+                        ul.ul-list 
+                          li.text-sm Customers will be able to override the automatic discount with their discount code.
+                          li.pt-3.text-sm If two automatic discounts are applicable, the one with the best value for the customer will be activated
+                          .mt-4.text-center
+                            a.text-sm(href="#").read_more Read more about automatic discounts
+
+              div.col-12.d-flex.mt-4
+                button.btn.btn-primary.me-4(type='button' id="delete_discount") Delete Discount
+                button.btn.btn-primary(type='submit') Update Discount
+
+
+
+  // Model Section Start
+  div#add_product_model.modal.fade(aria-hidden='true' role='dialog' tabindex='-1')
+    div.modal-dialog.modal-dialog-scrollable.modal-lg
+      div.modal-content
+        div.modal-header.row
+          div.modal-header-titled.col-6
+            h5#exampleModalLabel.modal-title Select Products  
+            p.items_selected 0 items selected   
+          div.col-6.d-flex.justify-content-end
+            div.custom-control.custom-checkbox
+              input#trigger_selectall_products.custom-control-input(type='checkbox')
+              label.custom-control-label(for='trigger_selectall_products') Select all    
+          div.searchbox
+            .input-group
+              span.input-group-text
+                i.bi.bi-search(aria-hidden='true')
+              input.form-control(type="text" placeholder="Search..." name="product_search" value="")
+        div.modal-body.products-body
+        div.modal-footer
+          button.add_product_model_cancel.btn.btn-primary(type='button' ) Cancel
+          button.add_product_model_save.btn.btn-primary(type='button' ,   disabled) Add Product
+
+  div#add_category_modal.modal.fade(aria-hidden='true' role='dialog' tabindex='-1')
+    div.modal-dialog.modal-dialog-scrollable.modal-lg
+      div.modal-content
+        div.modal-header.row
+          div.modal-header-titled.col-6                                
+            h3.modal-title Select Collection
+            p.items_selected 0 items selected
+          div.col-6.d-flex.justify-content-end
+            div.custom-control.custom-checkbox
+              input#trigger_selectall_collections.custom-control-input(type='checkbox')
+              label.custom-control-label(for='trigger_selectall_collections') Select all
+          div.searchbox
+            .input-group
+              span.input-group-text
+                i.bi.bi-search(aria-hidden='true')
+              input.form-control(type="text" placeholder="Search..." name="category_search" value="")
+        div.modal-body.categories-body
+        div.modal-footer
+          button.add_category_modal_close.btn.btn-primary(type='button' ) Cancel
+          button.add_category_modal_save.btn.btn-primary(type='button' disabled="true") Add Category
+
+  div#product_variant_picker_model.modal.fade(aria-hidden='true' role='dialog' tabindex='-1')
+    div.modal-dialog.modal-dialog-scrollable.modal-lg
+      input(type="hidden" name="action_type" value="")
+      input(type="hidden" name="product_varient_index" value="")
+      div.modal-content
+        div.modal-header.row
+          div.modal-header-titled.col-6                                
+            h3.modal-title Select Variants
+            p.items_selected 0 items selected
+          div.col-6.d-flex.justify-content-end
+            div.custom-control.custom-checkbox
+              input#trigger_variant_selectall.custom-control-input(type='checkbox')
+              label.custom-control-label(for='trigger_variant_selectall') Select all
+        div.modal-body.product-variant-body
+        div.modal-footer
+          button.product_variant_picker_model_close.btn.btn-primary(type='button' ) Cancel
+          button.product_variant_picker_model_save.btn.btn-primary(type='button' disabled="true") Add Variant
+
+block scripts
+  script.
+    var store_id = `!{store_id}`;
+    var product_details = !{JSON.stringify(product_details)};
+    var collection_details = !{JSON.stringify(collection_details)};
+
+    var action_type = "";
+    var discount_type = `!{discount_type}`;
+
+    var automatic_discount = !{JSON.stringify(automatic_discount)};
+    var customer_buy_product_items = !{JSON.stringify(customer_buy_product_items)};
+    var customer_buy_collection_items = !{JSON.stringify(customer_buy_collection_items)};
+
+    var customer_get_product_items = !{JSON.stringify(customer_get_product_items)};
+    var customer_get_collection_items = !{JSON.stringify(customer_get_collection_items)};
+
+    var customer_discount_product_items = !{JSON.stringify(customer_discount_product_items)};
+    var customer_discount_collection_items = !{JSON.stringify(customer_discount_collection_items)};
+
+
+  script(type='text/javascript' src='/assets/js/custom/automatic_discount.js')

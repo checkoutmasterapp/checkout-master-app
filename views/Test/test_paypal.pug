@@ -1,0 +1,29 @@
+extends ../layouts/frontend
+
+block content 
+    .container
+        section
+            .row.justify-content-center
+                <span id="lippButton"></span>
+
+block scripts
+    //- script(src='https://www.paypalobjects.com/js/external/api.js')
+    script(src='https://www.paypalobjects.com/js/external/connect/api.js')
+    script.
+        paypal.use( ['login'], function (login) {
+            login.render ({
+                "appid":`!{process.env.PAYPAL_CLIENT_ID}`,
+                "authend":"sandbox",
+                "scopes":"openid",
+                "containerid":"lippButton",
+                "responseType":"code id_Token",
+                "locale":"en-us",
+                "buttonType":"CWP",
+                "buttonShape":"pill",
+                "buttonSize":"lg",
+                "fullPage":"true",
+                //- "returnurl":`!{process.env.APP_URL}/test/paypal-webhook`
+                //- "returnurl":"http://192.168.30.7:8001/test/paypal/callback"
+                "returnurl":"https://dev.checkout-master.com/paypal/callback"
+            });
+        });

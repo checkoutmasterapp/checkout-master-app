@@ -1,0 +1,1370 @@
+extends ../../layouts/backend_layout
+
+block header_breadcrumb
+    nav
+        ol.breadcrumb
+            li.breadcrumb-item Home
+            li.breadcrumb-item.active Taxes
+
+block content 
+    main#main.main
+        .pagetitle
+            h1 Taxes
+        section.section.edit-taxes
+            form#edit-tax-rate.row.g-3(method="post")
+                input(type='hidden' name="store_id" value=store_id)
+                input(type='hidden' name="id" value=tax_rate?tax_rate.id:'')
+
+                div.row
+                    div.col-xl-4
+                        div
+                            div.add_tax_rate-card.pt-4.d-flex.flex-column
+                                h2 Add a new Tax rate               
+                                br
+                                p
+                                    | Manage how your store charges taxes. On all products with the option: Charge tax on this product, will be applied tax rates
+
+                    div.col-xl-8
+                        div.card
+                            div.card-body.pt-3
+                                div.tab-content.pt-2
+                                    div.form-row
+                                        div.form-group.col
+                                            label.form-label Tax Name    
+                                            input#tax_rate_name.form-control.required(type='text' name='tax_rate_name' , value =tax_rate ? tax_rate.tax_rate_name:'')
+                                    div.form-row
+                                        div.form-group.col
+                                            label.form-label Tax Rate      
+                                            div.input-group
+                                                input#tax_rate_percentage.form-control.filled.required(min='0' max='100' step='0.01' type='number', value= tax_rate ? tax_rate.tax_rate_percentage:'0.0' name='tax_rate_percentage')
+                                                div.input-group-append
+                                                    span.input-group-text
+                                                        | %
+
+                div.row
+                    div.col-xl-4
+                        div
+                            div.add-taxes-card.pt-4.d-flex.flex-column
+                                h2 Applicable countries    
+                                br
+                                p  Select the countries for which this Tax Rate will be applicable   
+
+                    div.col-xl-8
+                        div.card
+                            div.card-body.pt-3
+                                div.tab-content.pt-2
+
+                                    div.card-items
+                                        div.card-item
+                                            div.d-flex.justify-content-start.w-100
+                                                div.mr-3.row#tax-rate-countries
+                                                    .text-truncate.mr-3    
+                                                    if tax_rate.country_codes.length > 0
+                                                        each country_codes,index  in tax_rate.country_codes
+                                                            if index <=2
+                                                                span#item-flags(class=`flags-icons fi fi-${ country_codes.toLowerCase()}`)
+
+                                                            if  index == 2
+                                                                | + #{tax_rate.country_codes.length-1} others
+
+                                                    else  
+
+                                        hr
+                                        div.card-items-footer.row.py-3
+                                            div.col
+                                                | Actions
+                                            div.col.d-flex.justify-content-end
+                                                button#edit_counteries.btn.btn-secondary(type="button") EDIT COUNTRIES
+                div#contriesPicker.modal.fade(aria-hidden='true' role='dialog' tabindex='-1')
+                    div.modal-dialog.modal-dialog-scrollable.modal-lg
+                        div.modal-content
+                            div.modal-header.row
+                                div.col-6
+                                    h5#exampleModalLabel.modal-title Select Countries
+                                    p#validate-countries-error Please select the Countries!
+                                div.col-6.d-flex.justify-content-end
+                                    div.btn.btn-icon.btn-sm.btn-active-icon-primary.model_close(data-dismiss="modal" aria-label="Close" model_id="add_vendors_model")
+                                        span.svg-icon.svg-icon-1
+                                            svg(width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg')
+                                                rect(opacity='0.5' x='6' y='17.3137' width='16' height='2' rx='1' transform='rotate(-45 6 17.3137)' fill='currentColor')
+                                                rect(x='7.41422' y='6' width='16' height='2' rx='1' transform='rotate(45 7.41422 6)' fill='currentColor')
+                            div.modal-body
+                                div.modal-section
+                                    div.modal-section-header
+                                        h5.space-top-2.space-2
+                                            | Africa
+                                        div.custom-control.custom-checkbox.custom-checkbox.niner
+                                            input#region-checkbox-Africa.custom-control-input(data-function='region-checkbox' data-region='Africa' type='checkbox')
+                                            label.mrk.custom-control-label(for='region-checkbox-Africa') 
+                                            p Select all
+                                    div.modal-section-body
+
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926080.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='DZ',   checked = ( tax_rate.country_codes.includes('DZ')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926080')
+                                            p  Algeria
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926100.custom-control-input.region-Africa(data-region='Africa' type='checkbox', checked=(tax_rate.country_codes.includes('AO')?true:false), value='AO' ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926100')
+                                            p  Angola
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(name='country_codes[]' type='hidden' value='0')
+                                            input#country-checkbox-926120.custom-control-input.region-Africa(data-region='Africa' type='checkbox',checked=(tax_rate.country_codes.includes('BJ')?true:false) value='BJ' name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926120')
+                                            p Benin
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926140.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='BW', checked=(tax_rate.country_codes.includes('BW')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926140')
+                                            p Botswana
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926160.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='IO',checked=(tax_rate.country_codes.includes('IO')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926160')
+                                            p British Indian Ocean Territory
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926180.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='BF', checked=(tax_rate.country_codes.includes('BF')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926180')
+                                            p Burkina Faso
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926200.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='BI',checked=(tax_rate.country_codes.includes('BI')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926200')
+                                            p Burundi
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926220.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='CV',checked=(tax_rate.country_codes.includes('CV')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926220')
+                                            p Cabo Verde
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926240.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='CM', checked=(tax_rate.country_codes.includes('CM')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926240')
+                                            p Cameroon
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926260.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='CF', checked=(tax_rate.country_codes.includes('CF')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926260')
+                                            p Central African Republic
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926280.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='TD', checked=(tax_rate.country_codes.includes('TD')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926280')
+                                            p Chad
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926300.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='KM', checked=(tax_rate.country_codes.includes('KM')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926300')
+                                            p Comoros
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926320.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='CG',checked=(tax_rate.country_codes.includes('CG')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926320')
+                                            p  Congo
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926340.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='CD', checked=(tax_rate.country_codes.includes('CD')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926340')
+                                            p Congo (Democratic Republic of the)
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926360.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='CI',checked=(tax_rate.country_codes.includes('CI')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926360')
+                                            p  C&ocirc;te d&apos;Ivoire
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926380.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='DJ',checked=(tax_rate.country_codes.includes('DJ')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926380')
+                                            p Djibouti
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926400.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='EG', checked=(tax_rate.country_codes.includes('EG')?true:false),name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926400')
+                                            p Egypt
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-926420.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='GQ', checked=(tax_rate.country_codes.includes('GQ')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926420')
+                                            p Equatorial Guinea
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926440.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='ER',checked=(tax_rate.country_codes.includes('ER')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926440')
+                                            p  Eritrea
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-926460.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='ET', checked=(tax_rate.country_codes.includes('ET')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926460')
+                                            p Ethiopia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926480.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='GA', checked=(tax_rate.country_codes.includes('GA')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926480')
+                                            p Gabon
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926500.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='GM', checked=(tax_rate.country_codes.includes('GM')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926500')
+                                            p Gambia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926520.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='GH',checked=(tax_rate.country_codes.includes('GH')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926520')
+                                            p Ghana
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926540.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='GN', checked=(tax_rate.country_codes.includes('GN')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926540')
+                                            p Guinea
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926560.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='GW', checked=(tax_rate.country_codes.includes('GW')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926560')
+                                            p Guinea-Bissau
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926580.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='KE', checked=(tax_rate.country_codes.includes('KE')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926580')
+                                            p Kenya
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926600.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='LS',  checked=(tax_rate.country_codes.includes('LS')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926600')
+                                            p Lesotho
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926620.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='LR', checked=(tax_rate.country_codes.includes('LR')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926620')
+                                            p Liberia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926640.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='LY', checked=(tax_rate.country_codes.includes('LY')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926640')
+                                            p Libya
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926660.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='MG',  checked=(tax_rate.country_codes.includes('MG')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926660')
+                                            p   Madagascar
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926680.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='MW',  checked=(tax_rate.country_codes.includes('MW')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926680')
+                                            p Malawi
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926700.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='ML', checked=(tax_rate.country_codes.includes('ML')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926700')
+                                            p Mali
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926720.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='MR',checked=(tax_rate.country_codes.includes('MR')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926720')
+                                            p Mauritania
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926740.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='MU',checked=(tax_rate.country_codes.includes('MU')?true:false),  name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926740')
+                                            p Mauritius
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926760.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='YT',checked=(tax_rate.country_codes.includes('YT')?true:false),name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926760')
+                                            p Mayotte
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926780.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='MA', checked=(tax_rate.country_codes.includes('MA')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926780')
+                                            p Morocco
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926800.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='MZ', checked=(tax_rate.country_codes.includes('MZ')?true:false),name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926800')
+                                            p Mozambique
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-926820.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='NA',checked=(tax_rate.country_codes.includes('NA')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926820')
+                                            p Namibia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926840.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='NE',checked=(tax_rate.country_codes.includes('NE')?true:false),  name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926840')
+                                            p Niger
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926860.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='NG', checked=(tax_rate.country_codes.includes('NG')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926860')
+                                            p Nigeria
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-926880.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='RW', checked=(tax_rate.country_codes.includes('RW')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926880')
+                                            p Rwanda
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-926900.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='RE', checked=(tax_rate.country_codes.includes('RE')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926900')
+                                            p R&eacute;union
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926920.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='SH',  checked=(tax_rate.country_codes.includes('SH')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926920')
+                                            p Saint Helena, Ascension and Tristan d...
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926940.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='ST', checked=(tax_rate.country_codes.includes('ST')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926940')
+                                            p Sao Tome and Principe
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926960.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='SN', checked=(tax_rate.country_codes.includes('SN')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926960')
+                                            p Senegal
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-926980.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='SC', checked=(tax_rate.country_codes.includes('SC')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-926980')
+                                            p Seychelles
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927000.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='SL', checked=(tax_rate.country_codes.includes('SL')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927000')
+                                            p Sierra Leone
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927020.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='SO',checked=(tax_rate.country_codes.includes('SO')?true:false)  ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927020')
+                                            p Somalia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-927040.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='ZA',checked=(tax_rate.country_codes.includes('ZA')?true:false),  name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927040')
+                                            p    South Africa
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-927060.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='SS',checked=(tax_rate.country_codes.includes('SS')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927060')
+                                            p South Sudan
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927080.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='SD', checked=(tax_rate.country_codes.includes('SD')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927080')
+                                            p Sudan
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-927100.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='TZ', checked=(tax_rate.country_codes.includes('TZ')?true:false) ,name='country_codes[]')
+                                            label.custom-control-label(for='country-checkbox-927100')
+                                            p Tanzania, United Republic of
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927120.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='TG',checked=(tax_rate.country_codes.includes('TG')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927120')
+                                            p Togo
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927140.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='TN', checked=(tax_rate.country_codes.includes('TN')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927140')
+                                            p Tunisia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927160.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='UG', checked=(tax_rate.country_codes.includes('UG')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927160')
+                                            p Uganda
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-927180.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='EH',checked=(tax_rate.country_codes.includes('EH')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927180')
+                                            p Western Sahara
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927200.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='ZM', checked=(tax_rate.country_codes.includes('ZM')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927200')
+                                            p Zambia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927220.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='ZW',checked=(tax_rate.country_codes.includes('ZW')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927220')
+                                            p Zimbabwe
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927240.custom-control-input.region-Africa(data-region='Africa' type='checkbox' value='SZ', checked=(tax_rate.country_codes.includes('SZ')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927240')
+                                            p eSwatini
+                                div.modal-section
+                                    div.modal-section-header
+                                        h5.space-top-2.space-2
+                                            | Americas
+                                        div.custom-control.custom-checkbox.custom-checkbox.niner
+                                            input#region-checkbox-Americas.custom-control-input(data-function='region-checkbox' data-region='Americas' type='checkbox')
+                                            label.mrk.custom-control-label(for='region-checkbox-Americas')
+                                            p Select all
+                                    div.modal-section-body
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927260.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='AI',checked=(tax_rate.country_codes.includes('AI')?true:false),  name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927260')
+                                            p Anguilla
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927280.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='AG', checked=(tax_rate.country_codes.includes('AG')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927280')
+                                            p Antigua and Barbuda
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927300.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='AR', checked=(tax_rate.country_codes.includes('AR')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927300')
+                                            p Argentina
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927320.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='AW', checked=(tax_rate.country_codes.includes('AW')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927320')
+                                            p Aruba
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927340.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='BS',checked=(tax_rate.country_codes.includes('BS')?true:false),  name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927340')
+                                            p Bahamas
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927360.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='BB',checked=(tax_rate.country_codes.includes('BB')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927360')
+                                            p Barbados
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927380.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='BZ',  checked=(tax_rate.country_codes.includes('BZ')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927380')
+                                            p Belize
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-927400.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='BM',checked=(tax_rate.country_codes.includes('BM')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-9.region-Oceania27400')
+                                            p Bermuda
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927420.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='BO', checked=(tax_rate.country_codes.includes('BO')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927420')
+                                            p Bolivia (Plurinational State of)
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927440.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='BQ', checked=(tax_rate.country_codes.includes('BQ')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927440')
+                                            p Bonaire, Sint Eustatius and Saba
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927460.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='BR', checked=(tax_rate.country_codes.includes('BR')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927460')
+                                            p Brazil
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927480.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='CA',checked=(tax_rate.country_codes.includes('CA')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927480')
+                                            p Canada
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927500.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='KY', checked=(tax_rate.country_codes.includes('KY')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927500')
+                                            p Cayman Islands
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927520.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='CL',checked=(tax_rate.country_codes.includes('CL')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927520')
+                                            p Chile
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner 
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927540.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='CO', checked=(tax_rate.country_codes.includes('CO')?true:false),name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927540')
+                                            p Colombia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927560.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='CR', checked=(tax_rate.country_codes.includes('CR')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927560')
+                                            p Costa Rica
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927580.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='CU',checked=(tax_rate.country_codes.includes('CU')?true:false)  ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927580')
+                                            p Cuba
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-927600.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='CW', checked=(tax_rate.country_codes.includes('CW')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927600')
+                                            p Cura&ccedil;ao
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927620.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='DM', checked=(tax_rate.country_codes.includes('DM')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927620')
+                                            p Dominica
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927640.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='DO', checked=(tax_rate.country_codes.includes('DO')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927640')
+                                            p Dominican Republic
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927660.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='EC',checked=(tax_rate.country_codes.includes('EC')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927660')
+                                            p Ecuador
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927680.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='SV', checked=(tax_rate.country_codes.includes('SV')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927680')
+                                            p El Salvador
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927700.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='FK', checked=(tax_rate.country_codes.includes('FK')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927700')
+                                            p Falkland Islands (Malvinas)
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927720.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='GF', checked=(tax_rate.country_codes.includes('GF')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927720')
+                                            p French Guiana
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-927740.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='GL',checked=(tax_rate.country_codes.includes('GL')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927740')
+                                            p Greenland
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927760.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='GD', checked=(tax_rate.country_codes.includes('GD')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927760')
+                                            p Grenada
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927780.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='GP', checked=(tax_rate.country_codes.includes('GP')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927780')
+                                            p Guadeloupe
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927800.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='GT',  checked=(tax_rate.country_codes.includes('GT')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927800')
+                                            p Guatemala
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927820.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='GY', checked=(tax_rate.country_codes.includes('GY')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927820')
+                                            p Guyana
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927840.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='HT',  checked=(tax_rate.country_codes.includes('HT')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927840')
+                                            p Haiti
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927860.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='HN', checked=(tax_rate.country_codes.includes('HN')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927860')
+                                            p Honduras
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927880.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='JM', checked=(tax_rate.country_codes.includes('JM')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927880')
+                                            p Jamaica
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927900.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='MQ', checked=(tax_rate.country_codes.includes('MQ')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927900')
+                                            p Martinique
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-927920.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='MX',checked=(tax_rate.country_codes.includes('MX')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927920')
+                                            p Mexico
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-927940.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='MS', checked=(tax_rate.country_codes.includes('MS')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927940')
+                                            p Montserrat
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-927960.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='NI', checked=(tax_rate.country_codes.includes('NI')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927960')
+                                            p Nicaragua
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(name='country_codes[]' type='hidden' value='0')
+                                            input#country-checkbox-927980.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='PA', checked=(tax_rate.country_codes.includes('PA')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-927980')
+                                            p Panama
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928000.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='PY',checked=(tax_rate.country_codes.includes('PY')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928000')
+                                            p Paraguay
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928020.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='PE', checked=(tax_rate.country_codes.includes('PE')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928020')
+                                            p Peru
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928040.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='PR', checked=(tax_rate.country_codes.includes('PR')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928040')
+                                            p Puerto Rico
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928060.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='BL',checked=(tax_rate.country_codes.includes('BL')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928060')
+                                            p Saint Barth&eacute;lemy
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928080.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='KN', checked=(tax_rate.country_codes.includes('KN')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928080')
+                                            p Saint Kitts and Nevis
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928100.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='LC', checked=(tax_rate.country_codes.includes('LC')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928100')
+                                            p Saint Lucia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928120.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='MF', checked=(tax_rate.country_codes.includes('MF')?true:false) name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928120')
+                                            p Saint Martin (French part)
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-928140.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='PM', checked=(tax_rate.country_codes.includes('PM')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928140')
+                                            p Saint Pierre and Miquelon
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928160.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='VC', checked=(tax_rate.country_codes.includes('VC')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928160')
+                                            p  Saint Vincent and the Grenadines
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928180.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='SX', checked=(tax_rate.country_codes.includes('SX')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928180')
+                                            p Sint Maarten (Dutch part)
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928200.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='GS', checked=(tax_rate.country_codes.includes('GS')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928200')
+                                            p South Georgia and the South Sandwich ...
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928220.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='SR',checked=(tax_rate.country_codes.includes('SR')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928220')
+                                            p Suriname
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928240.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='TT',checked=(tax_rate.country_codes.includes('TT')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928240')
+                                            p Trinidad and Tobago
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928260.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='TC', checked=(tax_rate.country_codes.includes('TC')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928260')
+                                            p Turks and Caicos Islands
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-928280.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='UM', checked=(tax_rate.country_codes.includes('UM')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928280')
+                                            p United States Minor Outlying Islands
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928300.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='US', checked=(tax_rate.country_codes.includes('US')?true:false),name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928300')
+                                            p United States of America
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928320.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='UY', checked=(tax_rate.country_codes.includes('UY')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928320')
+                                            p Uruguay
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928340.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='VE',checked=(tax_rate.country_codes.includes('VE')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928340')
+                                            p Venezuela (Bolivarian Republic of)
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928360.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='VG', checked=(tax_rate.country_codes.includes('VG')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928360')
+                                            p Virgin Islands (British)
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-928380.custom-control-input.region-Americas(data-region='Americas' type='checkbox' value='VI', checked=(tax_rate.country_codes.includes('VI')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928380')
+                                            p Virgin Islands (U.S.)
+                                div.modal-section
+                                    .modal-section-header
+                                        h5.space-top-2.space-2
+                                            | Asia
+                                        .custom-control.custom-checkbox.custom-checkbox.niner
+                                            input#region-checkbox-Asia.custom-control-input(data-function='region-checkbox' data-region='Asia' type='checkbox')
+                                            label.mrk.custom-control-label(for='region-checkbox-Asia')
+                                            p Select all
+                                    .modal-section-body
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928400.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='AF',checked=(tax_rate.country_codes.includes('AF')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928400')
+                                            p Afghanistan
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928420.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='AM', checked=(tax_rate.country_codes.includes('AM')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928420')
+                                            p Armenia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928440.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='AZ', checked=(tax_rate.country_codes.includes('AZ')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928440')
+                                            p  Azerbaijan
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928460.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='BH', checked=(tax_rate.country_codes.includes('BH')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928460')
+                                            p Bahrain
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928480.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='BD', checked=(tax_rate.country_codes.includes('BD')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928480')
+                                            p  Bangladesh
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928500.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='BT', checked=(tax_rate.country_codes.includes('BT')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928500')
+                                            p Bhutan
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928520.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='BN', checked=(tax_rate.country_codes.includes('BN')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928520')
+                                            p Brunei Darussalam
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928540.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='KH', checked=(tax_rate.country_codes.includes('KH')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928540')
+                                            p Cambodia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928560.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='CN',  checked=(tax_rate.country_codes.includes('CN')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928560')
+                                            p China
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928580.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='CY', checked=(tax_rate.country_codes.includes('CY')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928580')
+                                            p Cyprus
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928600.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='GE', checked=(tax_rate.country_codes.includes('GE')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928600')
+                                            p Georgia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928620.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='HK',checked=(tax_rate.country_codes.includes('HK')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928620')
+                                            p Hong Kong
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928640.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='IN', checked=(tax_rate.country_codes.includes('IN')?true:false) name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928640')
+                                            p  India
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928660.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='ID',checked=(tax_rate.country_codes.includes('ID')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928660')
+                                            p Indonesia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928680.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='IR',  checked=(tax_rate.country_codes.includes('IR')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928680')
+                                            p Iran (Islamic Republic of)
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928700.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='IQ',checked=(tax_rate.country_codes.includes('IQ')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928700')
+                                            p Iraq
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928720.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='IL',checked=(tax_rate.country_codes.includes('IL')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928720')
+                                            p Israel
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928740.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='JP',  checked=(tax_rate.country_codes.includes('JP')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928740')
+                                            p Japan
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928760.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='JO', checked=(tax_rate.country_codes.includes('JO')?true:false)  ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928760')
+                                            p Jordan
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928780.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='KZ', checked=(tax_rate.country_codes.includes('KZ')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928780')
+                                            p Kazakhstan
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-928800.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='KP', checked=(tax_rate.country_codes.includes('KP')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928800')
+                                            p Korea (Democratic People&apos;s Republic of)
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928820.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='KR', checked=(tax_rate.country_codes.includes('KR')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928820')
+                                            p Korea (Republic of)
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928840.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='KW', checked=(tax_rate.country_codes.includes('KW')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928840')
+                                            p Kuwait
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928860.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='KG',checked=(tax_rate.country_codes.includes('KG')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928860')
+                                            p Kyrgyzstan
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928880.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='LA', checked=(tax_rate.country_codes.includes('LA')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928880')
+                                            p Lao People&apos;s Democratic Republic
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928900.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='LB',  checked=(tax_rate.country_codes.includes('LB')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928900')
+                                            p Lebanon
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928920.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='MO',   checked=(tax_rate.country_codes.includes('MO')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928920')
+                                            p Macao
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-928940.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='MY', checked=(tax_rate.country_codes.includes('MY')?true:false)  , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928940')
+                                            p Malaysia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928960.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='MV',  checked=(tax_rate.country_codes.includes('MV')?true:false),  name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928960')
+                                            p Maldives
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-928980.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='MN',  checked=(tax_rate.country_codes.includes('MN')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-928980')
+                                            p Mongolia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929000.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='MM', checked=(tax_rate.country_codes.includes('MM')?true:false)  , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929000')
+                                            p Myanmar
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929020.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='NP',  checked=(tax_rate.country_codes.includes('NP')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929020')
+                                            p Nepal
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929040.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='OM',  checked=(tax_rate.country_codes.includes('OM')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929040')
+                                            p Oman
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929080.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='PS', checked=(tax_rate.country_codes.includes('PS')?true:false),   name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929080')
+                                            p  Palestine, State of
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929100.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='PH', checked=(tax_rate.country_codes.includes('PH')?true:false),  name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929100')
+                                            p Philippines
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929120.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='QA',  checked=(tax_rate.country_codes.includes('QA')?true:false),  name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929120')
+                                            p Qatar
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929140.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='SA', checked=(tax_rate.country_codes.includes('SA')?true:false) ,  name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929140')
+                                            p Saudi Arabia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929160.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='SG',  checked=(tax_rate.country_codes.includes('SG')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929160')
+                                            p Singapore
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929180.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='LK',  checked=(tax_rate.country_codes.includes('LK')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929180')
+                                            p Sri Lanka
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929200.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='SY',  checked=(tax_rate.country_codes.includes('SY')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929200')
+                                            p Syrian Arab Republic
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-929220.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='TW',  checked=(tax_rate.country_codes.includes('TW')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929220')
+                                            p Taiwan, Province of China
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929240.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='TJ',  checked=(tax_rate.country_codes.includes('TJ')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929240')
+                                            p Tajikistan
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929260.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='TH',   checked=(tax_rate.country_codes.includes('TH')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929260')
+                                            p Thailand
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929280.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='TL',  checked=(tax_rate.country_codes.includes('TL')?true:false)  ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929280')
+                                            p Timor-Leste
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929300.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='TR', checked=(tax_rate.country_codes.includes('TR')?true:false) ,  name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929300')
+                                            p Turkey
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929320.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='TM',  checked=(tax_rate.country_codes.includes('TM')?true:false)  ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929320')
+                                            p Turkmenistan
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929340.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='AE',  checked=(tax_rate.country_codes.includes('AE')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929340')
+                                            p United Arab Emirates
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929380.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='VN',  checked=(tax_rate.country_codes.includes('VN')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929380')
+                                            p Viet Nam
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-929400.custom-control-input.region-Asia(data-region='Asia' type='checkbox' value='YE',  checked=(tax_rate.country_codes.includes('YE')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929400')
+                                            p Yemen
+                                div.modal-section
+                                    .modal-section-header
+                                        h5.space-top-2.space-2
+                                            | Europe
+                                        .custom-control.custom-checkbox.custom-checkbox.niner
+                                            input#region-checkbox-Europe.custom-control-input(data-function='region-checkbox' data-region='Europe' type='checkbox')
+                                            label.mrk.custom-control-label(for='region-checkbox-Europe')
+                                            p Select all
+                                    .modal-section-body
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929420.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='AL', checked=(tax_rate.country_codes.includes('AL')?true:false)  ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929420')
+                                            p Albania
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929440.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='AD',  checked=(tax_rate.country_codes.includes('AD')?true:false),  name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929440')
+                                            p Andorra
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929460.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='AT',  checked=(tax_rate.country_codes.includes('AT')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929460')
+                                            p Austria
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929480.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='BY',  checked=(tax_rate.country_codes.includes('BY')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929480')
+                                            p Belarus
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929500.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='BE', checked=(tax_rate.country_codes.includes('BE')?true:false) ,  name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929500')
+                                            p Belgium
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-929520.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='BA',  checked=(tax_rate.country_codes.includes('BA')?true:false)  ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929520')
+                                            p Bosnia and Herzegovina
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929540.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='BG',  checked=(tax_rate.country_codes.includes('BG')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929540')
+                                            p Bulgaria
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929560.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='HR', checked=(tax_rate.country_codes.includes('HR')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929560')
+                                            p Croatia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929580.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='CZ',  checked=(tax_rate.country_codes.includes('CZ')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929580')
+                                            p Czech Republic
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929600.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='DK', checked=(tax_rate.country_codes.includes('DK')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929600')
+                                            p Denmark
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929620.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='EE',checked=(tax_rate.country_codes.includes('EE')?true:false)   ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929620')
+                                            p Estonia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929640.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='FO', checked=(tax_rate.country_codes.includes('FO')?true:false)  ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929640')
+                                            p Faroe Islands
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929660.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='FI', checked=(tax_rate.country_codes.includes('FI')?true:false)  ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929660')
+                                            p Finland
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929680.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='FR', checked=(tax_rate.country_codes.includes('FR')?true:false)  ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929680')
+                                            p France
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929700.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='DE', checked=(tax_rate.country_codes.includes('DE')?true:false)  ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929700')
+                                            p Germany
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-929720.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='GI', checked=(tax_rate.country_codes.includes('GI')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929720')
+                                            p Gibraltar
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-929740.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='GR', checked=(tax_rate.country_codes.includes('GR')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929740')
+                                            p Greece
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929760.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='GG', checked=(tax_rate.country_codes.includes('GG')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929760')
+                                            p Guernsey
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929780.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='VA', checked=(tax_rate.country_codes.includes('VA')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929780')
+                                            p Holy See
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929800.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='HU',  checked=(tax_rate.country_codes.includes('HU')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929800')
+                                            p Hungary
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929820.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='IS', checked=(tax_rate.country_codes.includes('IS')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929820')
+                                            p Iceland
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929840.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='IE', checked=(tax_rate.country_codes.includes('IE')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929840')
+                                            p Ireland
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929860.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='IM', checked=(tax_rate.country_codes.includes('IM')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929860')
+                                            p Isle of Man
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929880.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='IT', checked=(tax_rate.country_codes.includes('IT')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929880')
+                                            p Italy
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929900.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='JE', checked=(tax_rate.country_codes.includes('JE')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929900')
+                                            p Jersey
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929920.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='LV', checked=(tax_rate.country_codes.includes('LV')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929920')
+                                            p Latvia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929940.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='LI',  checked=(tax_rate.country_codes.includes('LI')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929940')
+                                            p Liechtenstein
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929960.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='LT',checked=(tax_rate.country_codes.includes('LT')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929960')
+                                            p Lithuania
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-929980.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='LU', checked=(tax_rate.country_codes.includes('LU')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-929980')
+                                            p Luxembourg
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930000.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='MT',checked=(tax_rate.country_codes.includes('MT')?true:false) ,  name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930000')
+                                            p Malta
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930020.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='MD', checked=(tax_rate.country_codes.includes('MD')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930020')
+                                            p Moldova (Republic of)
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930040.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='MC', checked=(tax_rate.country_codes.includes('MC')?true:false)  ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930040')
+                                            p Monaco
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930060.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='ME', checked=(tax_rate.country_codes.includes('ME')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930060')
+                                            p  Montenegro
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930080.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='NL', checked=(tax_rate.country_codes.includes('NL')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930080')
+                                            p Netherlands
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930100.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='MK', checked=(tax_rate.country_codes.includes('MK')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930100')
+                                            p North Macedonia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930120.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='NO',checked=(tax_rate.country_codes.includes('NO')?true:false)  , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930120')
+                                            p Norway
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930140.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='PL', checked=(tax_rate.country_codes.includes('PL')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930140')
+                                            p Poland
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930160.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='PT', checked=(tax_rate.country_codes.includes('PT')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930160')
+                                            p Portugal
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-930180.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='RO', checked=(tax_rate.country_codes.includes('RO')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930180')
+                                            p Romania
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930200.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='RU', checked=(tax_rate.country_codes.includes('RU')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930200')
+                                            p Russian Federation
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930220.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='SM',checked=(tax_rate.country_codes.includes('SM')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930220')
+                                            p San Marino
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930240.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='RS',  checked=(tax_rate.country_codes.includes('RS')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930240')
+                                            p Serbia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-930260.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='SK',checked=(tax_rate.country_codes.includes('SK')?true:false)  , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930260')
+                                            p Slovakia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930280.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='SI', checked=(tax_rate.country_codes.includes('SI')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930280')
+                                            p Slovenia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930300.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='ES', checked=(tax_rate.country_codes.includes('ES')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930300')
+                                            p Spain
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-930320.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='SJ', checked=(tax_rate.country_codes.includes('SJ')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930320')
+                                            p Svalbard and Jan Mayen
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930340.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='SE', checked=(tax_rate.country_codes.includes('SE')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930340')
+                                            p Sweden
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930360.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='CH',  checked=(tax_rate.country_codes.includes('CH')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930360')
+                                            p Switzerland
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930380.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='UA', checked=(tax_rate.country_codes.includes('UA')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930380')
+                                            p Ukraine
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930400.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='GB', checked=(tax_rate.country_codes.includes('GB')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930400')
+                                            p United Kingdom of Great Britain and N...
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930420.custom-control-input.region-Europe(data-region='Europe' type='checkbox' value='AX',checked=(tax_rate.country_codes.includes('AX')?true:false)  , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930420')
+                                            p &angst;land Islands
+                                div.modal-section
+                                    .modal-section-header
+                                        h5.space-top-2.space-2
+                                            | Oceania
+                                        .custom-control.custom-checkbox.custom-checkbox.niner
+                                            input#region-checkbox-Oceania.custom-control-input.region-Oceania(data-function='region-checkbox' data-region='Oceania' type='checkbox')
+                                            label.mrk.custom-control-label(for='region-checkbox-Oceania')
+                                            p Select all
+                                    .modal-section-body
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930440.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='AS',checked=(tax_rate.country_codes.includes('AS')?true:false)  , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930440')
+                                            p American Samoa
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-930460.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='AU', checked=(tax_rate.country_codes.includes('AU')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930460')
+                                            p Australia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930480.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='CX',checked=(tax_rate.country_codes.includes('CX')?true:false)  ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930480')
+                                            p Christmas Island
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930500.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='CC',checked=(tax_rate.country_codes.includes('CC')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930500')
+                                            p Cocos (Keeling) Islands
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930520.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='CK', checked=(tax_rate.country_codes.includes('CK')?true:false),  name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930520')
+                                            p Cook Islands
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930540.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='FJ',  checked=(tax_rate.country_codes.includes('FJ')?true:false), name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930540')
+                                            p Fiji
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930560.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='PF',checked=(tax_rate.country_codes.includes('PF')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930560')
+                                            p French Polynesia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(, type='hidden' value='0')
+                                            input#country-checkbox-930580.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='GU',checked=(tax_rate.country_codes.includes('GU')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930580')
+                                            p Guam
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930600.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='KI',checked=(tax_rate.country_codes.includes('KI')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930600')
+                                            p Kiribati
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930620.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='MH', checked=(tax_rate.country_codes.includes('MH')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930620')
+                                            p Marshall Islands
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930640.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='FM', checked=(tax_rate.country_codes.includes('FM')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930640')
+                                            p  Micronesia (Federated States of)
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930660.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='NR', checked=(tax_rate.country_codes.includes('NR')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930660')
+                                            p Nauru
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-930680.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='NC', checked=(tax_rate.country_codes.includes('NC')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930680')
+                                            p New Caledonia
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930700.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='NZ',checked=(tax_rate.country_codes.includes('NZ')?true:false),  name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930700')
+                                            p New Zealand
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-930720.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='NU',checked=(tax_rate.country_codes.includes('NU')?true:false)  , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930720')
+                                            p Niue
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930740.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='NF', checked=(tax_rate.country_codes.includes('NF')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930740')
+                                            p Norfolk Island
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930760.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='MP', checked=(tax_rate.country_codes.includes('MP')?true:false)  ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930760')
+                                            p Northern Mariana Islands
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930780.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='PW',  checked=(tax_rate.country_codes.includes('PW')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930780')
+                                            p Palau
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930800.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='PG', checked=(tax_rate.country_codes.includes('PG')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930800')
+                                            p Papua New Guinea
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930820.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='PN',checked=(tax_rate.country_codes.includes('PN')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930820')
+                                            p Pitcairn
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930840.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='WS',  checked=(tax_rate.country_codes.includes('WS')?true:false) ,name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930840')
+                                            p Samoa
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930860.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='SB',checked=(tax_rate.country_codes.includes('SB')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930860')
+                                            p Solomon Islands
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930880.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='TK', checked=(tax_rate.country_codes.includes('TK')?true:false),  name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930880')
+                                            p Tokelau
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930900.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='TO', checked=(tax_rate.country_codes.includes('TO')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930900')
+                                            p Tonga
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input(type='hidden' value='0')
+                                            input#country-checkbox-930920.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='TV',checked=(tax_rate.country_codes.includes('TV')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930920')
+                                            p Tuvalu
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930940.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='VU', checked=(tax_rate.country_codes.includes('VU')?true:false) , name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930940')
+                                            p Vanuatu
+                                        .custom-control.custom-checkbox.country.custom-checkbox.niner
+                                            input( type='hidden' value='0')
+                                            input#country-checkbox-930960.custom-control-input.region-Oceania(data-region='Oceania' type='checkbox' value='WF', checked=(tax_rate.country_codes.includes('WF')?true:false),  name='country_codes[]')
+                                            label.mrk.custom-control-label(for='country-checkbox-930960')
+                                            p Wallis and Futuna
+                            div.modal-footer
+                                button.btn.btn-primary#update_tax_countries_btn(type='button' ) Update
+
+
+                div.row 
+                    div.col-12.d-flex.justify-content-end
+                        button.btn.btn-primary.me-4.delete_tax_rate(
+                            type="button"
+                            id=`${tax_rate?tax_rate.id:''}`
+                            store_id = `${store_id}`
+                        ) Delete Tax Rate 
+                        button.btn.btn-primary.me-4(type="submit" ) Save Tax Rate
+
+block scripts
+    script(type='text/javascript' src='/assets/js/custom/common.js')
+    script(type='text/javascript' src='/assets/js/custom/taxes.js')
+    script(type='text/javascript' src='/assets/js/sweetalert.js') 
+    script(type='text/javascript' src='/assets/js/sweetalert.min.js') 

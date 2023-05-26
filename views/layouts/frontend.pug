@@ -1,0 +1,81 @@
+doctype html
+html(lang="en")
+	head
+		meta(charset="utf-8")
+		meta(content="width=device-width, initial-scale=1.0" name="viewport")
+
+		// Favicons
+		link(href="/assets/img/fav.png" rel="icon")
+		link(href="/assets/img/fav.png" rel="apple-touch-icon")
+		// Google Fonts
+		link(href="https://fonts.gstatic.com" rel="preconnect")
+		link(href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet")
+		// Vendor CSS Files
+		link(rel="stylesheet" href="/assets/css/bootstrap.min.css")
+		link(rel="stylesheet" href="/assets/css/bootstrap-notify.css")
+
+		link(rel="stylesheet" href="/assets/css/bootstrap-icons.css")
+		// Template Main CSS File
+		link(rel="stylesheet" href="/assets/css/style.css")
+		link(rel="stylesheet" href="/assets/css/developer.css")
+
+		script.
+			(function(w){w.fpr=w.fpr||function(){w.fpr.q = w.fpr.q||[];w.fpr.q[arguments[0]=='set'?'unshift':'push'](arguments);};})(window);
+			fpr("init", {cid:"n2s3pd1g"})
+			fpr("click")
+		script(src='https://cdn.firstpromoter.com/fpr.js' async='')
+
+		// Meta Pixel Code
+		script.
+			!function(f,b,e,v,n,t,s)
+			{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+			n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+			if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+			n.queue=[];t=b.createElement(e);t.async=!0;
+			t.src=v;s=b.getElementsByTagName(e)[0];
+			s.parentNode.insertBefore(t,s)}(window, document,'script', 'https://connect.facebook.net/en_US/fbevents.js');
+			fbq('init', '626573416008665');
+			fbq('track', 'PageView');
+		noscript
+			img(height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=626573416008665&ev=PageView&noscript=1")
+		// End Meta Pixel Code
+
+		// Google tag (gtag.js)
+		script(async='' src='https://www.googletagmanager.com/gtag/js?id=G-5Y7MGBK12N')
+		script.
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-5Y7MGBK12N');
+		// End Google tag (gtag.js)
+
+		// Google Tag Manager
+		script.
+			(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-W6ZQHFR');
+		// End Google Tag Manager
+
+
+		script.
+			let ajax_url = '!{process.env.APP_URL}';
+
+	body(class=`shopify_body ${body_class ? body_class : ""}`)
+		.shopify-loader
+			.shopify-loader-spinner
+				.bar1
+				.bar2
+				.bar3
+		block content
+
+	script(src='/assets/js/jquery.js')
+	script(src='/assets/js/bootstrap.min.js')
+	script(src='/assets/js/bootstrap-notify.min.js')
+
+	script(src='/assets/js/jquery.validate.min.js')
+	script(src='/assets/js/custom/common.js')
+	script(src='/assets/js/tinymce.min.js')
+
+	block scripts

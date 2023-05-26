@@ -1,0 +1,16 @@
+extends ../../layouts/backend_layout
+
+block header_breadcrumb
+  nav
+    ol.breadcrumb
+      li.breadcrumb-item Home
+      li.breadcrumb-item.active Thank you
+
+block content
+    main#main.main
+        section.section.profile
+            .thankyou-section
+                h2 Thank you so much for subscribing plan. Support from long-time customers like you helps our business grow.
+                  p 
+                     a.thankyou_subscription(href=`/${store_id}/invoice-details/${user_billings_invoice.user_subscription_billing_uuid}` style="color: black;") Click here 
+                     span to check invoice details

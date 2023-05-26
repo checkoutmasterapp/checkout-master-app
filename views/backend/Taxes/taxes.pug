@@ -1,0 +1,113 @@
+extends ../../layouts/backend_layout
+
+block header_breadcrumb
+  nav
+    ol.breadcrumb
+      li.breadcrumb-item Home
+      li.breadcrumb-item.active Taxes
+
+block content 
+  main#main.main
+
+    section.section.profile.displaynone.tax_rate_banner
+      div.under-data-payment 
+        img(src='/assets/img/taxe-banner.svg')
+        p Add your tax rates
+        a.btn.btn-primary(href=`/${store_id}/taxes/new`) Add a tax rate
+
+    div.displaynone.tax_rate_listing
+      section.section.profile
+        div.row
+          div.col-xl-5
+            div
+              div.add-shipping-rate-card.d-flex.flex-column.card_lef
+              h2 Tax Preferences   
+              h3 Change tax preferences
+              span  Manage how you want your taxes to be applied. You can
+              span select one of the options.
+
+          div.col-xl-7
+            form#tax-preference(method="post")
+              input(type='hidden' name="store_id" value=store_id)
+              div.card
+                div.card-body.pt-3
+                  div.card.card-inner.inner1
+                    div.card-body
+                      div.row
+                        label.switch
+                          input(
+                            type="checkbox"
+                            id="switch-tax-not-included"
+                            name="tax_preference_not_included"
+                            checked = tax_rate[0] && tax_rate[0].tax_preference_not_included===true? true :false
+                          )
+                          span.slider.round 
+                        | My taxes are not included in the product price, calculate them on checkout
+                        p#switch-text  When this option is active, taxes will be calculated on top of the order subtotal during checkout
+                      div.tax-warning.row
+                        div.col-xl-1
+                          img#warning-img(src='/assets/img/warning.png')
+                        div.col-xl-11    
+                          span Taxes included in the price message might appear on your shop
+                          br
+                          span Disable taxes included in the price of the product from the Shopify dashboard,
+                          span to prevent confusing your customers.<a href="https://help.checkout-x.com/en/articles/3608779-beware-of-misconfiguration-when-your-taxes-are-not-included-on-product-price">See how</a>
+
+                  div.card.card-inner.inner2
+                    div.card-body
+                      div.row
+                        label.switch
+                          input(
+                            type="checkbox"
+                            id="switch-tax-included"
+                            name ="tax_preference_included"
+                            checked = tax_rate[0] && tax_rate[0].tax_preference_included ===true ? true :false
+                          )
+                          span.slider.round 
+                        | My taxes are already included in the product prices
+                        span#switch-text When this option is active, no extra taxes will be added to the price, but taxes 
+                        span#switch-text will be shown in order summary
+
+                  div.card.card-inner.inner3
+                    div.card-body
+                      input.form-check-input.me-2(
+                        type='checkbox',
+                        name="tax_preference_shipping_rate_charge",
+                        id="switch-tax-shipping-rate" ,
+                        checked = tax_rate[0] && tax_rate[0].tax_preference_shipping_rate_charge ===true ? true :false
+                      )
+                      | Do you want to charge taxes also on shipping rates?
+                      p#switch-text  Taxes will be added also to your shipping rates
+
+                  div.row
+                    div.col-8
+                      h1 Actions
+                    div.col-4
+                      button.btn.btn-primary#save-tax-preference(type="submit") Save tax preference
+
+        section.section                                    
+          div.illustration-block.illustration-block--tax-rates
+          div.row.illustration-block-content
+            div.row
+              div.col-12
+                div.card
+                  div.card-header.text-center.textsm-start.py-4
+                    .d-sm-flex.justify-content-between
+                      h5 Tax Rates
+                      .p-payment
+                        a.btn.btn-primary#add-tax-btn(href=`/${store_id}/taxes/new`) Add a tax rate
+                  div.card-body
+                    table#tax_rate_table.table
+                      thead
+                        tr 
+                          th Title
+                          th Rate
+                          th Countries Count
+                          th Action
+
+
+
+block scripts 
+  script.
+    var store_id = `!{store_id}`;                              
+  script(type='text/javascript' src='/assets/js/custom/taxes.js')
